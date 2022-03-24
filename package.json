@@ -1,0 +1,24 @@
+{
+	"name": "blokki",
+	"version": "1.0.0",
+	"description": "Blocks functionality from BJM Team",
+	"author": "BJM Team",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format:js": "wp-scripts format-js",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"start": "wp-scripts start",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "^8.4.0",
+		"@wordpress/blocks": "^11.4.0",
+		"@wordpress/i18n": "^4.5.0"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^22.3.0"
+	}
+}

@@ -1,0 +1,20 @@
+{
+  "name": "bjm/blokki",
+  "description": "Blocks functionality from BJM Team",
+  "type": "wordpress-plugin",
+  "license": "GPL2",
+  "authors": [
+    {
+      "name": "BJM Team",
+      "email": "developers@bjmdigital.com.au"
+    }
+  ],
+  "require": {},
+  "autoload": {
+    "classmap": [
+      "includes",
+      "admin",
+      "public"
+    ]
+  }
+}
