@@ -64,7 +64,7 @@ class Init {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string $version The current version of the plugin.
+	 * @var      string $version
 	 */
 	protected $version;
 
@@ -73,9 +73,18 @@ class Init {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Admin $admin The current version of the plugin.
+	 * @var      Admin $admin
 	 */
 	protected $admin;
+
+	/**
+	 * The template loader class of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Template $template_loader
+	 */
+	public $template_loader;
 
 	/**
 	 * The admin class of the plugin.
@@ -114,6 +123,7 @@ class Init {
 
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->template_loader_hooks();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$this->define_blocks_hooks();
@@ -210,10 +220,26 @@ class Init {
 	 * @since    1.0.0
 	 * @access   private
 	 */
+	private function template_loader_hooks() {
+
+		if ( ! class_exists( '\Gamajo_Template_Loader' ) ) {
+			die( esc_html__( 'Please run `composer install` for template loader class', 'bjm' ) );
+		}
+		$this->template_loader = new Template();
+
+	}
+
+	/**
+	 * Register all of the hooks related to the admin area functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
 	private function define_admin_hooks() {
 
 
-		$this->admin =  new Admin( $this->get_plugin_name(), $this->get_version() );
+		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 
 
 	}

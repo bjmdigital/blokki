@@ -9,12 +9,15 @@
       "email": "developers@bjmdigital.com.au"
     }
   ],
-  "require": {},
+  "require": {
+    "gamajo/template-loader": "^1.3"
+  },
   "autoload": {
     "classmap": [
       "includes",
       "admin",
-      "public"
+      "public",
+      "blocks"
     ]
   }
 }

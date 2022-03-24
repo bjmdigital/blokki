@@ -9,6 +9,13 @@ if ( ! function_exists( 'blokki_render_card' ) ) :
 
 endif;
 
+function blokki_get_current_post_id(){
+
+	$post_id = apply_filters( 'blokki_block_cards_current_post', null );
+
+	return $post_id;
+
+}
 
 function blokki_get_posts_query_from_block( $block ) {
 
@@ -66,8 +73,6 @@ function blokki_get_posts_query_from_block( $block ) {
 
 	$query_args = wp_parse_args( $query_args, $default_args );
 
-	blokki_var_export( $query_args );
-
 	return $query_args;
 
 
@@ -76,7 +81,7 @@ function blokki_get_posts_query_from_block( $block ) {
 function blokki_get_default_posts_query_args() {
 
 	$default_query_args = [
-		'post_type'           => 'post',
+		'post_type'           => 'any',
 		'posts_per_page'      => get_option( 'posts_per_page' ),
 		'post_status'         => 'publish',
 		'ignore_sticky_posts' => true

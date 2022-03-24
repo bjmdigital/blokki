@@ -121,7 +121,7 @@ class AcfBlocks {
 	 */
 	public function acf_group_save_path_correction( $group ) {
 
-		if ( strpos( $group['title'], '(Blokki)' ) ) {
+		if ( strpos( $group['title'], 'Blokki' ) ) {
 			add_action( 'acf/settings/save_json', 'blokki_acf_json_path', 9999 );
 
 			return $group;

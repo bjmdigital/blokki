@@ -95,9 +95,9 @@ function blokki_acf_json_path() {
 	return BLOKKI_DIR_PATH . 'acf-json';
 }
 
-if ( ! function_exists( 'blokki_var_export' ) ) :
+if ( ! function_exists( 'blokki_dump' ) ) :
 
-	function blokki_var_export( $var ) {
+	function blokki_dump( $var ) {
 		echo '<pre>';
 		echo preg_replace( '(\d+\s=>)', "", var_export( $var, true ) );
 		echo '</pre>';
@@ -107,13 +107,50 @@ endif;
 
 if ( ! function_exists( 'blokki_json_decode' ) ) :
 
-function blokki_json_decode($json){
-	$data = json_decode((string) $json, true);
+	function blokki_json_decode( $json ) {
+		$data = json_decode( (string) $json, true );
 
-	return (JSON_ERROR_NONE === json_last_error() && !is_null( $data))
-		? $data
-		: [];
+		return ( JSON_ERROR_NONE === json_last_error() && ! is_null( $data ) )
+			? $data
+			: [];
 
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_template_part' ) ) :
+
+	function blokki_get_template_part( $slug, $name = '', $load = true ) {
+		/**
+		 * Convert back from object to string
+		 */
+		$slug = is_object( $slug ) ? $slug->scalar : $slug;
+
+		Blokki()->template_loader->get_template_part( $slug, $name, $load );
+
+	}
+
+endif;
+if ( ! function_exists( 'blokki_set_template_data' ) ) :
+
+	function blokki_set_template_data( $data, string $variable_name = 'data' ) {
+		Blokki()->template_loader->set_template_data( $data, $variable_name );
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_loader' ) ) :
+
+	function blokki_loader() {
+		return Blokki()->template_loader;
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_to_string' ) ) :
+
+function blokki_to_string($var){
+	return is_object( $var ) ? $var->scalar : $var;
 }
 
 endif;
