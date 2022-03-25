@@ -41,7 +41,7 @@
         {
             "key": "field_5f18d4bbbc270",
             "label": "Add View All Link?",
-            "name": "view_all_link",
+            "name": "add_view_all_link",
             "type": "true_false",
             "instructions": "",
             "required": 0,
@@ -60,7 +60,7 @@
         {
             "key": "field_5f18d4dbbc272",
             "label": "View All Link",
-            "name": "view_all_link_link",
+            "name": "view_all_link",
             "type": "link",
             "instructions": "",
             "required": 0,
@@ -182,8 +182,8 @@
         },
         {
             "key": "field_5e1e6c2a26660",
-            "label": "Cards Per Row (large screen)",
-            "name": "cards_per_row",
+            "label": "Cards Per Row (Desktop)",
+            "name": "large_up",
             "type": "range",
             "instructions": "",
             "required": 0,
@@ -202,6 +202,62 @@
                 "id": ""
             },
             "default_value": 3,
+            "min": 1,
+            "max": 6,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_623d580129320",
+            "label": "Cards Per Row (Tablet)",
+            "name": "medium_up",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5f4db0486f7f6",
+                        "operator": "==",
+                        "value": "default"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 2,
+            "min": 1,
+            "max": 6,
+            "step": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_623d581729321",
+            "label": "Cards Per Row (Mobile)",
+            "name": "small_up_copy",
+            "type": "range",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5f4db0486f7f6",
+                        "operator": "==",
+                        "value": "default"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
             "min": 1,
             "max": 6,
             "step": "",
@@ -253,5 +309,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648109736
+    "modified": 1648187473
 }

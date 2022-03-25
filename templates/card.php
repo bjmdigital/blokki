@@ -16,5 +16,6 @@ printf( '<div class="%s">',
 
 
 echo 'This is Card Template in Plugin';
+the_title();
 
 printf( '</div><!-- post_class -->' );
