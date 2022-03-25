@@ -21,15 +21,18 @@ $template = blokki_to_string( $template );
 
 if ( $loop->have_posts() ) :
 	do_action( 'blokki_block_cards_loop_before', $block, $loop );
+	$card_index = 0;
 	while ( $loop->have_posts() ) : $loop->the_post();
 		blokki_loader()->set_template_data( $block, 'block' )
-		                        ->get_template_part( $template, get_post_type( get_the_ID() ) );
+		               ->set_template_data( $card_index, 'card_index' )
+		               ->get_template_part( $template, get_post_type( get_the_ID() ) );
+		$card_index ++;
 
 	endwhile;
 	do_action( 'blokki_block_cards_loop_after', $block, $loop );
 else:
 
 	blokki_loader()->set_template_data( $loop, 'loop' )
-	                        ->get_template_part( 'loop', 'no-content' );
+	               ->get_template_part( 'loop', 'no-content' );
 
 endif;

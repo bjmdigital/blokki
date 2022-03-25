@@ -18,7 +18,7 @@ $col_1_classes[] = 'medium-' . $col_1;
 
 
 /** Column 2 */
-$col_2_classes   = [ 'cell', 'small-12', 'link-col' ];
+$col_2_classes   = [ 'cell', 'align-right', 'small-12', 'link-col' ];
 $col_2           = $card_heading ? 4 : 12;
 $col_2           = (int) apply_filters( 'blokki_partial_header_info_col_2', $col_2, $block );
 $col_2_classes[] = 'medium-' . $col_2;

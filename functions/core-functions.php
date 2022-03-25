@@ -154,3 +154,12 @@ function blokki_to_string($var){
 }
 
 endif;
+
+if ( ! function_exists( 'blokki_get_template_data' ) ) :
+
+function blokki_get_template_data($var, $is_string = false){
+	$var      = $var ?? [];
+	return $is_string ? blokki_to_string( $var) : (array) $var;
+}
+
+endif;

@@ -1,0 +1,29 @@
+.wp-block-acf-blokki-cards {
+  .cards-grid {
+
+    .cell{
+      display: grid;
+    }
+    .card-inner {
+      background: aqua;
+    }
+
+
+    .featured-card{
+      width: 100% !important;
+      background-color: yellow;
+    }
+
+    //&.feature-first {
+    //
+    //  .cell:first-of-type {
+    //    width: 100%;
+    //    .card-inner {
+    //
+    //      background-color: yellow;
+    //
+    //    }
+    //  }
+    //}
+  }
+}

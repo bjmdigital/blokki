@@ -1,5 +1,5 @@
 {
-    "key": "group_card_options_blokki",
+    "key": "group_cards_layout_options_blokki",
     "title": "Cards Layout Options (Blokki)",
     "fields": [
         {
@@ -96,6 +96,90 @@
             "open": 0,
             "multi_expand": 0,
             "endpoint": 0
+        },
+        {
+            "key": "field_5e827be79cc68",
+            "label": "Show Title?",
+            "name": "show_title",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Post Type Default",
+                "0": "Hide",
+                "1": "Show"
+            },
+            "default_value": [
+                "default"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_623dbf27834be",
+            "label": "Show Excerpt",
+            "name": "show_excerpt",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Post Type Default",
+                "0": "Hide",
+                "1": "Show"
+            },
+            "default_value": [
+                "default"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_623dbf36834bf",
+            "label": "Show Image",
+            "name": "show_image",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Post Type Default",
+                "0": "Hide",
+                "1": "Show"
+            },
+            "default_value": [
+                "default"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         },
         {
             "key": "field_5e1e6c2a26660",
@@ -291,5 +375,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648220306
+    "modified": 1648219869
 }
