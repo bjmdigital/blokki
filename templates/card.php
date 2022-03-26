@@ -2,9 +2,9 @@
 /**
  * Get Template Vars
  */
-$block                = blokki_get_template_data( $block ?? [] );
-$card_index           = blokki_get_template_data( $card_index ?? null, true );
-$cards_display_config = blokki_get_template_data( $cards_display_config ?? [] );
+$block                 = blokki_get_template_data( $block ?? [] );
+$card_index            = blokki_get_template_data( $card_index ?? null, true );
+$cards_display_options = blokki_get_card_display_options();
 
 $post_type = get_post_type( get_the_ID() );
 
@@ -12,7 +12,7 @@ $post_type_config = blokki_get_post_type_config( $post_type );
 /**
  * Override post_type config with block level display options
  */
-$post_type_config = wp_parse_args( $cards_display_config, $post_type_config );
+$post_type_config = wp_parse_args( $cards_display_options, $post_type_config );
 
 /*
  * Get template order and fallback to default, in case of mess-up by any filter

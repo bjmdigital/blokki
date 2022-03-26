@@ -516,7 +516,7 @@ class AcfBlocks {
 				foreach ( $taxonomy_entries as $taxonomy_entry ) {
 					$field['choices'][ json_encode( [
 						'taxonomy' => $taxonomy_slug,
-						'fields'   => 'slug',
+						'field'    => 'slug',
 						'terms'    => $taxonomy_entry->slug
 					] ) ] = $taxonomy->label . ' -> ' . $taxonomy_entry->name;
 				}

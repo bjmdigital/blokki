@@ -8,8 +8,18 @@ $post_type = get_post_type( get_the_ID() );
 
 $template_path = 'partials/card/meta';
 
-echo '<div style="background-color: #7ad03a">';
+printf( '<div class="%s">',
+	implode( ' ', apply_filters( 'blokki_block_cards_partial_classes_meta', [ 'card-meta' ] ) )
+);
 
-blokki_render_templates( $template_path, $template_order, $post_type_config, $post_type );
+do_action( 'blokki_block_cards_partial_before_meta' );
 
-echo '</div>';
+if ( apply_filters( 'blokki_block_cards_partial_render_meta', true ) ) {
+	blokki_render_templates( $template_path, $template_order, $post_type_config, $post_type );
+}
+
+
+do_action( 'blokki_block_cards_partial_after_meta' );
+
+printf( '</div>' );
+

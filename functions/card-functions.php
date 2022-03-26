@@ -85,7 +85,9 @@ function blokki_get_posts_query_for_block() {
 
 
 	$block_data = get_fields();
-
+	if ( ! $block_data ) {
+		$block_data = [];
+	}
 	$query_args = array_intersect_key( $block_data, array_flip( blokki_get_available_query_args() ) );
 
 	/**
@@ -120,7 +122,7 @@ function blokki_get_posts_query_for_block() {
 		 * If we found valid array, then set the tax_query, else unset it
 		 */
 		if ( ! empty( $tax_query ) ) {
-			$query_args['tax_query'] = $tax_query;
+			$query_args['tax_query'] = [ $tax_query ];
 		} else {
 			unset( $query_args['tax_query'] );
 		}
@@ -363,6 +365,40 @@ if ( ! function_exists( 'blokki_render_templates' ) ) :
 
 
 		endforeach;
+
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_cards_layout_classes' ) ) :
+
+	function blokki_get_cards_layout_classes() {
+
+		$layout_classes = [];
+		/**
+		 * Parse Block Options
+		 */
+		$cards_small_up  = get_field( 'small_up' ) ?? 1;
+		$cards_medium_up = get_field( 'medium_up' ) ?? 2;
+		$cards_large_up  = get_field( 'large_up' ) ?? 3;
+		$feature_first   = get_field( 'feature_first' ) ?? false;
+		$grid_margin_x   = get_field( 'grid_margin_x' ) ?? false;
+		$grid_margin_y   = get_field( 'grid_margin_y' ) ?? false;
+
+		/**
+		 * Update Grid Classes with Card options
+		 */
+		$layout_classes[] = 'small-up-' . $cards_small_up;
+		$layout_classes[] = 'medium-up-' . $cards_medium_up;
+		$layout_classes[] = 'large-up-' . $cards_large_up;
+		$layout_classes[] = $feature_first ? 'feature-first' : '';
+		$layout_classes[] = $grid_margin_x ? 'grid-margin-x' : '';
+		$layout_classes[] = $grid_margin_y ? 'grid-margin-y' : '';
+
+		// Remove empty values
+		$layout_classes = array_filter( $layout_classes );
+
+		return apply_filters( 'blokki_get_block_layout_classes', $layout_classes );
 
 	}
 

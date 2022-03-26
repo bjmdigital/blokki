@@ -51,3 +51,29 @@ add_filter( 'blokki_get_card_template_order_meta', function ( $meta_order ) {
 
 	return $meta_order;
 } );
+
+//add_action( 'blokki_block_cards_partial_title_before', function(){
+//
+//	if(223 !== get_the_ID()){
+//		return;
+//	}
+//
+//	echo 'This is post ID 223';
+//
+//} );
+
+//add_filter( 'blokki_block_cards_partial_render_meta_author', function ( $render ) {
+//	if ( has_post_thumbnail() ) {
+//		$render = false;
+//	}
+//
+//	return $render;
+//} );
+
+add_filter( 'blokki_block_cards_partial_meta_date_format', function ( $date_format ) {
+	if ( has_post_thumbnail() ) {
+		$date_format = 'Y-M-j';
+	}
+
+	return $date_format;
+} );
