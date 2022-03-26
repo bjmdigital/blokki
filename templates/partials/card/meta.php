@@ -1,6 +1,6 @@
 <?php
 
-$post_type_config = blokki_get_template_data( $post_type_config ?? [] );
+$post_type_config = blokki_get_template_post_type_config( $post_type_config ?? [] );
 
 $template_order = $post_type_config['order']['meta'] ?? blokki_get_card_template_order_meta();
 

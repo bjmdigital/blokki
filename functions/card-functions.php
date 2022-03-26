@@ -142,7 +142,7 @@ function blokki_get_posts_query_for_block() {
 function blokki_get_default_posts_query_args() {
 
 	$default_query_args = [
-		'post_type'           => 'any',
+		'post_type'           => is_admin() ? 'post' : 'any',
 		'posts_per_page'      => get_option( 'posts_per_page' ),
 		'post_status'         => 'publish',
 		'ignore_sticky_posts' => true
@@ -245,11 +245,15 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 	function blokki_get_post_type_config_default() {
 
 		$config         = [
-			'image_size'  => 'medium_large',
-			'link_card'   => false,
-			'link_target' => 'self',
-			'taxonomy'    => '',
-			'order'       => blokki_get_card_template_order_default()
+			'image_size'    => 'medium_large',
+			'link_card'     => false,
+			'link_title'    => true,
+			'link_image'    => true,
+			'link_target'   => '_self',
+			'taxonomy'      => '',
+			'taxonomy_link' => false,
+			'card_html_tag' => 'div',
+			'order'         => blokki_get_card_template_order_default()
 		];
 		$display_config = blokki_get_cards_display_config_default();
 		$config         = array_merge( $display_config, $config );
@@ -312,6 +316,7 @@ if ( ! function_exists( 'blokki_get_card_display_options' ) ) :
 		$card_config = [];
 
 		$cards_display_config = blokki_get_cards_display_config_default();
+
 
 		foreach ( $cards_display_config as $field_id => $value ) {
 
@@ -400,6 +405,101 @@ if ( ! function_exists( 'blokki_get_cards_layout_classes' ) ) :
 
 		return apply_filters( 'blokki_get_block_layout_classes', $layout_classes );
 
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_taxonomy_terms_markup' ) ) :
+
+	function blokki_get_taxonomy_terms_markup( string $taxonomy, bool $terms_has_link = false, int $post_id = 0 ) {
+		$post_id = $post_id !== 0 ? $post_id : get_the_ID();
+		$html    = '';
+
+		$terms = wp_get_post_terms( $post_id, array( $taxonomy ) );
+
+		/**
+		 * If no terms found, bail out
+		 */
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
+			return $html;
+		}
+
+		$wrapper_classes = apply_filters( 'blokki_taxonomy_terms_markup_wrapper_classes',
+			[
+				'taxonomy-terms-list',
+				'taxonomy-' . $taxonomy
+			]
+		);
+
+
+		$html .= sprintf( '<div class="%s">',
+			implode( ' ', $wrapper_classes )
+		);
+
+
+		foreach ( $terms as $term ):
+
+			$term_classes   = [ 'taxonomy-term' ];
+			$term_classes[] = $term->slug;
+			$term_classes[] = 'term-id-' . $term->term_id;
+			$term_classes[] = 'taxonomy-' . $taxonomy;
+
+
+			$term_before = sprintf( '<span class="%s">',
+				apply_filters( 'blokki_taxonomy_terms_markup_term_classes',
+					implode( ' ', $term_classes ), $term, $post_id
+				)
+			);
+			$term_after  = sprintf( '</span>' );
+
+
+			if ( $terms_has_link ) {
+				$term_html = sprintf( '<a href="%s" rel="tag" title="%s">%s</a>',
+					get_term_link( $term->term_id ),
+					esc_html__( 'View', 'blokki' ) . ' ' . $term->name,
+					$term->name
+				);
+			} else {
+				$term_html = $term->name;
+			}
+
+
+			$html .= $term_before . $term_html . $term_after;
+
+		endforeach;
+
+
+		$html .= sprintf( '</div>' );
+
+		return $html;
+
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_template_post_type_config' ) ) :
+
+	function blokki_get_template_post_type_config( $post_type_config = [] ) {
+
+		if ( ! empty( $post_type_config ) ) {
+			return blokki_get_template_data( $post_type_config );
+		} else {
+			return blokki_get_post_type_config( get_post_type() );
+		}
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_post_link_title' ) ) :
+
+	function blokki_get_post_link_title( int $post_id = 0 ) {
+		$post_id         = $post_id !== 0 ? $post_id : get_the_ID();
+		$read_more_label = apply_filters( 'blokki_post_link_title_readmore_label',
+			esc_html__( 'Read more about ', 'blokki' ),
+			get_post_type( $post_id )
+		);
+
+		return $read_more_label . get_the_title( $post_id );
 	}
 
 endif;

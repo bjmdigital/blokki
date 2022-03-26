@@ -1,7 +1,7 @@
 <?php
 
 printf( '<div class="%s">',
-	implode( ' ', apply_filters( 'blokki_block_cards_partial_classes_meta_author', [ 'card-author' ] ) )
+	implode( ' ', apply_filters( 'blokki_block_cards_partial_classes_meta_author', [ 'card-meta-author' ] ) )
 );
 do_action( 'blokki_block_cards_partial_before_meta_author' );
 

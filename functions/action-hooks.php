@@ -70,10 +70,76 @@ add_filter( 'blokki_get_card_template_order_meta', function ( $meta_order ) {
 //	return $render;
 //} );
 
-add_filter( 'blokki_block_cards_partial_meta_date_format', function ( $date_format ) {
-	if ( has_post_thumbnail() ) {
-		$date_format = 'Y-M-j';
+//add_filter( 'blokki_block_cards_partial_meta_date_format', function ( $date_format ) {
+//	if ( has_post_thumbnail() ) {
+//		$date_format = 'Y-M-j';
+//	}
+//
+//	return $date_format;
+//} );
+
+
+add_filter( 'blokki_get_post_type_config_bjm_glossary', function ( $post_type_config ) {
+
+	$post_type_config = [
+		'taxonomy'      => 'bjm_loan_cat',
+		'taxonomy_link' => true,
+		'show_date'     => false
+	];
+
+
+	return $post_type_config;
+
+} );
+
+add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
+
+	$post_type_config = [
+		'taxonomy'      => 'category',
+		'taxonomy_link' => false,
+		'show_date'     => true,
+//		'link_target'   => '_blank',
+		'link_card'     => false,
+		'link_image'    => true,
+		'link_title'    => true,
+		'show_readmore' => false,
+		'show_taxonomy' => false,
+//		'order'         => [
+//			'title',
+//			'meta' =>[
+//				'taxonomy',
+//				'author',
+//				'date',
+//			],
+//			'excerpt',
+//			'image',
+//			'readmore'
+//		]
+
+	];
+
+
+	return $post_type_config;
+
+} );
+
+
+add_action( 'blokki_block_cards_partial_after_image', function () {
+
+	if ( 'post' !== get_post_type() ) {
+		return null;
 	}
 
-	return $date_format;
+	echo blokki_get_taxonomy_terms_markup( 'category' );
+
+
 } );
+
+//
+//add_filter( 'blokki_get_post_type_config_default', function ( $default_config ) {
+//
+//	$default_config['card_html_tag'] = 'article';
+//
+//	return $default_config;
+//
+//} );

@@ -101,7 +101,9 @@
                 "bjm_calculator": "Calculators",
                 "bjm_doc_download": "Documents & Downloads"
             },
-            "default_value": [],
+            "default_value": [
+                "post"
+            ],
             "allow_null": 0,
             "multiple": 1,
             "ui": 1,
@@ -132,10 +134,12 @@
             },
             "choices": {
                 "": "Show All",
-                "{\"taxonomy\":\"category\",\"fields\":\"slug\",\"terms\":\"cat-1\"}": "Categories -> Cat 1",
-                "{\"taxonomy\":\"category\",\"fields\":\"slug\",\"terms\":\"uncategorized\"}": "Categories -> Uncategorized",
-                "{\"taxonomy\":\"post_tag\",\"fields\":\"slug\",\"terms\":\"tag-1\"}": "Tags -> Tag 1",
-                "{\"taxonomy\":\"product_cat\",\"fields\":\"slug\",\"terms\":\"uncategorized\"}": "Product categories -> Uncategorized"
+                "{\"taxonomy\":\"category\",\"field\":\"slug\",\"terms\":\"cat-1\"}": "Categories -> Cat 1",
+                "{\"taxonomy\":\"category\",\"field\":\"slug\",\"terms\":\"uncategorized\"}": "Categories -> Uncategorized",
+                "{\"taxonomy\":\"post_tag\",\"field\":\"slug\",\"terms\":\"tag-1\"}": "Tags -> Tag 1",
+                "{\"taxonomy\":\"product_cat\",\"field\":\"slug\",\"terms\":\"uncategorized\"}": "Product categories -> Uncategorized",
+                "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"personal-loan\"}": "Loan Categories -> Personal Loan",
+                "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"vehicle-loans\"}": "Loan Categories -> Vehicle Loans"
             },
             "default_value": [],
             "allow_null": 0,
@@ -352,5 +356,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648280046
+    "modified": 1648292387
 }
