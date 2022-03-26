@@ -215,6 +215,14 @@ class AcfBlocks {
 			'keywords'    => [ 'blokki', 'cards', 'cpt', 'grid' ],
 		];
 
+		$blocks[] = [
+			'name'        => 'accordions',
+			'title'       => __( 'Blokki Accordions' ),
+			'description' => __( 'Add block of accordions for a post type.' ),
+			'category'    => 'theme',
+			'icon'        => 'excerpt-view',
+			'keywords'    => [ 'blokki', 'accordions', 'cpt', 'grid', 'cards', 'post type' ],
+		];
 
 		return apply_filters( 'blokki_acf_blocks_config', $blocks );
 

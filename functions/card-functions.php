@@ -271,6 +271,7 @@ if ( ! function_exists( 'blokki_get_cards_display_config_default' ) ) :
 			'show_title'    => true,
 			'show_image'    => true,
 			'show_excerpt'  => true,
+			'show_content'  => false,
 			'show_readmore' => true,
 			'show_meta'     => true,
 			'show_date'     => true,

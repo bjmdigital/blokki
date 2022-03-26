@@ -123,6 +123,28 @@ add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 
 } );
 
+add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
+
+	$post_type_config = [
+		'show_image'    => false,
+		'show_date'     => false,
+		'show_author'   => false,
+		'show_meta'     => false,
+		'show_content'  => true,
+		'taxonomy'      => 'bjm_faq_cat',
+		'link_title'    => true,
+		'show_readmore' => false,
+		'order'         => [
+			'title',
+			'content'
+		]
+	];
+
+
+	return $post_type_config;
+
+} );
+
 
 add_action( 'blokki_block_cards_partial_after_image', function () {
 

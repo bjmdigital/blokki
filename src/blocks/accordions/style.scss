@@ -1,0 +1,17 @@
+.wp-block-acf-blokki-accordions {
+
+  .cell {
+
+    &.is-active {
+      background-color: #00a0d2;
+    }
+  }
+
+  .card-inner {
+    //background-color: yellow;
+  }
+
+  .card-content {
+    display: none;
+  }
+}
