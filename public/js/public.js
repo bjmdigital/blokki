@@ -2,24 +2,64 @@
 (function ($) {
     'use strict';
 
+    // const setupAccordions = function (accordionsBlock) {
+    //
+    //     const accordionItems = $(accordionsBlock).find('.accordions-grid .cell');
+    //
+    //     if (accordionItems) {
+    //
+    //         $(accordionItems).each(function (i, accordionItem) {
+    //
+    //             let title = $(accordionItem).find('.title-container');
+    //             let content = $(accordionItem).find('.content-container');
+    //
+    //             $(content).hide();
+    //
+    //             $(title).click(function (e) {
+    //                 content.slideToggle(350);
+    //                 $(accordionItem).toggleClass('is-active');
+    //             });
+    //         });
+    //     }
+    //
+    //
+    // }
+    //
+
     $(document).ready(function () {
-        $('.accordions-grid .card-title').click(function (e) {
 
-            let $this = $(this);
+        // const accordionsBlock = $('.wp-block-acf-blokki-accordions');
+        // if (accordionsBlock) {
+        //     setupAccordions(accordionsBlock);
+        // }
 
-            if ($this.next().hasClass('show')) {
-                $this.next().removeClass('show');
-                $this.next().slideUp(350);
-                $this.closest('.cell').removeClass('is-active')
-            } else {
-                $this.parent().find('.card-content').removeClass('show');
-                $this.parent().find('.card-content').slideUp(350);
-                $this.next().toggleClass('show');
-                $this.next().slideToggle(350);
-                $this.closest('.cell').addClass('is-active');
-            }
-        });
+        var accordion_buttons = document.querySelectorAll('.accordion-button');
+
+        [].forEach.call(accordion_buttons, function(accordion_button) {
+            accordion_button.addEventListener('click', () => {
+
+                accordion_button.classList.toggle('open');
+
+                var content_id = accordion_button.getAttribute('aria-controls');
+                var accordion_content = document.getElementById(content_id);
+
+                accordion_content.classList.toggle('open');
+
+                toggleARIA(accordion_button, 'aria-expanded');
+                toggleARIA(accordion_content, 'aria-hidden');
+
+            })
+        })
+
+        function toggleARIA(element, attribute_name) {
+            var current_value = element.getAttribute(attribute_name);
+            var new_value = current_value == 'true' ? 'false' : 'true';
+            element.setAttribute(attribute_name, new_value);
+        }
+
+
     });
 
 
 })(jQuery);
+

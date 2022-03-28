@@ -230,11 +230,11 @@ function blokki_get_available_query_args() {
 
 if ( ! function_exists( 'blokki_get_post_type_config' ) ) :
 
-	function blokki_get_post_type_config( string $post_type ) {
+	function blokki_get_post_type_config( string $post_type, string $block_name = 'cards' ) {
 
-		$post_type_config = apply_filters( 'blokki_get_post_type_config_' . $post_type, [] );
+		$post_type_config = apply_filters( 'blokki_get_post_type_config_' . $post_type, [], $block_name );
 
-		return wp_parse_args( $post_type_config, blokki_get_post_type_config_default() );
+		return wp_parse_args( $post_type_config, blokki_get_post_type_config_default( $block_name ) );
 
 	}
 
@@ -242,20 +242,22 @@ endif;
 
 if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 
-	function blokki_get_post_type_config_default() {
+	function blokki_get_post_type_config_default( string $block_name = 'cards' ) {
 
-		$config         = [
-			'image_size'    => 'medium_large',
-			'link_card'     => false,
-			'link_title'    => true,
-			'link_image'    => true,
-			'link_target'   => '_self',
-			'taxonomy'      => '',
-			'taxonomy_link' => false,
-			'card_html_tag' => 'div',
-			'order'         => blokki_get_card_template_order_default()
+		$config = [
+			'image_size'     => 'medium_large',
+			'link_card'      => false,
+			'link_title'     => true,
+			'link_image'     => true,
+			'link_target'    => '_self',
+			'taxonomy'       => '',
+			'taxonomy_link'  => false,
+			'card_html_tag'  => 'div',
+			'title_html_tag' => 'h3',
+			'partials'       => blokki_get_block_partials_default( $block_name )
 		];
-		$display_config = blokki_get_cards_display_config_default();
+
+		$display_config = blokki_get_block_display_config_default( $block_name );
 		$config         = array_merge( $display_config, $config );
 
 		return apply_filters( 'blokki_get_post_type_config_default', $config );
@@ -264,45 +266,103 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 
 endif;
 
-if ( ! function_exists( 'blokki_get_cards_display_config_default' ) ) :
+if ( ! function_exists( 'blokki_get_block_display_config_default' ) ) :
 
-	function blokki_get_cards_display_config_default() {
-		$display_config = [
-			'show_title'    => true,
-			'show_image'    => true,
-			'show_excerpt'  => true,
-			'show_content'  => false,
-			'show_readmore' => true,
-			'show_meta'     => true,
-			'show_date'     => true,
-			'show_author'   => true,
-			'show_taxonomy' => true,
+	function blokki_get_block_display_config_default( $block_name = 'cards' ) {
+
+		$blocks_display_config = [
+			'cards'      => [
+				'show_title'    => true,
+				'show_image'    => true,
+				'show_excerpt'  => true,
+				'show_content'  => false,
+				'show_readmore' => true,
+				'show_meta'     => true,
+				'show_date'     => true,
+				'show_author'   => true,
+				'show_taxonomy' => true,
+			],
+			'accordions' => [
+				'show_title'   => true,
+				'show_content' => true,
+			]
 		];
+		$blocks_display_config = apply_filters( 'blokki_get_blocks_display_config_default', $blocks_display_config );
 
-		return apply_filters( 'blokki_get_cards_display_config_default', $display_config );
+		if ( isset( $blocks_display_config[ $block_name ] ) ) {
+			return apply_filters( "blokki_get_blocks_display_config_default_{$block_name}",
+				$blocks_display_config[ $block_name ]
+			);
+		} else {
+			return apply_filters( "blokki_get_blocks_display_config_default_cards",
+				$blocks_display_config['cards']
+			);
+		}
+
+
 	}
 
 endif;
 
 
-if ( ! function_exists( 'blokki_get_card_template_order_default' ) ) :
+if ( ! function_exists( 'blokki_get_block_partials_default' ) ) :
 
-	function blokki_get_card_template_order_default() {
-		return apply_filters( 'blokki_get_card_template_order_default', [
-			'image',
-			'title',
-			'meta' => blokki_get_card_template_order_meta(),
-			'excerpt',
-			'readmore'
+	function blokki_get_block_partials_default( string $block_name = 'cards' ) {
+
+		$partials = [
+			'cards'      => [
+				'image',
+				'title',
+				'meta' => blokki_get_card_partials_meta(),
+				'excerpt',
+				'readmore'
+			],
+			'accordions' => [
+				'title-container'   => [
+					'title'
+				],
+				'content-container' => [
+					'content'
+				],
+			]
+		];
+
+		$partials = apply_filters( 'blokki_get_block_partials_default', $partials );
+
+		if ( isset( $partials[ $block_name ] ) ) {
+			return apply_filters( "blokki_get_block_partials_default_{$block_name}",
+				$partials[ $block_name ]
+			);
+		} else {
+			return apply_filters( "blokki_get_block_partials_default_cards",
+				$partials['cards']
+			);
+		}
+
+	}
+
+endif;
+
+
+if ( ! function_exists( 'blokki_get_accordion_partials_default' ) ) :
+
+	function blokki_get_accordion_partials_default() {
+		return apply_filters( 'blokki_get_accordion_partials_default', [
+			'title-wrapper'   => [
+				'title'
+			],
+			'content-wrapper' => [
+				'content'
+			],
 		] );
 	}
 
 endif;
 
-if ( ! function_exists( 'blokki_get_card_template_order_meta' ) ) :
+if ( ! function_exists( 'blokki_get_card_partials_meta' ) ) :
 
-	function blokki_get_card_template_order_meta() {
-		return apply_filters( 'blokki_get_card_template_order_meta', [
+	function blokki_get_card_partials_meta() {
+		return apply_filters( 'blokki_get_card_partials_meta', [
 			'date',
 			'taxonomy',
 			'author'
@@ -311,15 +371,15 @@ if ( ! function_exists( 'blokki_get_card_template_order_meta' ) ) :
 
 endif;
 
-if ( ! function_exists( 'blokki_get_card_display_options' ) ) :
+if ( ! function_exists( 'blokki_get_block_display_options' ) ) :
 
-	function blokki_get_card_display_options() {
+	function blokki_get_block_display_options( $block_name = 'cards' ) {
 		$card_config = [];
 
-		$cards_display_config = blokki_get_cards_display_config_default();
+		$block_display_config = blokki_get_block_display_config_default();
 
 
-		foreach ( $cards_display_config as $field_id => $value ) {
+		foreach ( $block_display_config as $field_id => $value ) {
 
 			// Try to fetch the value for the block
 			$field_value = get_field( $field_id );
@@ -342,32 +402,35 @@ if ( ! function_exists( 'blokki_get_card_display_options' ) ) :
 
 endif;
 
-if ( ! function_exists( 'blokki_render_templates' ) ) :
+if ( ! function_exists( 'blokki_render_partials' ) ) :
 
-	function blokki_render_templates( $template_path, $template_order, $post_type_config, $post_type ) {
+	function blokki_render_partials( string $template_path, array $partials, array $post_type_config, string $post_type = '' ) {
 
-		foreach ( $template_order as $key => $template ):
+		$post_type = ! empty( $post_type ) ? $post_type : get_post_type( get_the_ID() );
 
-			$template_slug = '';
+		foreach ( $partials as $key => $partial ):
 
-			if ( is_string( $template ) ) {
-				$template_slug = $template;
-			} elseif ( is_array( $template ) ) {
-				$template_slug = $key;
+			$partial_slug = '';
+
+			if ( is_string( $partial ) ) {
+				$partial_slug = $partial;
+			} elseif ( is_array( $partial ) ) {
+				$partial_slug = $key;
 			}
 
-			if ( ! $template_slug ) {
+			if ( ! $partial_slug ) {
 				continue;
 			}
 
-			$show_template = isset( $post_type_config["show_{$template_slug}"] ) && $post_type_config["show_{$template_slug}"];
-
-			if ( ! $show_template ) {
-				continue;
+			if ( isset( $post_type_config["show_{$partial_slug}"] ) ) {
+				if ( ! (bool) $post_type_config["show_{$partial_slug}"] ) {
+					continue;
+				}
 			}
+
 
 			blokki_loader()->set_template_data( $post_type_config, 'post_type_config' )
-			               ->get_template_part( "{$template_path}/{$template_slug}", $post_type );
+			               ->get_template_part( "{$template_path}/{$partial_slug}", $post_type );
 
 
 		endforeach;
@@ -501,6 +564,42 @@ if ( ! function_exists( 'blokki_get_post_link_title' ) ) :
 		);
 
 		return $read_more_label . get_the_title( $post_id );
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_override_post_type_config_with_block' ) ) :
+
+	function blokki_override_post_type_config_with_block( $post_type_config, $field_id ) {
+
+		// override field with Block Options
+		if ( $field_value = get_field( $field_id ) ) {
+			if ( ! is_null( $field_value ) && 'default' !== $field_value ) {
+				// fo admin, the returned value might be an array instead of string
+				$post_type_config[ $field_id ] = is_array( $field_value )
+					? array_pop( $field_value )
+					: $field_value;
+			}
+		}
+
+		return $post_type_config;
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_post_title' ) ) :
+
+	function blokki_render_post_title( int $post_id, bool $has_link = true, string $link_target = '_self' ) {
+		if ( $has_link && is_post_publicly_viewable( $post_id ) && ! is_admin() ) {
+			printf( '<a href="%s" target="%s" title="%s">%s</a>',
+				get_the_permalink( $post_id ),
+				$link_target,
+				blokki_get_post_link_title( $post_id ),
+				get_the_title( $post_id )
+			);
+		} else {
+			echo get_the_title( $post_id );
+		}
 	}
 
 endif;

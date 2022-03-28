@@ -33,6 +33,7 @@
                 "id": ""
             },
             "choices": {
+                "default": "Post Type Default",
                 "h2": "h2",
                 "h3": "h3",
                 "h4": "h4",
@@ -42,7 +43,7 @@
                 "span": "span"
             },
             "default_value": [
-                "h3"
+                "default"
             ],
             "allow_null": 0,
             "multiple": 0,
@@ -329,5 +330,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648303205
+    "modified": 1648461291
 }

@@ -6,7 +6,7 @@ $block_classes   = [ $block_css_class ];
 /**
  * Build Grid CSS Classes
  */
-$grid_classes = [ 'grid-x', 'accordions-grid' ];
+$grid_classes = [ 'grid-x', 'accordions-grid', 'accordion-group' ];
 
 /**
  * Update $grid_classes with layout classes

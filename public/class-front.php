@@ -53,8 +53,30 @@ class Front {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+		$this->register_hooks();
 
 	}
+
+	/**
+	 * Register required hooks
+	 */
+	public function register_hooks() {
+
+		/**
+		 * Enqueue Styles
+		 */
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+
+		/**
+		 * Enqueue Scripts
+		 */
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+
+
+	}
+
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
@@ -98,7 +120,7 @@ class Front {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/public.js', array( 'jquery' ), $this->version, true );
 
 	}
 

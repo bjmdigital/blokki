@@ -39,7 +39,7 @@ add_filter( 'blokki_template_card_css_classes', 'blokki_cards_add_class_featured
 //
 //} );
 
-add_filter( 'blokki_get_card_template_order_meta', function ( $meta_order ) {
+add_filter( 'blokki_get_card_partials_meta', function ( $meta_order ) {
 
 	if ( 'page' === get_post_type( get_the_ID() ) ) {
 		$meta_order = [
@@ -99,17 +99,18 @@ add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 		'taxonomy_link' => false,
 		'show_date'     => true,
 //		'link_target'   => '_blank',
-		'link_card'     => false,
+		'link_card'     => true,
 		'link_image'    => true,
 		'link_title'    => true,
-		'show_readmore' => false,
-		'show_taxonomy' => false,
-//		'order'         => [
+		'show_readmore' => true,
+		'show_taxonomy' => true,
+//		'title_html_tag' => 'h4',
+//		'partials'      => [
 //			'title',
-//			'meta' =>[
+//			'meta' => [
 //				'taxonomy',
-//				'author',
 //				'date',
+//				'author',
 //			],
 //			'excerpt',
 //			'image',
@@ -126,17 +127,15 @@ add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
 
 	$post_type_config = [
-		'show_image'    => false,
-		'show_date'     => false,
-		'show_author'   => false,
-		'show_meta'     => false,
-		'show_content'  => true,
-		'taxonomy'      => 'bjm_faq_cat',
-		'link_title'    => true,
-		'show_readmore' => false,
-		'order'         => [
-			'title',
-			'content'
+		'taxonomy' => 'bjm_faq_cat',
+		'partials' => [
+			'title-container'   => [
+				'title'
+			],
+			'content-container' => [
+				'content',
+				'ullu-bata'
+			]
 		]
 	];
 

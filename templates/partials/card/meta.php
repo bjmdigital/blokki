@@ -2,7 +2,7 @@
 
 $post_type_config = blokki_get_template_post_type_config( $post_type_config ?? [] );
 
-$template_order = $post_type_config['order']['meta'] ?? blokki_get_card_template_order_meta();
+$partials = $post_type_config['partials']['meta'] ?? blokki_get_card_partials_meta();
 
 $post_type = get_post_type( get_the_ID() );
 
@@ -15,7 +15,7 @@ printf( '<div class="%s">',
 do_action( 'blokki_block_cards_partial_before_meta' );
 
 if ( apply_filters( 'blokki_block_cards_partial_render_meta', true ) ) {
-	blokki_render_templates( $template_path, $template_order, $post_type_config, $post_type );
+	blokki_render_partials( $template_path, $partials, $post_type_config, $post_type );
 }
 
 

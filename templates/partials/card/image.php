@@ -11,7 +11,7 @@ printf( '<div class="%s">',
 );
 do_action( 'blokki_block_cards_partial_before_image' );
 if ( apply_filters( 'blokki_block_cards_partial_render_image', true ) ) {
-	if ( $post_type_config['link_image'] && is_post_publicly_viewable() ) {
+	if ( $post_type_config['link_image'] && is_post_publicly_viewable() && ! is_admin() ) {
 		printf( '<a href="%s" target="%s" title="%s">%s</a>',
 			get_the_permalink(),
 			$post_type_config['link_target'],

@@ -1,17 +1,78 @@
 .wp-block-acf-blokki-accordions {
 
   .cell {
-
     &.is-active {
       background-color: #00a0d2;
     }
   }
 
-  .card-inner {
-    //background-color: yellow;
+  .title-container {
+    cursor: pointer;
   }
 
-  .card-content {
-    display: none;
+  //.content-container {
+  //  display: none;
+  //}
+
+  .accordion-item {
+    margin:15px 0;
   }
+
+  .accordion-button {
+    font: 1rem 'Verdana', sans-serif;
+    border:none;
+    display:block;
+    padding:.5rem;
+    padding-left: 35px;
+    min-width:50%;
+    text-align:left;
+    min-height:50px;
+    position:relative;
+  }
+  .accordion-button:before {
+    position:absolute;
+    top:22px;
+    left:15px;
+    display: block;
+    width:10px;
+    height:2px;
+    content: "";
+    background: #595959;
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+    transition: all 0.1s ease-out;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  .accordion-button:after {
+    position:absolute;
+    display: block;
+    top:22px;
+    left:15px;
+    width:10px;
+    height:2px;
+    content: "";
+    background: #595959;
+  }
+
+  .accordion-button.open:before {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+  .accordion-content {
+    display:none;
+  }
+  .accordion-content.open {
+    display:block;
+  }
+
 }
