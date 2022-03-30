@@ -6,7 +6,9 @@ $block_classes   = [ $block_css_class ];
 /**
  * Build Grid CSS Classes
  */
-$grid_classes = [ 'grid-x', 'cards-grid' ];
+$grid_classes = [ 'cards-grid' ];
+
+$grid_classes[] = blokki_is_foundation_support() ? "grid-x" : "";
 
 /**
  * Update $grid_classes with layout classes
@@ -28,7 +30,7 @@ $loop = apply_filters( 'blokki_block_cards_loop', $loop );
 $template      = 'card';
 $block_classes = apply_filters( 'blokki_block_cards_block_classes', $block_classes, $block );
 $grid_classes  = apply_filters( 'blokki_block_cards_grid_classes', $grid_classes, $block );
-
+$grid_classes  = array_filter( $grid_classes );
 /**
  * HTML Output
  */

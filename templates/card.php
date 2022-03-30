@@ -10,7 +10,6 @@ $template_path         = 'partials/card';
 $post_type = get_post_type( get_the_ID() );
 
 $post_type_config = blokki_get_post_type_config( $post_type );
-
 /**
  * Override post_type config with block level display options
  */
@@ -18,16 +17,14 @@ $post_type_config = wp_parse_args( $cards_display_options, $post_type_config );
 $post_type_config = blokki_override_post_type_config_with_block( $post_type_config, 'card_html_tag' );
 
 
-/*
- * Get template order and fallback to default, in case of mess-up by any filter
- */
 $partials = $post_type_config['partials'];
 
 /**
  * CSS Classes
  */
-$css_classes   = [];
-$css_classes[] = 'cell';
+$css_classes   = [ 'card-cell' ];
+
+$css_classes[] = blokki_is_foundation_support() ? "cell" : "";
 
 if ( ! is_null( $card_index ) ) {
 	$css_classes[] = 'card-index-' . intval( $card_index );
@@ -60,6 +57,7 @@ printf( '<%s class="%s">',
 	implode( ' ', get_post_class( implode( ' ', $css_classes ), get_the_ID() ) )
 
 );
+
 if ( $link_card && ! is_admin() ) {
 	printf( '<a aria-label="%s" class="link-card-cover" title="%s" href="%s" target="%s"></a>',
 		get_the_title(),
@@ -80,7 +78,38 @@ do_action( 'blokki_block_cards_inner_content_start' );
  * Magic here
  */
 
-blokki_render_partials( $template_path, $partials, $post_type_config, $post_type );
+$show_inner = $post_type_config['show_inner'] ?? false;
+
+if ( ! $show_inner ) {
+	// if we do not need to wrap in inner-content, then we can just output everything
+	blokki_render_partials( $template_path, $post_type_config['partials'], $post_type_config, $post_type );
+} else {
+	/**
+	 * First, lets try to find, image in partials order
+	 */
+	$image_position = array_search( 'image', $post_type_config['partials'] );
+
+	// default value for image position
+	$image_first    = ( 0 === $image_position );
+	$card_has_image = ( false !== $image_position );
+
+	// Unset the `image` from partials
+	if ( $card_has_image ) {
+		unset( $post_type_config['partials'][ $image_position ] );
+	}
+
+	// if image is first, out image partial
+	if ( $image_first ) {
+		blokki_render_partials( $template_path, [ 'image' ], $post_type_config, $post_type );
+	}
+	// rest of the partials except image
+	blokki_render_partials( $template_path, [ 'inner' ], $post_type_config, $post_type );
+
+	// if image is not first, add it to the lase
+	if ( ! $image_first ) {
+		blokki_render_partials( $template_path, [ 'image' ], $post_type_config, $post_type );
+	}
+}
 
 do_action( 'blokki_block_cards_inner_content_end' );
 

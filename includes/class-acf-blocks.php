@@ -61,7 +61,15 @@ class AcfBlocks {
 			return null;
 		}
 
-		acf_add_options_page();
+		acf_add_options_page(
+			[
+				'page_title' => esc_html__( 'Blokki Settings', 'blokki' ),
+				'menu_title' => esc_html__( 'Blokki', 'blokki' ),
+				'menu_slug'  => 'blokki-settings',
+				'capability' => 'manage_options',
+				'icon_url'   => 'dashicons-image-filter'
+			]
+		);
 
 	}
 

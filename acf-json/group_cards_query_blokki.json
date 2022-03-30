@@ -139,14 +139,16 @@
                 "{\"taxonomy\":\"post_tag\",\"field\":\"slug\",\"terms\":\"tag-1\"}": "Tags -> Tag 1",
                 "{\"taxonomy\":\"product_cat\",\"field\":\"slug\",\"terms\":\"uncategorized\"}": "Product categories -> Uncategorized",
                 "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"personal-loan\"}": "Loan Categories -> Personal Loan",
-                "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"vehicle-loans\"}": "Loan Categories -> Vehicle Loans"
+                "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"vehicle-loans\"}": "Loan Categories -> Vehicle Loans",
+                "{\"taxonomy\":\"bjm_faq_cat\",\"field\":\"slug\",\"terms\":\"faq-cat-1\"}": "FAQ Categories -> FAQ Cat 1",
+                "{\"taxonomy\":\"bjm_faq_cat\",\"field\":\"slug\",\"terms\":\"faq-cat-2\"}": "FAQ Categories -> FAQ Cat 2"
             },
             "default_value": [],
             "allow_null": 0,
             "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
+            "ui": 1,
             "ajax": 0,
+            "return_format": "value",
             "placeholder": ""
         },
         {
@@ -333,7 +335,7 @@
                 "id": ""
             },
             "message": "",
-            "default_value": 0,
+            "default_value": 1,
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
@@ -363,5 +365,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648303188
+    "modified": 1648620074
 }

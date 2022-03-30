@@ -1,0 +1,56 @@
+/**
+* WordPress Breakpoints
+ */
+//$break-huge: 1440px;
+//$break-wide: 1280px;
+//$break-xlarge: 1080px;
+//$break-large: 960px;	// admin sidebar auto folds
+//$break-medium: 782px;	// adminbar goes big
+//$break-small: 600px;
+//$break-mobile: 480px;
+//$break-zoomed-in: 280px;
+
+
+$blokki-breakpoints: (
+        small: 0,
+        medium: 768px,
+        large: 1080px,
+        xlarge: 1280px,
+        xxlarge: 1440px,
+);
+
+
+@mixin blokki-medium-up {
+  @media screen and (min-width: #{map-get($blokki-breakpoints, medium)}) {
+    @content;
+  }
+}
+
+@mixin blokki-large-up {
+  @media screen and (min-width: #{map-get($blokki-breakpoints, large)}) {
+    @content;
+  }
+}
+
+@mixin blokki-xlarge-up {
+  @media screen and (min-width: #{map-get($blokki-breakpoints, xlarge)}) {
+    @content;
+  }
+}
+
+
+@mixin blokkiGridColumns {
+  $columns: 1, 2, 3, 4, 5, 6;
+
+  @each $breakpoint, $breakpoint-value in $blokki-breakpoints {
+    @each $column in $columns {
+      @media screen and (min-width: #{$breakpoint-value}) {
+        &.#{$breakpoint}-up-#{$column} {
+          grid-template-columns: repeat(#{$column}, 1fr);
+        }
+      }
+    }
+  }
+}
+
+

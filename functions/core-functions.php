@@ -149,17 +149,26 @@ endif;
 
 if ( ! function_exists( 'blokki_to_string' ) ) :
 
-function blokki_to_string($var){
-	return is_object( $var ) ? $var->scalar : $var;
-}
+	function blokki_to_string( $var ) {
+		return is_object( $var ) ? $var->scalar : $var;
+	}
 
 endif;
 
 if ( ! function_exists( 'blokki_get_template_data' ) ) :
 
-function blokki_get_template_data($var, $is_string = false){
-	$var      = $var ?? [];
-	return $is_string ? blokki_to_string( $var) : (array) $var;
-}
+	function blokki_get_template_data( $var, $is_string = false ) {
+		$var = $var ?? [];
+
+		return $is_string ? blokki_to_string( $var ) : (array) $var;
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_is_foundation_support' ) ) :
+
+	function blokki_is_foundation_support() {
+		return (bool) get_field( 'foundation_support', 'options' );
+	}
 
 endif;

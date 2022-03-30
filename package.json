@@ -19,6 +19,7 @@
 		"@wordpress/i18n": "^4.5.0"
 	},
 	"devDependencies": {
+		"@wordpress/base-styles": "^4.3.0",
 		"@wordpress/scripts": "^22.3.0"
 	}
 }

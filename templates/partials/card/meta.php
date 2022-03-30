@@ -2,7 +2,10 @@
 
 $post_type_config = blokki_get_template_post_type_config( $post_type_config ?? [] );
 
-$partials = $post_type_config['partials']['meta'] ?? blokki_get_card_partials_meta();
+$partials = $post_type_config['partials']['inner']['meta'] ?? [];
+if ( empty( $partials ) ) {
+	$partials = $post_type_config['partials']['meta'] ?? blokki_get_card_partials_meta();
+}
 
 $post_type = get_post_type( get_the_ID() );
 

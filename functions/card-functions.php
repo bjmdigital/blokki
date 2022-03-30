@@ -275,12 +275,13 @@ if ( ! function_exists( 'blokki_get_block_display_config_default' ) ) :
 				'show_title'    => true,
 				'show_image'    => true,
 				'show_excerpt'  => true,
-				'show_content'  => false,
 				'show_readmore' => true,
 				'show_meta'     => true,
 				'show_date'     => true,
 				'show_author'   => true,
 				'show_taxonomy' => true,
+				'show_inner'    => true,
+				'show_content'  => false,
 			],
 			'accordions' => [
 				'show_title'   => true,
@@ -312,10 +313,7 @@ if ( ! function_exists( 'blokki_get_block_partials_default' ) ) :
 		$partials = [
 			'cards'      => [
 				'image',
-				'title',
-				'meta' => blokki_get_card_partials_meta(),
-				'excerpt',
-				'readmore'
+				'inner' => blokki_get_card_partials_inner()
 			],
 			'accordions' => [
 				'title-container'   => [
@@ -366,6 +364,19 @@ if ( ! function_exists( 'blokki_get_card_partials_meta' ) ) :
 			'date',
 			'taxonomy',
 			'author'
+		] );
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_get_card_partials_inner' ) ) :
+
+	function blokki_get_card_partials_inner() {
+		return apply_filters( 'blokki_get_card_partials_inner', [
+			'title',
+			'meta' => blokki_get_card_partials_meta(),
+			'excerpt',
+			'readmore'
 		] );
 	}
 

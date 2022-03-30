@@ -95,27 +95,36 @@ add_filter( 'blokki_get_post_type_config_bjm_glossary', function ( $post_type_co
 add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 
 	$post_type_config = [
-		'taxonomy'      => 'category',
-		'taxonomy_link' => false,
-		'show_date'     => true,
-//		'link_target'   => '_blank',
-		'link_card'     => true,
-		'link_image'    => true,
-		'link_title'    => true,
-		'show_readmore' => true,
-		'show_taxonomy' => true,
+		'taxonomy'   => 'category',
+//		'taxonomy_link' => false,
+//		'show_date'     => true,
+//		'show_meta'  => false,
+		'show_inner' => false,
+		'image_size' => '',
+////		'link_target'   => '_blank',
+//		'link_card'     => true,
+//		'link_image'    => true,
+//		'link_title'    => true,
+//		'show_readmore' => true,
+//		'show_taxonomy' => true,
 //		'title_html_tag' => 'h4',
-//		'partials'      => [
-//			'title',
-//			'meta' => [
-//				'taxonomy',
-//				'date',
-//				'author',
-//			],
-//			'excerpt',
-//			'image',
-//			'readmore'
-//		]
+		'partials'   => [
+			'image',
+			'excerpt',
+			'meta' => [
+				'date'
+			],
+			'title',
+			'readmore',
+//			'inner' => [
+//				'title',
+//				'meta' => [
+//					'date'
+//				],
+//				'excerpt',
+//				'readmore'
+//			]
+		]
 
 	];
 
@@ -143,6 +152,17 @@ add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config 
 	return $post_type_config;
 
 } );
+
+//add_action( 'blokki_block_cards_partial_before_image', function () {
+//
+//	if ( 'post' !== get_post_type() ) {
+//		return null;
+//	}
+//
+//	echo 'Hey before image';
+//
+//
+//} );
 
 
 add_action( 'blokki_block_cards_partial_after_image', function () {

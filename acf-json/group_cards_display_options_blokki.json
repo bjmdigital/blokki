@@ -82,6 +82,34 @@
             "placeholder": ""
         },
         {
+            "key": "field_62440bae91acb",
+            "label": "Wrap in inner Block",
+            "name": "show_inner",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Post Type Default",
+                "0": "No",
+                "1": "Yes"
+            },
+            "default_value": [
+                "default"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
             "key": "field_623dd7cf44685",
             "label": "Show Title",
             "name": "show_title",
@@ -330,5 +358,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648461291
+    "modified": 1648626642
 }
