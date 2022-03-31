@@ -7,12 +7,12 @@ $post_type_config = blokki_override_post_type_config_with_block( $post_type_conf
 
 $title_html_tag = apply_filters(
 	'blokki_block_accordions_partial_title_html_tag',
-	$post_type_config['title_html_tag'] ?? 'h3',
+	$post_type_config['title_html_tag'] ?? 'span',
 );
 
 printf( '<%s class="%s">',
 	$title_html_tag,
-	implode( ' ', apply_filters( 'blokki_block_accordions_partial_classes_title', [ 'card-title', 'title' ] ) )
+	implode( ' ', apply_filters( 'blokki_block_accordions_partial_classes_title', [ 'card-title', 'post-title' ] ) )
 );
 do_action( 'blokki_block_accordions_partial_before_title' );
 if ( apply_filters( 'blokki_block_accordions_partial_render_title', true ) ) {

@@ -1,17 +1,6 @@
 @import '../style';
 
 
-
-.cards-grid {
-  &:not(.grid-x) {
-    margin: 0;
-    display: grid;
-    grid-gap: var(--blokki-cards-grid-gap, 20px);
-    align-items: stretch;
-    @include blokkiGridColumns;
-  }
-}
-
 .card-cell {
   display: grid;
 

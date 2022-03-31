@@ -2,15 +2,14 @@
 
 $post_type_config = blokki_get_template_post_type_config( $post_type_config ?? [] );
 
-$partials = $post_type_config['partials']['content-container']
-            ?? blokki_get_block_partials_default( 'accordions' )['content-container'];
+$partials = $post_type_config['partials']['accordion-content']
+            ?? blokki_get_block_partials_default( 'accordions' )['accordion-content'];
 
 $template_path = 'partials/accordion';
 
 printf( '<div id="accordion-content-%s" class="%s" aria-hidden="true">',
 	get_the_ID(),
 	implode( ' ', apply_filters( 'blokki_block_accordions_partial_classes_content_container', [
-		'content-container',
 		'accordion-content'
 	] ) )
 );

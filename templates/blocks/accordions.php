@@ -6,7 +6,8 @@ $block_classes   = [ $block_css_class ];
 /**
  * Build Grid CSS Classes
  */
-$grid_classes = [ 'grid-x', 'accordions-grid', 'accordion-group' ];
+$grid_classes   = [ 'blokki-grid', 'accordions-grid' ];
+$grid_classes[] = blokki_is_foundation_support() ? 'grid-x' : '';
 
 /**
  * Update $grid_classes with layout classes

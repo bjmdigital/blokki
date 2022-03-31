@@ -138,12 +138,12 @@ add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config 
 	$post_type_config = [
 		'taxonomy' => 'bjm_faq_cat',
 		'partials' => [
-			'title-container'   => [
+			'accordion-button'   => [
 				'title'
 			],
-			'content-container' => [
+			'accordion-content' => [
 				'content',
-				'ullu-bata'
+				'anything'
 			]
 		]
 	];
@@ -182,5 +182,17 @@ add_action( 'blokki_block_cards_partial_after_image', function () {
 //	$default_config['card_html_tag'] = 'article';
 //
 //	return $default_config;
+//
+//} );
+
+
+//add_action( 'blokki_block_accordions_partial_after_accordion_button_title', function(){
+//
+//	if('bjm_faq' !== get_post_type()){
+//		return null;
+//	}
+//
+//	printf('<span class="button-title-after"><a href="https://example.com" target="_blank">%s</a></span>', 'Super Man');
+//
 //
 //} );

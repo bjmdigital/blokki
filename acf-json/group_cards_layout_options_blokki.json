@@ -104,15 +104,7 @@
             "type": "range",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f4db0486f7f6",
-                        "operator": "==",
-                        "value": "default"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -132,15 +124,7 @@
             "type": "range",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f4db0486f7f6",
-                        "operator": "==",
-                        "value": "default"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -154,21 +138,13 @@
             "append": ""
         },
         {
-            "key": "field_623d581729321",
+            "key": "field_6245b68dfba90",
             "label": "Mobile cards per row",
-            "name": "small_up_copy",
+            "name": "small_up",
             "type": "range",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f4db0486f7f6",
-                        "operator": "==",
-                        "value": "default"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -188,15 +164,7 @@
             "type": "true_false",
             "instructions": "",
             "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f4db0486f7f6",
-                        "operator": "==",
-                        "value": "default"
-                    }
-                ]
-            ],
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -245,33 +213,6 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
-        },
-        {
-            "key": "field_5f4db0486f7f6",
-            "label": "Card Style",
-            "name": "card_style",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "default": "Default",
-                "recent": "Recent (single row with 1 large, 2 small)"
-            },
-            "default_value": [
-                "default"
-            ],
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": ""
         }
     ],
     "location": [
@@ -298,5 +239,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648303180
+    "modified": 1648736114
 }

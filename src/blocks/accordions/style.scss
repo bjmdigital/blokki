@@ -1,78 +1,62 @@
-.wp-block-acf-blokki-accordions {
+.accordion-cell {
 
-  .cell {
-    &.is-active {
-      background-color: #00a0d2;
+  .icon-open {
+    display: none;
+  }
+
+  &.is-active {
+    .icon-open {
+      display: inherit;
+    }
+
+    .icon-close {
+      display: none;
     }
   }
 
-  .title-container {
+  .accordion-button {
+    width: 100%;
     cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  //.content-container {
-  //  display: none;
+  .accordion-content {
+    display: none;
+  }
+
+  //.accordion-content.open {
+  //  display: block;
   //}
+}
 
-  .accordion-item {
-    margin:15px 0;
+/**
+ * For Testing Styling
+ */
+.accordion-cell {
+
+  .card-inner{
+    border-radius: 5px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    overflow: hidden;
   }
+
 
   .accordion-button {
-    font: 1rem 'Verdana', sans-serif;
-    border:none;
-    display:block;
-    padding:.5rem;
-    padding-left: 35px;
-    min-width:50%;
-    text-align:left;
-    min-height:50px;
-    position:relative;
-  }
-  .accordion-button:before {
-    position:absolute;
-    top:22px;
-    left:15px;
-    display: block;
-    width:10px;
-    height:2px;
-    content: "";
-    background: #595959;
-    -webkit-transition: all 0.1s ease-out;
-    -moz-transition: all 0.1s ease-out;
-    -ms-transition: all 0.1s ease-out;
-    -o-transition: all 0.1s ease-out;
-    transition: all 0.1s ease-out;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
+    padding: 1rem;
+    background-color: #f7f7f7;
+
+    &:focus,
+    &:hover{
+      background-color: #d5d5d5;
+    }
   }
 
-  .accordion-button:after {
-    position:absolute;
-    display: block;
-    top:22px;
-    left:15px;
-    width:10px;
-    height:2px;
-    content: "";
-    background: #595959;
-  }
-
-  .accordion-button.open:before {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    transform: rotate(180deg);
-  }
   .accordion-content {
-    display:none;
-  }
-  .accordion-content.open {
-    display:block;
+    padding: 1rem;
   }
 
 }

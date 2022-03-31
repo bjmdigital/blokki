@@ -245,17 +245,25 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 	function blokki_get_post_type_config_default( string $block_name = 'cards' ) {
 
 		$config = [
-			'image_size'     => 'medium_large',
-			'link_card'      => false,
-			'link_title'     => true,
-			'link_image'     => true,
-			'link_target'    => '_self',
-			'taxonomy'       => '',
-			'taxonomy_link'  => false,
-			'card_html_tag'  => 'div',
-			'title_html_tag' => 'h3',
-			'partials'       => blokki_get_block_partials_default( $block_name )
+			'image_size'    => 'medium_large',
+			'link_card'     => false,
+			'link_title'    => true,
+			'link_image'    => true,
+			'link_target'   => '_self',
+			'taxonomy'      => '',
+			'taxonomy_link' => false,
+			'card_html_tag' => 'div',
+			'partials'      => blokki_get_block_partials_default( $block_name )
 		];
+		switch ( $block_name ):
+			case( 'accordions' ):
+				$config['title_html_tag'] = 'span';
+				break;
+			case( 'cards' ):
+			default:
+				$config['title_html_tag'] = 'h3';
+		endswitch;
+
 
 		$display_config = blokki_get_block_display_config_default( $block_name );
 		$config         = array_merge( $display_config, $config );
@@ -288,7 +296,10 @@ if ( ! function_exists( 'blokki_get_block_display_config_default' ) ) :
 				'show_content' => true,
 			]
 		];
-		$blocks_display_config = apply_filters( 'blokki_get_blocks_display_config_default', $blocks_display_config );
+		$blocks_display_config = apply_filters(
+			'blokki_get_blocks_display_config_default',
+			$blocks_display_config
+		);
 
 		if ( isset( $blocks_display_config[ $block_name ] ) ) {
 			return apply_filters( "blokki_get_blocks_display_config_default_{$block_name}",
@@ -316,10 +327,10 @@ if ( ! function_exists( 'blokki_get_block_partials_default' ) ) :
 				'inner' => blokki_get_card_partials_inner()
 			],
 			'accordions' => [
-				'title-container'   => [
+				'accordion-button'  => [
 					'title'
 				],
-				'content-container' => [
+				'accordion-content' => [
 					'content'
 				],
 			]
@@ -346,10 +357,10 @@ if ( ! function_exists( 'blokki_get_accordion_partials_default' ) ) :
 
 	function blokki_get_accordion_partials_default() {
 		return apply_filters( 'blokki_get_accordion_partials_default', [
-			'title-wrapper'   => [
+			'accordion-button'  => [
 				'title'
 			],
-			'content-wrapper' => [
+			'accordion-content' => [
 				'content'
 			],
 		] );
