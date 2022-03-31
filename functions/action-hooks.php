@@ -99,7 +99,7 @@ add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 //		'taxonomy_link' => false,
 //		'show_date'     => true,
 //		'show_meta'  => false,
-		'show_inner' => false,
+		'show_inner' => true,
 		'image_size' => '',
 ////		'link_target'   => '_blank',
 //		'link_card'     => true,

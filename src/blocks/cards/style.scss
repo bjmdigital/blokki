@@ -1,58 +1,41 @@
 @import '../style';
 
-.card-inner-content {
-  background-color: green;
-}
-
 
 
 .cards-grid {
   &:not(.grid-x) {
     margin: 0;
     display: grid;
-    //grid-template-columns: repeat(auto-fill, minmax(var(--blokki-cards-grid-card-width, 280px), 1fr));
     grid-gap: var(--blokki-cards-grid-gap, 20px);
     align-items: stretch;
-
     @include blokkiGridColumns;
-
   }
 }
 
-.featured-card {
+.card-cell {
+  display: grid;
+
+  &.link-card {
+    position: relative;
+  }
+
+  a.link-card-cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+/**
+ * Just for testing
+ */
+.card-inner-content {
+  background-color: green;
+}
+
+.featured-card{
   background-color: yellow;
-}
-
-
-.wp-block-acf-blokki-cards {
-
-
-  .cards-grid {
-
-    .cell {
-      display: grid;
-
-      &.link-card {
-        position: relative;
-      }
-    }
-
-    a.link-card-cover {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-
-    /** For Testing */
-    //.featured-card {
-    //  width: 100% !important;
-    //  background-color: yellow !important;
-    //}
-
-    //.card-inner {
-    //  background-color: #f6f6f6;
-    //}
-  }
+  grid-column: 1 / -1;
 }
