@@ -1,0 +1,18 @@
+@import '../style';
+
+.wp-block-blokki-grid {
+  border: $blokki-block-border-editor;
+
+  > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    display: grid;
+    gap: var(--blokki-grid-gap-editor, 10px);
+    grid-template-columns: repeat(auto-fit, minmax(var(--blokki-grid-col-width-editor, 200px), 1fr));
+    align-items: var(--blokki-grid-align-items-editor, start);
+
+    > .wp-block {
+      margin: var(--blokki-grid-col-margin-editor, 10px 0);
+      min-height: var(--blokki-grid-col-min-height-editor, 20px);
+      border: $blokki-block-border-editor;
+    }
+  }
+}

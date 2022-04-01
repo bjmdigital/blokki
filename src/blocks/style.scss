@@ -17,6 +17,7 @@ $blokki-breakpoints: (
         large: 1080px,
 );
 
+$blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--blokki-grid-editor-border-style, dotted) var(--blokki-grid-editor-border-color, #D7D7D7);
 
 @mixin blokki-medium-up {
   @media screen and (min-width: #{map-get($blokki-breakpoints, medium)}) {
@@ -58,6 +59,7 @@ $blokki-breakpoints: (
     grid-row-gap: var(--blokki-grid-row-gap, 20px);
     grid-column-gap: var(--blokki-grid-column-gap, 20px);
     align-items: stretch;
+
     @include blokkiGridColumns;
   }
 }

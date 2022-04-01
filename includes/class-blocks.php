@@ -195,8 +195,7 @@ class Blocks {
 
 		// Array of block created in this plugin.
 		$blocks = [
-			'blokki/content-grid',
-			'blokki/content-cell',
+			'blokki/grid',
 		];
 
 		// Loop through $blocks and register each block with the same script and styles.
