@@ -172,3 +172,32 @@ if ( ! function_exists( 'blokki_is_foundation_support' ) ) :
 	}
 
 endif;
+
+if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
+
+	function blokki_get_related_tax_query_args( $post_id ) {
+		$tax_query_args = [];
+
+		$taxonomies = get_post_taxonomies( $post_id );
+
+		foreach ( $taxonomies as $taxonomy ) {
+			$term_ids = wp_get_post_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
+
+			if ( ! is_wp_error( $term_ids ) && $term_ids ) {
+				$tax_query_args[] = [
+					'field'    => 'id',
+					'taxonomy' => $taxonomy,
+					'terms'    => $term_ids
+				];
+			}
+		}
+
+		if ( $tax_query_args ) {
+			$tax_query_args['relation'] = 'OR';
+		}
+
+		return $tax_query_args;
+
+	}
+
+endif;

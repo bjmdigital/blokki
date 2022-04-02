@@ -90,6 +90,83 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_6248ac88d185d",
+            "label": "Integrations",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_6248ac9cd185e",
+            "label": "WP Grid Builder Plugin",
+            "name": "",
+            "type": "accordion",
+            "instructions": "These settings will only take effect if WP Grid Builder Plugin is installed and active",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 1,
+            "endpoint": 0
+        },
+        {
+            "key": "field_6248ad1a7c891",
+            "label": "Related Grid",
+            "name": "wpgb_grid_related",
+            "type": "select",
+            "instructions": "Dynamic functionality will be applied to the selected grids which are used to display related cards",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": [],
+            "allow_null": 1,
+            "multiple": 1,
+            "ui": 1,
+            "ajax": 0,
+            "return_format": "value",
+            "placeholder": ""
+        },
+        {
+            "key": "field_6248adcc7c892",
+            "label": "Archive Grid",
+            "name": "wpgb_grid_archive",
+            "type": "select",
+            "instructions": "The selected grid shall be sued to display the cards in default Archive pages.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "choices": [],
+            "default_value": [],
+            "allow_null": 1,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -109,5 +186,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648731660
+    "modified": 1648930288
 }
