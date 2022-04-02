@@ -149,7 +149,7 @@ add_filter( 'blokki_get_post_type_config_bjm_case_study', function ( $post_type_
 //		'show_taxonomy'  => true,
 		'title_html_tag' => 'h4',
 		'partials'       => [
-//			'image',
+			'image',
 			'title',
 			'excerpt',
 			'meta' => [
