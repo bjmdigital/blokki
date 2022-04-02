@@ -102,6 +102,7 @@ if ( ! $show_inner ) {
 	if ( $image_first ) {
 		blokki_render_partials( $template_path, [ 'image' ], $post_type_config, $post_type );
 	}
+
 	// rest of the partials except image
 	blokki_render_partials( $template_path, [ 'inner' ], $post_type_config, $post_type );
 

@@ -253,6 +253,7 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 			'taxonomy'      => '',
 			'taxonomy_link' => false,
 			'card_html_tag' => 'div',
+			'template'      => 'card',
 			'partials'      => blokki_get_block_partials_default( $block_name )
 		];
 		switch ( $block_name ):
@@ -622,6 +623,41 @@ if ( ! function_exists( 'blokki_get_post_title' ) ) :
 		} else {
 			echo get_the_title( $post_id );
 		}
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_render_post' ) ) :
+
+	function blokki_render_post() {
+		$post_type_config = blokki_get_post_type_config_default( get_post_type( get_the_ID() ) );
+		$template         = $post_type_config['template'] ?? 'card';
+
+//		blokki_dump( $post_type_config);
+		switch ( $template ):
+
+			case( 'accordion' ):
+				blokki_render_accordion();
+
+			case( 'card' ):
+			default:
+				blokki_render_card();
+		endswitch;
+	}
+
+endif;
+
+if ( ! function_exists( 'blokki_render_card' ) ) :
+
+	function blokki_render_card() {
+		blokki_loader()->get_template_part( 'card', get_post_type( get_the_ID() ) );
+	}
+
+endif;
+if ( ! function_exists( 'blokki_render_accordion' ) ) :
+
+	function blokki_render_accordion() {
+		blokki_loader()->get_template_part( 'accordion', get_post_type( get_the_ID() ) );
 	}
 
 endif;
