@@ -251,7 +251,7 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 			'link_image'    => true,
 			'link_target'   => '_self',
 			'taxonomy'      => '',
-			'taxonomy_link' => false,
+			'link_taxonomy' => false,
 			'card_html_tag' => 'div',
 			'template'      => 'card',
 			'partials'      => blokki_get_block_partials_default( $block_name )
@@ -402,15 +402,14 @@ if ( ! function_exists( 'blokki_get_block_display_options' ) ) :
 		$block_display_config = blokki_get_block_display_config_default();
 
 
-		foreach ( $block_display_config as $field_id => $value ) {
+		foreach ( $block_display_config as $field_id => $value ) :
 
 			// Try to fetch the value for the block
 			$field_value = get_field( $field_id );
 
 			if ( is_null( $field_value ) ) {
-				// default to true for unspecified $field_value
 				// this can be the case when the option is not defined for the block
-				$card_config[ $field_id ] = true;
+				continue;
 			} elseif ( 'default' !== ( $field_value ) ) {
 				// in case of not 'default', we get the block options
 				$card_config[ $field_id ] = $field_value;
@@ -418,7 +417,7 @@ if ( ! function_exists( 'blokki_get_block_display_options' ) ) :
 
 			// there should be no 'else' as this config is intended to override the post_type config
 
-		}
+		endforeach;
 
 		return apply_filters( 'blokki_get_cards_display_config', $card_config );
 	}
@@ -462,9 +461,9 @@ if ( ! function_exists( 'blokki_render_partials' ) ) :
 
 endif;
 
-if ( ! function_exists( 'blokki_get_cards_layout_classes' ) ) :
+if ( ! function_exists( 'blokki_get_grid_layout_classes' ) ) :
 
-	function blokki_get_cards_layout_classes() {
+	function blokki_get_grid_layout_classes() {
 
 		$layout_classes = [];
 		/**
@@ -480,17 +479,17 @@ if ( ! function_exists( 'blokki_get_cards_layout_classes' ) ) :
 		/**
 		 * Update Grid Classes with Card options
 		 */
-		$layout_classes[] = 'small-up-' . $cards_small_up;
-		$layout_classes[] = 'medium-up-' . $cards_medium_up;
-		$layout_classes[] = 'large-up-' . $cards_large_up;
-		$layout_classes[] = $feature_first ? 'feature-first' : '';
-		$layout_classes[] = $grid_margin_x ? 'grid-margin-x' : '';
-		$layout_classes[] = $grid_margin_y ? 'grid-margin-y' : '';
+		$layout_classes['small_up'] = 'small-up-' . $cards_small_up;
+		$layout_classes['medium_up'] = 'medium-up-' . $cards_medium_up;
+		$layout_classes['large_up'] = 'large-up-' . $cards_large_up;
+		$layout_classes['feature_first'] = $feature_first ? 'feature-first' : '';
+		$layout_classes['grid_margin_x'] = $grid_margin_x ? 'grid-margin-x' : '';
+		$layout_classes['grid_margin_y'] = $grid_margin_y ? 'grid-margin-y' : '';
 
 		// Remove empty values
 		$layout_classes = array_filter( $layout_classes );
 
-		return apply_filters( 'blokki_get_block_layout_classes', $layout_classes );
+		return apply_filters( 'blokki_get_grid_layout_classes', $layout_classes );
 
 	}
 
@@ -630,15 +629,13 @@ endif;
 if ( ! function_exists( 'blokki_render_post' ) ) :
 
 	function blokki_render_post() {
-		$post_type_config = blokki_get_post_type_config_default( get_post_type( get_the_ID() ) );
+		$post_type_config = blokki_get_post_type_config( get_post_type( get_the_ID() ) );
 		$template         = $post_type_config['template'] ?? 'card';
 
-//		blokki_dump( $post_type_config);
 		switch ( $template ):
-
 			case( 'accordion' ):
 				blokki_render_accordion();
-
+				break;
 			case( 'card' ):
 			default:
 				blokki_render_card();

@@ -13,7 +13,7 @@ $grid_classes[] = blokki_is_foundation_support() ? "grid-x" : "";
 /**
  * Update $grid_classes with layout classes
  */
-$grid_classes = array_merge( $grid_classes, blokki_get_cards_layout_classes() );
+$grid_classes = array_merge( $grid_classes, blokki_get_grid_layout_classes() );
 
 /**
  * Create Loop

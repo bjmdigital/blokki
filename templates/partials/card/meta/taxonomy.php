@@ -3,7 +3,7 @@
 $post_type_config = blokki_get_template_post_type_config( $post_type_config ?? [] );
 
 $taxonomy       = $post_type_config['taxonomy'] ?? '';
-$terms_has_link = (bool) $post_type_config['taxonomy_link'] ?? false;
+$terms_has_link = (bool) $post_type_config['link_taxonomy'] ?? false;
 
 if ( ! $taxonomy ) {
 	return;
