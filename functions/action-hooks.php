@@ -147,7 +147,7 @@ add_filter( 'blokki_get_post_type_config_bjm_case_study', function ( $post_type_
 //		'link_title'    => true,
 //		'show_readmore' => true,
 //		'show_taxonomy'  => true,
-		'title_html_tag' => 'h4',
+		'title_html_tag' => 'h5',
 		'partials'       => [
 			'image',
 			'title',
@@ -180,16 +180,18 @@ add_filter( 'blokki_get_post_type_config_bjm_case_study', function ( $post_type_
 add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
 
 	$post_type_config = [
-		'taxonomy' => 'bjm_faq_cat',
-		'partials' => [
-			'accordion-button'  => [
-				'title'
-			],
-			'accordion-content' => [
-				'content',
-				'anything'
-			]
-		]
+		'taxonomy'   => 'bjm_faq_cat',
+		'template'   => 'accordion',
+		'link_title' => false,
+//		'partials'   => [
+//			'accordion-button'  => [
+//				'title'
+//			],
+//			'accordion-content' => [
+//				'content',
+//				'anything'
+//			]
+//		]
 	];
 
 

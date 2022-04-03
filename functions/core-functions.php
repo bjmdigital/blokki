@@ -195,6 +195,8 @@ if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
 		if ( $tax_query_args ) {
 			$tax_query_args['relation'] = 'OR';
 		}
+		
+
 
 		return $tax_query_args;
 

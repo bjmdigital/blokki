@@ -13,7 +13,7 @@ if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
 		}
 		$post_id = get_the_ID();
 
-		$related_grids = get_field( 'cards_grid_related', 'options' );
+		$related_grids = get_field( 'wpgb_grid_related', 'options' );
 
 		if ( in_array( $grid_id, $related_grids ) ) {
 			$query_args['post_type'] = [ $post_type ];
@@ -23,19 +23,23 @@ if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
 		if ( ! empty( $tax_query_args ) ) :
 
 			// check if we have some posts with related args
-			$temp_args = $query_args;
-			if ( is_array( $temp_args['tax_query'] ) && ! empty( $temp_args['tax_query'] ) ) {
-				$temp_args['tax_query'] = array_merge( $temp_args['tax_query'], $tax_query_args );
+			$grid_query_args = $query_args;
+			if (
+				isset( $grid_query_args['tax_query'] )
+				&& is_array( $grid_query_args['tax_query'] )
+				&& ! empty( $grid_query_args['tax_query'] )
+			) {
+				$grid_query_args['tax_query'] = array_merge( $grid_query_args['tax_query'], $tax_query_args );
 			} else {
-				$temp_args['tax_query'] = $tax_query_args;
+				$grid_query_args['tax_query'] = $tax_query_args;
 			}
 
-			$temp_args['post__not_in'] = [ $post_id ];
+			$grid_query_args['post__not_in'] = [ $post_id ];
 
-			$temp_query = new WP_Query( $temp_args );
+			$temp_query = new WP_Query( $grid_query_args );
 
 			if ( $temp_query->have_posts() ) {
-				return $temp_args;
+				return $grid_query_args;
 			}
 
 		endif; //  ! empty( $tax_query_args )
@@ -125,7 +129,7 @@ if ( ! function_exists( 'blokki_wpgb_get_custom_card_id' ) ) :
 
 	function blokki_wpgb_get_custom_card_id( $card = '' ) {
 		if ( ! is_admin() ) {
-			return 'bjm';
+			return 'blokki';
 		}
 
 		return $card;
@@ -254,7 +258,6 @@ add_filter( 'acf/load_field/name=wpgb_grid_archive', 'blokki_wpgb_acf_grid_field
 //} );
 
 
-
 //add_action( 'pre_get_posts', 'remove_archive_pagination' );
 
 if ( ! function_exists( 'bjm_wpgb_archive_grid_settings' ) ) :
@@ -262,198 +265,205 @@ if ( ! function_exists( 'bjm_wpgb_archive_grid_settings' ) ) :
 	function bjm_wpgb_archive_grid_settings( $settings ) {
 
 		// If it matches grid id , we change the grid settings.
-		if ( 10 === $settings['id'] ) {
-			$settings = array(
-				'id'            => 10,
-				'name'          => 'Archive Grid',
-				'date'          => '2022-03-02 05:15:22',
-				'modified_date' => '2022-03-02 08:12:46',
-				'favorite'      => '0',
-				'type'          => 'masonry',
-				'source'        => 'post_type',
-				'settings'      =>
-					array(
-						'name'                    => 'Archive Grid',
-						'class'                   => '',
-						'no_posts_msg'            => 'Sorry, No Articles Found',
-						'no_results_msg'          => '',
-						'source'                  => 'post_type',
-						'posts_per_page'          => 0,
-						'offset'                  => 0,
-						'orderby'                 =>
-							array(
-								0 => 'menu_order',
-							),
-						'order'                   => 'ASC',
-						'post_type'               =>
-							array(),
-						'post_status'             =>
-							array(
-								0 => 'publish',
-							),
-						'author__in'              =>
-							array(),
-						'post__in'                =>
-							array(),
-						'post__not_in'            =>
-							array(),
-						'tax_query'               =>
-							array(),
-						'tax_query_operator'      => 'IN',
-						'tax_query_relation'      => 'OR',
-						'tax_query_children'      => 0,
-						'meta_query'              =>
-							array(),
-						'post_formats'            =>
-							array(),
-						'first_media'             => 0,
-						'default_thumbnail'       => '',
-						'thumbnail_aspect'        => 0,
-						'thumbnail_size'          => 'medium_large',
-						'thumbnail_size_mobile'   => 'medium_large',
-						'type'                    => 'masonry',
-						'full_width'              => 0,
-						'horizontal_order'        => 0,
-						'fit_rows'                => 0,
-						'equal_columns'           => 1,
-						'override_card_sizes'     => 0,
-						'card_sizes'              =>
-							array(
-								0 =>
-									array(
-										'columns' => 3,
-										'height'  => 240,
-										'gutter'  => 30,
-										'ratio'   =>
-											array(
-												'x' => 4,
-												'y' => 3,
-											),
-									),
-								1 =>
-									array(
-										'browser' => 1200,
-										'columns' => 3,
-										'height'  => 240,
-										'gutter'  => 30,
-										'ratio'   =>
-											array(
-												'x' => 4,
-												'y' => 3,
-											),
-									),
-								2 =>
-									array(
-										'browser' => 992,
-										'columns' => 3,
-										'height'  => 220,
-										'gutter'  => 30,
-										'ratio'   =>
-											array(
-												'x' => 4,
-												'y' => 3,
-											),
-									),
-								3 =>
-									array(
-										'browser' => 768,
-										'columns' => 2,
-										'height'  => 220,
-										'gutter'  => 20,
-										'ratio'   =>
-											array(
-												'x' => 4,
-												'y' => 3,
-											),
-									),
-								4 =>
-									array(
-										'browser' => 576,
-										'columns' => 2,
-										'height'  => 200,
-										'gutter'  => 20,
-										'ratio'   =>
-											array(
-												'x' => 4,
-												'y' => 3,
-											),
-									),
-								5 =>
-									array(
-										'browser' => 320,
-										'columns' => 1,
-										'height'  => 200,
-										'gutter'  => - 1,
-										'ratio'   =>
-											array(
-												'x' => 4,
-												'y' => 3,
-											),
-									),
-							),
-						'layout'                  => 'vertical',
-						'grid_layout'             =>
-							array(
-								'area-top-1'    =>
-									array(
-										'style'  =>
-											array(
-												'justify-content' => 'flex-start',
-											),
-										'facets' => '',
-									),
-								'area-bottom-1' =>
-									array(
-										'style'  =>
-											array(
-												'justify-content' => 'center',
-											),
-										'facets' => '',
-									),
-								'area-bottom-2' =>
-									array(
-										'style'  =>
-											array(
-												'justify-content' => 'center',
-											),
-										'facets' => '',
-									),
-							),
-						'cards'                   =>
-							array(
-								'default' => '',
-								'aside'   => '',
-								'chat'    => '',
-								'gallery' => '',
-								'link'    => '',
-								'image'   => '',
-								'quote'   => '',
-								'status'  => '',
-								'video'   => '',
-								'audio'   => '',
-							),
-						'content_background'      => '',
-						'overlay_background'      => '',
-						'content_color_scheme'    => 'dark',
-						'overlay_color_scheme'    => 'light',
-						'animation'               => '',
-						'timing_function'         => 'ease',
-						'transition'              => 700,
-						'transition_delay'        => 100,
-						'lazy_load'               => 0,
-						'lazy_load_spinner'       => 0,
-						'lazy_load_blurred_image' => 0,
-						'lazy_load_background'    => '#e0e4e9',
-						'lazy_load_spinner_color' => '#0069ff',
-						'loader'                  => 0,
-						'loader_color'            => '#0069ff',
-						'loader_size'             => 1,
-						'loader_type'             => 'wpgb-loader-1',
-						'custom_css'              => '',
-						'custom_js'               => '',
-					),
-			);
+		$archive_grid_id = (int) get_field( 'wpgb_grid_archive', 'options' );
+
+		if ( ! $archive_grid_id || $archive_grid_id !== $settings['id'] ) {
+			return $settings;
 		}
+
+		return $settings;
+
+
+		$settings = array(
+			'id'            => $archive_grid_id,
+			'name'          => 'Archive Grid',
+			'date'          => '2022-03-02 05:15:22',
+			'modified_date' => '2022-03-02 08:12:46',
+			'favorite'      => '0',
+			'type'          => 'masonry',
+			'source'        => 'post_type',
+			'settings'      =>
+				array(
+					'name'                    => 'Archive Grid',
+					'class'                   => '',
+					'no_posts_msg'            => 'Sorry, No Articles Found',
+					'no_results_msg'          => '',
+					'source'                  => 'post_type',
+					'posts_per_page'          => 0,
+					'offset'                  => 0,
+					'orderby'                 =>
+						array(
+							0 => 'menu_order',
+						),
+					'order'                   => 'ASC',
+					'post_type'               =>
+						array(),
+					'post_status'             =>
+						array(
+							0 => 'publish',
+						),
+					'author__in'              =>
+						array(),
+					'post__in'                =>
+						array(),
+					'post__not_in'            =>
+						array(),
+					'tax_query'               =>
+						array(),
+					'tax_query_operator'      => 'IN',
+					'tax_query_relation'      => 'OR',
+					'tax_query_children'      => 0,
+					'meta_query'              =>
+						array(),
+					'post_formats'            =>
+						array(),
+					'first_media'             => 0,
+					'default_thumbnail'       => '',
+					'thumbnail_aspect'        => 0,
+					'thumbnail_size'          => 'medium_large',
+					'thumbnail_size_mobile'   => 'medium_large',
+					'type'                    => 'masonry',
+					'full_width'              => 0,
+					'horizontal_order'        => 0,
+					'fit_rows'                => 0,
+					'equal_columns'           => 1,
+					'override_card_sizes'     => 0,
+					'card_sizes'              =>
+						array(
+							0 =>
+								array(
+									'columns' => 3,
+									'height'  => 240,
+									'gutter'  => 30,
+									'ratio'   =>
+										array(
+											'x' => 4,
+											'y' => 3,
+										),
+								),
+							1 =>
+								array(
+									'browser' => 1200,
+									'columns' => 3,
+									'height'  => 240,
+									'gutter'  => 30,
+									'ratio'   =>
+										array(
+											'x' => 4,
+											'y' => 3,
+										),
+								),
+							2 =>
+								array(
+									'browser' => 992,
+									'columns' => 3,
+									'height'  => 220,
+									'gutter'  => 30,
+									'ratio'   =>
+										array(
+											'x' => 4,
+											'y' => 3,
+										),
+								),
+							3 =>
+								array(
+									'browser' => 768,
+									'columns' => 2,
+									'height'  => 220,
+									'gutter'  => 20,
+									'ratio'   =>
+										array(
+											'x' => 4,
+											'y' => 3,
+										),
+								),
+							4 =>
+								array(
+									'browser' => 576,
+									'columns' => 2,
+									'height'  => 200,
+									'gutter'  => 20,
+									'ratio'   =>
+										array(
+											'x' => 4,
+											'y' => 3,
+										),
+								),
+							5 =>
+								array(
+									'browser' => 320,
+									'columns' => 1,
+									'height'  => 200,
+									'gutter'  => - 1,
+									'ratio'   =>
+										array(
+											'x' => 4,
+											'y' => 3,
+										),
+								),
+						),
+					'layout'                  => 'vertical',
+					'grid_layout'             =>
+						array(
+							'area-top-1'    =>
+								array(
+									'style'  =>
+										array(
+											'justify-content' => 'flex-start',
+										),
+									'facets' => '',
+								),
+							'area-bottom-1' =>
+								array(
+									'style'  =>
+										array(
+											'justify-content' => 'center',
+										),
+									'facets' => '',
+								),
+							'area-bottom-2' =>
+								array(
+									'style'  =>
+										array(
+											'justify-content' => 'center',
+										),
+									'facets' => '',
+								),
+						),
+					'cards'                   =>
+						array(
+							'default' => '',
+							'aside'   => '',
+							'chat'    => '',
+							'gallery' => '',
+							'link'    => '',
+							'image'   => '',
+							'quote'   => '',
+							'status'  => '',
+							'video'   => '',
+							'audio'   => '',
+						),
+					'content_background'      => '',
+					'overlay_background'      => '',
+					'content_color_scheme'    => 'dark',
+					'overlay_color_scheme'    => 'light',
+					'animation'               => '',
+					'timing_function'         => 'ease',
+					'transition'              => 700,
+					'transition_delay'        => 100,
+					'lazy_load'               => 0,
+					'lazy_load_spinner'       => 0,
+					'lazy_load_blurred_image' => 0,
+					'lazy_load_background'    => '#e0e4e9',
+					'lazy_load_spinner_color' => '#0069ff',
+					'loader'                  => 0,
+					'loader_color'            => '#0069ff',
+					'loader_size'             => 1,
+					'loader_type'             => 'wpgb-loader-1',
+					'custom_css'              => '',
+					'custom_js'               => '',
+				),
+		);
 
 
 		return $settings;
