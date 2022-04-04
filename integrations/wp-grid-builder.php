@@ -14,12 +14,15 @@ if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
 		$post_id = get_the_ID();
 
 		$related_grids = get_field( 'wpgb_grid_related', 'options' );
+		$related_grids = array_map( 'intval', $related_grids );
 
-		if ( in_array( $grid_id, $related_grids ) ) {
-			$query_args['post_type'] = [ $post_type ];
+
+		if ( ! in_array( $grid_id, $related_grids, true ) ) {
+			return $query_args;
 		}
 
-		$tax_query_args = blokki_get_related_tax_query_args( $post_id );
+		$query_args['post_type'] = [ $post_type ];
+		$tax_query_args          = blokki_get_related_tax_query_args( $post_id );
 		if ( ! empty( $tax_query_args ) ) :
 
 			// check if we have some posts with related args
@@ -211,6 +214,30 @@ if ( ! function_exists( 'blokki_wpgb_get_grids' ) ) :
 
 endif;
 
+if ( ! function_exists( 'blokki_wpgb_get_facets' ) ) :
+
+	function blokki_wpgb_get_facets() {
+		$facets = [];
+
+		if ( ! class_exists( 'WP_Grid_Builder\Includes\Database' ) ) {
+			return $facets;
+		}
+
+		/** @noinspection PhpUndefinedNamespaceInspection */
+		$facets_query = WP_Grid_Builder\Includes\Database::query_results( [
+			'from' => 'facets'
+		] );
+
+		if ( is_array( $facets_query ) ) {
+			$facets = $facets_query;
+		}
+
+		return $facets;
+
+	}
+
+endif;
+
 if ( ! function_exists( 'blokki_wpgb_get_grids_as_option_choices' ) ) :
 
 	function blokki_wpgb_get_grids_as_option_choices() {
@@ -232,6 +259,26 @@ if ( ! function_exists( 'blokki_wpgb_get_grids_as_option_choices' ) ) :
 
 endif;
 
+if ( ! function_exists( 'blokki_wpgb_get_facets_as_option_choices' ) ) :
+
+	function blokki_wpgb_get_facets_as_option_choices() {
+		$options = [];
+		$facets  = blokki_wpgb_get_facets();
+
+		if ( ! is_array( $facets ) || empty( $facets ) ) {
+			return $options;
+		}
+
+		$ids   = wp_list_pluck( $facets, 'id' );
+		$names = wp_list_pluck( $facets, 'name' );
+
+		$options = array_combine( $ids, $names );
+
+		return $options;
+
+	}
+
+endif;
 
 if ( ! function_exists( 'blokki_wpgb_acf_grid_field_options' ) ) :
 
@@ -250,8 +297,31 @@ if ( ! function_exists( 'blokki_wpgb_acf_grid_field_options' ) ) :
 
 endif;
 
+if ( ! function_exists( 'blokki_wpgb_acf_facet_field_options' ) ) :
+
+	function blokki_wpgb_acf_facet_field_options( $field ) {
+
+		$choices = blokki_wpgb_get_facets_as_option_choices();
+		// loop through array and add to field 'choices'
+		if ( is_array( $choices ) && ! empty( $choices ) ) {
+			foreach ( $choices as $grid_id => $grid_name ) {
+				$field['choices'][ $grid_id ] = $grid_name;
+			}
+		}
+
+		return $field;
+	}
+
+endif;
+
+/**
+ * Dynamically update ACF field options
+ */
 add_filter( 'acf/load_field/name=wpgb_grid_related', 'blokki_wpgb_acf_grid_field_options' );
 add_filter( 'acf/load_field/name=wpgb_grid_archive', 'blokki_wpgb_acf_grid_field_options' );
+add_filter( 'acf/load_field/name=wpgb_grid_for_block', 'blokki_wpgb_acf_grid_field_options' );
+add_filter( 'acf/load_field/name=wpgb_facets_top', 'blokki_wpgb_acf_facet_field_options' );
+add_filter( 'acf/load_field/name=wpgb_facets_bottom', 'blokki_wpgb_acf_facet_field_options' );
 
 //add_action( 'wp_footer', function (){
 //
@@ -474,15 +544,64 @@ endif;
 //add_filter( 'wp_grid_builder/grid/settings', 'bjm_wpgb_archive_grid_settings', 10, 1 );
 
 
-if ( ! function_exists( 'blokki_wpgb_override_posts_query_with_block' ) ) :
+if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 
-function blokki_wpgb_override_posts_query_with_block($settings){
+	function blokki_wpgb_override_grid_settings_with_block( $settings ) {
 
-	$post_query_args = blokki_get_posts_query_for_block();
-	$settings = wp_parse_args( $post_query_args, $settings);
+//		$grid_id = (int) get_field( 'wpgb_grid_for_block' );
+//
+//		if ( $grid_id !== $settings['id'] ) {
+//			return $settings;
+//		}
 
-	return $settings;
+		$block_fields = Blokki()->blocks->get_current_block_fields();
 
-}
+		if ( empty( $block_fields ) ) {
+			return $settings;
+		}
+
+		$post_query_args = blokki_get_posts_query_for_block( $block_fields );
+		$settings        = wp_parse_args( $post_query_args, $settings );
+
+//		blokki_dump( $settings);
+		/**
+		 * Check if we have facets for top region
+		 */
+		$facets_top = $block_fields['wpgb_facets_top'] ?? null;
+		if ( $facets_top && isset( $settings['grid_layout']['area-top-1']['facets'] ) ) {
+			$settings['grid_layout']['area-top-1']['facets'] = $facets_top;
+		}
+
+		/**
+		 * Check if we have facets for bottom region
+		 */
+		$facets_bottom = $block_fields['wpgb_facets_bottom'] ?? null;
+		if ( $facets_bottom && isset( $settings['grid_layout']['area-bottom-1']['facets'] ) ) {
+			$settings['grid_layout']['area-bottom-1']['facets'] = $facets_bottom;
+		}
+
+		return $settings;
+
+	}
+
+endif;
+add_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_settings_with_block' );
+
+if ( ! function_exists( 'blokki_wpgb_override_facet_settings_with_block' ) ) :
+
+	function blokki_wpgb_override_facet_settings_with_block( $settings ) {
+
+//		$grid_id = (int) get_field( 'wpgb_grid_for_block' );
+//
+//		if ( $grid_id !== $settings['id'] ) {
+//			return $settings;
+//		}
+
+		blokki_dump( $settings );
+
+		return $settings;
+
+
+	}
 
 endif;

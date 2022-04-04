@@ -78,13 +78,14 @@ function blokki_get_posts_query_from_block( $block ) {
 
 }
 
-function blokki_get_posts_query_for_block() {
+function blokki_get_posts_query_for_block( $block_data = [] ) {
 
 
 	$default_args = blokki_get_default_posts_query_args();
 
-
-	$block_data = get_fields();
+	if ( empty( $block_data ) ) {
+		$block_data = get_fields();
+	}
 	if ( ! $block_data ) {
 		$block_data = [];
 	}
@@ -479,9 +480,9 @@ if ( ! function_exists( 'blokki_get_grid_layout_classes' ) ) :
 		/**
 		 * Update Grid Classes with Card options
 		 */
-		$layout_classes['small_up'] = 'small-up-' . $cards_small_up;
-		$layout_classes['medium_up'] = 'medium-up-' . $cards_medium_up;
-		$layout_classes['large_up'] = 'large-up-' . $cards_large_up;
+		$layout_classes['small_up']      = 'small-up-' . $cards_small_up;
+		$layout_classes['medium_up']     = 'medium-up-' . $cards_medium_up;
+		$layout_classes['large_up']      = 'large-up-' . $cards_large_up;
 		$layout_classes['feature_first'] = $feature_first ? 'feature-first' : '';
 		$layout_classes['grid_margin_x'] = $grid_margin_x ? 'grid-margin-x' : '';
 		$layout_classes['grid_margin_y'] = $grid_margin_y ? 'grid-margin-y' : '';

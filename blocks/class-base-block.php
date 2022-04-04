@@ -25,14 +25,6 @@ class BaseBlock {
 
 	private $post_query_args;
 
-	public function __construct( $block ) {
-
-		$this->block = $block;
-
-	}
-
-
-
 	function get_posts_args( ) {
 
 		$block = $this->block;

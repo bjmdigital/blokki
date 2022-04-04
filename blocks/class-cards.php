@@ -21,10 +21,7 @@ if ( class_exists( 'Blokki\Blocks\Cards' ) ) {
  */
 class Cards extends BaseBlock {
 
-	public function __construct($block) {
-		parent::__construct($block);
 
-	}
 
 	/**
 	 * Render the Block

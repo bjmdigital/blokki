@@ -20,6 +20,12 @@ if ( class_exists( 'Blokki\Blocks' ) ) {
  */
 class Blocks {
 
+	private $block;
+
+	private $current_block_fields;
+
+	private $block_fields = [];
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -213,5 +219,29 @@ class Blocks {
 
 	}
 
+
+	public function get_current_block_fields() {
+		return $this->current_block_fields;
+	}
+
+	public function set_current_block_fields( $block_fields ) {
+		return $this->current_block_fields = $block_fields;
+	}
+
+	public function reset_current_block_fields() {
+		return $this->current_block_fields = [];
+	}
+
+	public function get_block_fields( string $block_id ) {
+		return isset( $this->block_fields[ $block_id ] ) ? $this->block_fields[ $block_id ] : [];
+	}
+
+	public function set_block_fields( string $block_id, array $block_fields ) {
+		return $this->block_fields[ $block_id ] = $block_fields;
+	}
+
+	public function reset_block_fields( string $block_id ) {
+		unset( $this->block_fields[ $block_id ] );
+	}
 
 }

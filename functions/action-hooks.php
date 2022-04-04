@@ -242,3 +242,5 @@ add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config 
 //
 //
 //} );
+
+
