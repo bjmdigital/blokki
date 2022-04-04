@@ -179,7 +179,7 @@ class AcfBlocks {
 				$block['render_template'] = blokki_locate_template( "blocks/{$block_name}.php" );
 			}
 
-			acf_register_block( $block );
+			acf_register_block_type( $block );
 
 
 		endforeach;
@@ -219,6 +219,16 @@ class AcfBlocks {
 			'category'    => 'theme',
 			'icon'        => 'excerpt-view',
 			'keywords'    => [ 'blokki', 'accordions', 'cpt', 'grid', 'cards', 'post type' ],
+		];
+
+		$blocks[] = [
+			'name'        => 'grid-with-filters',
+			'title'       => __( 'Blokki Grid with filters' ),
+			'description' => __( 'Add WPGB Grid with facets.' ),
+			'category'    => 'theme',
+			'icon'        => 'schedule',
+			'keywords'    => [ 'blokki', 'wp grid builder', 'grid', 'cards', 'filter', 'facet' ],
+			'mode'        => 'edit',
 		];
 
 		return apply_filters( 'blokki_acf_blocks_config', $blocks );

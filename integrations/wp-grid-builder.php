@@ -472,3 +472,17 @@ if ( ! function_exists( 'bjm_wpgb_archive_grid_settings' ) ) :
 endif;
 
 //add_filter( 'wp_grid_builder/grid/settings', 'bjm_wpgb_archive_grid_settings', 10, 1 );
+
+
+if ( ! function_exists( 'blokki_wpgb_override_posts_query_with_block' ) ) :
+
+function blokki_wpgb_override_posts_query_with_block($settings){
+
+	$post_query_args = blokki_get_posts_query_for_block();
+	$settings = wp_parse_args( $post_query_args, $settings);
+
+	return $settings;
+
+}
+
+endif;
