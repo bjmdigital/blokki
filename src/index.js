@@ -1,8 +1,11 @@
 // import {addFilter} from '@wordpress/hooks';
+
+
+import "./blocks/style.scss";
 /**
  * Import all blocks
  */
-import "./blocks/style.scss";
+
 import "./blocks/cards";
 import "./blocks/accordions";
 import "./blocks/grid";

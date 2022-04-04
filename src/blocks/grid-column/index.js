@@ -13,6 +13,11 @@ registerBlockType('blokki/grid-column', {
 	supports: {
 		html: false
 	},
+	attributes: {
+		backgroundColor: {
+			type: 'string'
+		}
+	},
     edit,
     save
 })
