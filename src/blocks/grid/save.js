@@ -1,13 +1,26 @@
 import {InnerBlocks, useBlockProps} from '@wordpress/block-editor'
 import {mapAlignment} from '../helpers'
 
+
 export default function Save({attributes}) {
 
-    const {colWidth, gridGap, alignItems} = attributes;
-    console.log(gridGap);
+    const {
+        colWidth, gridGap, alignItems, largeUp, mediumUp, smallUp
+    } = attributes;
+
+    const gridClasses = [];
+    gridClasses.push('large-up-' + largeUp);
+    gridClasses.push('medium-up-' + mediumUp);
+    gridClasses.push('small-up-' + smallUp);
+
+    const blockProps = useBlockProps.save({
+        className: gridClasses.join(' '),
+    });
+
+
     const style = {};
-    if (colWidth) {
-        style.gridTemplateColumns = `repeat(auto-fit, minmax(${colWidth}px, 1fr))`;
+    if ('' !== colWidth) {
+        style.gridTemplateColumns = `repeat(auto-fit, minmax(${colWidth}, 1fr))`;
     }
     if ('' !== gridGap) {
         style.gridGap = gridGap;
@@ -16,7 +29,7 @@ export default function Save({attributes}) {
         style.alignItems = mapAlignment(alignItems);
     }
     return (
-        <div className="blokki-grid" style={style}>
+        <div {...blockProps} style={style}>
             <InnerBlocks.Content/>
         </div>
     )

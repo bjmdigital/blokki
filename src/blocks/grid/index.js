@@ -9,7 +9,7 @@ import './style.scss';
 
 registerBlockType('blokki/grid', {
     icon,
-    title: __('Grid', 'blokki'),
+    title: __('Blokki Grid', 'blokki'),
     description: __('Blokki blocks grid.', 'blokki'),
 	attributes: attrs,
 	category: 'theme',

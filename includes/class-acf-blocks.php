@@ -203,17 +203,6 @@ class AcfBlocks {
 
 		$blocks = [];
 
-		// TODO: update text domain for strings
-
-		$blocks[] = [
-			'name'        => 'test-block',
-			'title'       => __( 'Blokki Test Block', 'blokki' ),
-			'description' => __( 'For Testing', 'blokki' ),
-			'category'    => 'theme',
-			'icon'        => 'admin-comments',
-			'keywords'    => [ 'blokki', 'recent_posts' ],
-		];
-
 		$blocks[] = [
 			'name'        => 'cards',
 			'title'       => __( 'Blokki Cards' ),
