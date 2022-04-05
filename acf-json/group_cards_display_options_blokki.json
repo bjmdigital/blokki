@@ -4,7 +4,7 @@
     "fields": [
         {
             "key": "field_623dd7ae44684",
-            "label": "Cards Display Options",
+            "label": "Display Options",
             "name": "",
             "type": "accordion",
             "instructions": "",
@@ -351,5 +351,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648736495
+    "modified": 1649121185
 }

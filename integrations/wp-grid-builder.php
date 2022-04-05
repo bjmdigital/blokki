@@ -548,60 +548,43 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 
 	function blokki_wpgb_override_grid_settings_with_block( $settings ) {
 
-//		$grid_id = (int) get_field( 'wpgb_grid_for_block' );
-//
-//		if ( $grid_id !== $settings['id'] ) {
-//			return $settings;
-//		}
+		$block_id = Blokki()->blocks->get_current_block_id();
+		if ( ! $block_id ) {
+			return $settings;
+		}
+		$block_fields = Blokki()->blocks->get_block_fields( $block_id );
 
-		$block_fields = Blokki()->blocks->get_current_block_fields();
-
-		if ( empty( $block_fields ) ) {
+		if ( ! $block_fields ) {
 			return $settings;
 		}
 
 		$post_query_args = blokki_get_posts_query_for_block( $block_fields );
 		$settings        = wp_parse_args( $post_query_args, $settings );
 
-//		blokki_dump( $settings);
+		/**
+		 * Try to add block_id to settings as well and then target on the basis of block id
+		 */
+
 		/**
 		 * Check if we have facets for top region
 		 */
-		$facets_top = $block_fields['wpgb_facets_top'] ?? null;
-		if ( $facets_top && isset( $settings['grid_layout']['area-top-1']['facets'] ) ) {
-			$settings['grid_layout']['area-top-1']['facets'] = $facets_top;
-		}
+//		$facets_top = $block_fields['wpgb_facets_top'] ?? null;
+//		if ( $facets_top && isset( $settings['grid_layout']['area-top-1']['facets'] ) ) {
+//			$settings['grid_layout']['area-top-1']['facets'] = $facets_top;
+//		}
 
 		/**
 		 * Check if we have facets for bottom region
 		 */
-		$facets_bottom = $block_fields['wpgb_facets_bottom'] ?? null;
-		if ( $facets_bottom && isset( $settings['grid_layout']['area-bottom-1']['facets'] ) ) {
-			$settings['grid_layout']['area-bottom-1']['facets'] = $facets_bottom;
-		}
-
-		return $settings;
-
-	}
-
-endif;
-add_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_settings_with_block' );
-
-if ( ! function_exists( 'blokki_wpgb_override_facet_settings_with_block' ) ) :
-
-	function blokki_wpgb_override_facet_settings_with_block( $settings ) {
-
-//		$grid_id = (int) get_field( 'wpgb_grid_for_block' );
-//
-//		if ( $grid_id !== $settings['id'] ) {
-//			return $settings;
+//		$facets_bottom = $block_fields['wpgb_facets_bottom'] ?? null;
+//		if ( $facets_bottom && isset( $settings['grid_layout']['area-bottom-1']['facets'] ) ) {
+//			$settings['grid_layout']['area-bottom-1']['facets'] = $facets_bottom;
 //		}
 
-		blokki_dump( $settings );
-
 		return $settings;
-
 
 	}
 
 endif;
+
+add_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_settings_with_block' );

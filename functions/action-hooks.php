@@ -92,15 +92,26 @@ add_filter( 'blokki_get_post_type_config_bjm_glossary', function ( $post_type_co
 
 } );
 
+//add_filter( 'blokki_get_post_type_config_bjm_loan', function ( $post_type_config ) {
+//
+//	$post_type_config = [
+//		'link_card' => true,
+//	];
+//
+//
+//	return $post_type_config;
+//
+//} );
+
 add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 
 	$post_type_config = [
-		'taxonomy'   => 'category',
-//		'link_taxonomy' => false,
+		'taxonomy'      => 'category',
+		'link_taxonomy' => true,
 //		'show_date'     => true,
 //		'show_meta'  => false,
-		'show_inner' => false,
-		'image_size' => '',
+		'show_inner'    => false,
+		'image_size'    => '',
 ////		'link_target'   => '_blank',
 //		'link_card'     => true,
 //		'link_image'    => true,
@@ -108,12 +119,13 @@ add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 //		'show_readmore' => true,
 //		'show_taxonomy' => true,
 //		'title_html_tag' => 'h4',
-		'partials'   => [
-			'image',
+		'partials'      => [
 			'title',
 			'excerpt',
+			'image',
 			'meta' => [
-				'date'
+				'date',
+				'taxonomy'
 			],
 			'readmore',
 //			'inner' => [
@@ -232,15 +244,15 @@ add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config 
 //} );
 
 
-//add_action( 'blokki_block_accordions_partial_after_accordion_button_title', function(){
-//
-//	if('bjm_faq' !== get_post_type()){
-//		return null;
-//	}
-//
-//	printf('<span class="button-title-after"><a href="https://example.com" target="_blank">%s</a></span>', 'Super Man');
-//
-//
-//} );
+add_action( 'blokki_block_accordions_partial_after_accordion_button_title', function () {
+
+	if ( 'bjm_faq' !== get_post_type() ) {
+		return null;
+	}
+
+	printf( '<span class="button-title-after"><a href="https://example.com" target="_blank">%s</a></span>', 'Super Man' );
+
+
+} );
 
 

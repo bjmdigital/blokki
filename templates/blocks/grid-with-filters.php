@@ -11,13 +11,12 @@ $grid_id = (int) get_field( 'wpgb_grid_for_block' );
 $facets_top = get_field( 'wpgb_facets_top' );
 
 $block_id = isset( $block['id'] ) ? $block['id'] : '';
-
 /**
  * HTML Output
  */
 printf( '<div class="%s">', implode( ' ', $block_classes ) );
 
-Blokki()->blocks->set_current_block_fields( get_fields() );
+Blokki()->blocks->set_block_fields( $block_id, get_fields() );
 
 /**
  * Add the filter to override post query
@@ -42,5 +41,5 @@ remove_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_setti
 //               ->set_template_data( $template, 'template' )
 //               ->set_template_data( $block, 'block' )
 //               ->get_template_part( 'loop' );
-Blokki()->blocks->reset_current_block_fields();
+//Blokki()->blocks->reset_block_fields( $block_id );
 printf( '</div><!-- .wp-block-acf-blokki-grid-with-filters -->' );
