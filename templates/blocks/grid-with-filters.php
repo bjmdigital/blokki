@@ -36,10 +36,5 @@ wpgb_render_grid( [
  */
 remove_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_settings_with_block' );
 
-//Grid Loop template
-//blokki_loader()->set_template_data( $loop, 'loop' )
-//               ->set_template_data( $template, 'template' )
-//               ->set_template_data( $block, 'block' )
-//               ->get_template_part( 'loop' );
-//Blokki()->blocks->reset_block_fields( $block_id );
+
 printf( '</div><!-- .wp-block-acf-blokki-grid-with-filters -->' );

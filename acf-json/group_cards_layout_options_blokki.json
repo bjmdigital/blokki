@@ -82,7 +82,7 @@
         },
         {
             "key": "field_5f4dafc835dcf",
-            "label": "Cards Layout",
+            "label": "Layout Options",
             "name": "",
             "type": "accordion",
             "instructions": "",
@@ -175,44 +175,6 @@
             "ui": 0,
             "ui_on_text": "",
             "ui_off_text": ""
-        },
-        {
-            "key": "field_623d5af70000a",
-            "label": "Horizontal Gap between cards",
-            "name": "grid_margin_x",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_623d5e6c72203",
-            "label": "Vertical Gap between cards",
-            "name": "grid_margin_y",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 1,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
         }
     ],
     "location": [
@@ -239,5 +201,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648736114
+    "modified": 1649190573
 }

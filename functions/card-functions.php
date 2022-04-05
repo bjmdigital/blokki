@@ -17,69 +17,7 @@ function blokki_get_current_post_id() {
 
 }
 
-function blokki_get_posts_query_from_block( $block ) {
-
-
-	$default_args = blokki_get_default_posts_query_args();
-	if ( is_null( $block ) || ! isset( $block['data'] ) ) {
-		return $default_args;
-	}
-
-	$block_data = $block['data'];
-
-	$query_args = array_intersect_key( $block_data, array_flip( blokki_get_available_query_args() ) );
-
-	/**
-	 * Exclude Current Post
-	 */
-	if ( get_the_ID() && ( $block_data['exclude_current_post'] ?? 0 ) ) {
-		$query_args['post__not_in'] = [ get_the_ID() ];
-	}
-
-	/**
-	 * Show only top level
-	 */
-	if ( $block_data['show_only_top_level'] ?? 0 ) {
-		$query_args['post_parent'] = 0;
-	}
-
-	/**
-	 * Taxonomy Query
-	 */
-	if (
-		( $block_data['tax_query'] ?? '' )
-		&&
-		( $query_args['tax_query'] ?? '' )
-	) {
-
-		/**
-		 * Try to decode JSON
-		 */
-		$tax_query = blokki_json_decode( $query_args['tax_query'] );
-
-		/**
-		 * If we found valid array, then set the tax_query, else unset it
-		 */
-		if ( ! empty( $tax_query ) ) {
-			$query_args['tax_query'] = $tax_query;
-		} else {
-			unset( $query_args['tax_query'] );
-		}
-
-	} else {
-		unset( $query_args['tax_query'] );
-	}
-
-
-	$query_args = wp_parse_args( $query_args, $default_args );
-
-	return $query_args;
-
-
-}
-
 function blokki_get_posts_query_for_block( $block_data = [] ) {
-
 
 	$default_args = blokki_get_default_posts_query_args();
 
@@ -89,13 +27,23 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 	if ( ! $block_data ) {
 		$block_data = [];
 	}
+	/**
+	 * Include Current Post
+	 */
+	if ( ( $block_data['include_current_post'] ?? 0 ) ) {
+		unset( $default_args['post__not_in'] );
+	}
+
+
 	$query_args = array_intersect_key( $block_data, array_flip( blokki_get_available_query_args() ) );
 
 	/**
-	 * Exclude Current Post
+	 * Show Children of Specific Post
 	 */
-	if ( get_the_ID() && ( $block_data['exclude_current_post'] ?? 0 ) ) {
-		$query_args['post__not_in'] = [ get_the_ID() ];
+	$post_parent = intval( $block_data['post_parent'] ?? 0 );
+
+	if ( $post_parent ) {
+		$query_args['post_type'] = get_post_type( $post_parent );
 	}
 
 	/**
@@ -140,6 +88,7 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 
 }
 
+
 function blokki_get_default_posts_query_args() {
 
 	$default_query_args = [
@@ -148,6 +97,11 @@ function blokki_get_default_posts_query_args() {
 		'post_status'         => 'publish',
 		'ignore_sticky_posts' => true
 	];
+
+
+	if ( get_the_ID() ) {
+		$default_query_args['post__not_in'] = [ get_the_ID() ];
+	}
 
 
 	return $default_query_args;
@@ -474,8 +428,6 @@ if ( ! function_exists( 'blokki_get_grid_layout_classes' ) ) :
 		$cards_medium_up = get_field( 'medium_up' ) ?? 2;
 		$cards_large_up  = get_field( 'large_up' ) ?? 3;
 		$feature_first   = get_field( 'feature_first' ) ?? false;
-		$grid_margin_x   = get_field( 'grid_margin_x' ) ?? false;
-		$grid_margin_y   = get_field( 'grid_margin_y' ) ?? false;
 
 		/**
 		 * Update Grid Classes with Card options
@@ -484,8 +436,10 @@ if ( ! function_exists( 'blokki_get_grid_layout_classes' ) ) :
 		$layout_classes['medium_up']     = 'medium-up-' . $cards_medium_up;
 		$layout_classes['large_up']      = 'large-up-' . $cards_large_up;
 		$layout_classes['feature_first'] = $feature_first ? 'feature-first' : '';
-		$layout_classes['grid_margin_x'] = $grid_margin_x ? 'grid-margin-x' : '';
-		$layout_classes['grid_margin_y'] = $grid_margin_y ? 'grid-margin-y' : '';
+		if ( blokki_is_foundation_support() ) {
+			$layout_classes['grid_margin_x'] = 'grid-margin-x';
+			$layout_classes['grid_margin_y'] = 'grid-margin-y';
+		}
 
 		// Remove empty values
 		$layout_classes = array_filter( $layout_classes );
