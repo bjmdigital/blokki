@@ -1,79 +1,119 @@
 import {
-	TextControl,
-	PanelBody,
-	ColorIndicator,
-	RadioControl,
-	ButtonGroup,
-	Button,
-	IconButton
+    TextControl,
+    PanelBody,
+    ToggleControl,
+    SelectControl,
 } from '@wordpress/components';
 
 import {__} from '@wordpress/i18n';
 
 import {
-	InnerBlocks,
-	useBlockProps,
-	RichText,
-	InspectorControls,
-	ColorPalette,
-	BlockControls,
-	AlignmentToolbar,
-	PanelColorSettings,
-	withColors
+    InnerBlocks,
+    InspectorControls,
+    PanelColorSettings,
 } from '@wordpress/block-editor'
 
-import { useState } from '@wordpress/element';
+import PaddingControl from "../padding-control";
 
-import classnames from 'classnames';
+import {getPaddingClasses} from "../helpers";
 
-export default function Edit({attributes, className, setAttributes, textColor, backgroundColor ,setTextColor, setBackgroundColor}) {
+export default function Edit(props) {
 
-	let divClass = [];
-	let divStyles = {};
-	if (textColor !== undefined) {
-		if (textColor.class !== undefined) {
-			divClass.push(textColor.class);
-		} else {
-			divStyles.color = textColor.color;
-		}
-	}
+    const {
+        attributes,
+        setAttributes,
+        textColor,
+        backgroundColor,
+        setTextColor,
+        setBackgroundColor
+    } = props;
 
-	if (backgroundColor !== undefined) {
-		if (backgroundColor.class !== undefined) {
-			divClass.push(backgroundColor.class);
-		} else {
-			divStyles.backgroundColor = backgroundColor.color;
-		}
-	}
+    const {
+        hasColumnLink,
+        columnLinkURL,
+        columnLinkTitle,
+        columnLinkTarget,
+    } = attributes;
 
-	const blockProps = useBlockProps();
+    let divClasses = [];
 
-	return [
-		<InspectorControls>
-			<PanelColorSettings
-				title={__('Color settings')}
-				colorSettings={[
-					{
-						value: textColor.color,
-						onChange: setTextColor,
-						label: __('Text color')
-					},
-					{
-						value: backgroundColor.color,
-						onChange: setBackgroundColor,
-						label: __('Background color')
-					},
-				]}
-			/>
+    let divStyles = {};
+    if (textColor !== undefined) {
+        if (textColor.class !== undefined) {
+            divClasses.push(textColor.class);
+        } else {
+            divStyles.color = textColor.color;
+        }
+    }
 
-		</InspectorControls>,
-		<div className={divClass.join(' ')} style={divStyles}>
-			<InnerBlocks />
-		</div>
-	];
-	// return (
-	// 	<div className="wp-block-blokki-grid-column">
-	// 		<InnerBlocks />
-	// 	</div>
-	// )
+    if (backgroundColor !== undefined) {
+        if (backgroundColor.class !== undefined) {
+            divClasses.push(backgroundColor.class);
+        } else {
+            divStyles.backgroundColor = backgroundColor.color;
+        }
+    }
+
+    /**
+     * Add Padding Classes
+     */
+    divClasses.push(...getPaddingClasses(attributes));
+
+    return [
+        <InspectorControls>
+            <PanelColorSettings
+                title={__('Color settings')}
+                colorSettings={[
+                    {
+                        value: textColor.color,
+                        onChange: setTextColor,
+                        label: __('Text color')
+                    },
+                    {
+                        value: backgroundColor.color,
+                        onChange: setBackgroundColor,
+                        label: __('Background color')
+                    },
+                ]}
+            />
+            <PanelBody title={__('Display Settings', 'blokki')}>
+                <PaddingControl {...props} />
+                <ToggleControl
+                    label={__("Link Column ?", "blokki")}
+                    checked={hasColumnLink}
+                    onChange={hasColumnLink => setAttributes({hasColumnLink})}
+                />
+                {
+                    hasColumnLink && [
+                        <TextControl
+                            label={__('Link URL', 'blokki')}
+                            type={'url'}
+                            value={columnLinkURL}
+                            onChange={columnLinkURL => setAttributes({columnLinkURL})}
+                        />,
+                        <TextControl
+                            label={__('Link Title', 'blokki')}
+                            value={columnLinkTitle}
+                            onChange={columnLinkTitle => setAttributes({columnLinkTitle})}
+                        />,
+                        <SelectControl
+                            label={__("Link Target", "blokki")}
+                            value={columnLinkTarget}
+                            options={[
+                                {value: "_self", label: __("_self", "blokki")},
+                                {value: "_blank", label: __("_blank", "blokki")},
+                                {value: "_top", label: __("_top", "blokki")},
+                                {value: "_parent", label: __("_parent", "blokki")}
+                            ]}
+                            onChange={columnLinkTarget => setAttributes({columnLinkTarget})}
+                        />
+                    ]
+                }
+
+            </PanelBody>
+        </InspectorControls>,
+        <div className={divClasses.join(' ')} style={divStyles}>
+            <InnerBlocks/>
+        </div>
+    ];
 }

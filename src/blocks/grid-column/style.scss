@@ -1,0 +1,15 @@
+.wp-block-blokki-grid-column {
+
+  &.has-column-link {
+    position: relative;
+  }
+
+  .blokki-grid-column-link {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+
+}

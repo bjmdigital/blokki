@@ -10,3 +10,29 @@ export function mapAlignment(value) {
 
 	return alignment[value]
 }
+
+export function getPaddingClasses(attributes){
+	const paddingClasses = [];
+
+	const{
+		paddingTop,
+		paddingBottom,
+		paddingLeft,
+		paddingRight
+	} = attributes
+
+	if (paddingTop) {
+		paddingClasses.push('has-padding-top-' + paddingTop)
+	}
+	if (paddingBottom) {
+		paddingClasses.push('has-padding-bottom-' + paddingBottom)
+	}
+	if (paddingLeft) {
+		paddingClasses.push('has-padding-left-' + paddingLeft)
+	}
+	if (paddingRight) {
+		paddingClasses.push('has-padding-right-' + paddingRight)
+	}
+
+	return paddingClasses;
+}

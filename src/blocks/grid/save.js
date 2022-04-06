@@ -1,5 +1,5 @@
 import {InnerBlocks, useBlockProps} from '@wordpress/block-editor'
-import {mapAlignment} from '../helpers'
+import {mapAlignment, getPaddingClasses} from '../helpers'
 
 
 export default function Save({attributes}) {
@@ -8,10 +8,14 @@ export default function Save({attributes}) {
         colWidth, gridGap, alignItems, largeUp, mediumUp, smallUp
     } = attributes;
 
-    const gridClasses = [];
+    const gridClasses = ['blokki-grid'];
     gridClasses.push('large-up-' + largeUp);
     gridClasses.push('medium-up-' + mediumUp);
     gridClasses.push('small-up-' + smallUp);
+    /**
+     * Add Padding Classes
+     */
+    gridClasses.push(...getPaddingClasses(attributes))
 
     const blockProps = useBlockProps.save({
         className: gridClasses.join(' '),

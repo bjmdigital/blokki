@@ -1,31 +1,36 @@
 import {
     InnerBlocks,
-    useBlockProps,
     getColorClassName
 } from '@wordpress/block-editor'
-
-
-import classnames from 'classnames';
+import {getPaddingClasses} from "../helpers";
 
 export default function Save({attributes}) {
-    const blockProps = useBlockProps.save();
 
-    const{
+    const {
         textColor,
         customTextColor,
         backgroundColor,
-        customBackgroundColor
+        customBackgroundColor,
+        hasColumnLink,
+        columnLinkURL,
+        columnLinkTitle,
+        columnLinkTarget,
     } = attributes;
 
-    let divClass = [];
+    let divClasses = [];
     let divStyles = {};
 
     if (textColor !== undefined) {
-        divClass.push(getColorClassName('color', textColor));
+        divClasses.push(getColorClassName('color', textColor));
     }
     if (backgroundColor !== undefined) {
-        divClass.push(getColorClassName('background-color', backgroundColor));
+        divClasses.push(getColorClassName('background-color', backgroundColor));
     }
+
+    /**
+     * Add Padding Classes
+     */
+    divClasses.push(...getPaddingClasses(attributes))
 
     if (customTextColor !== undefined) {
         divStyles.color = customTextColor;
@@ -33,10 +38,17 @@ export default function Save({attributes}) {
     if (customBackgroundColor !== undefined) {
         divStyles.backgroundColor = customBackgroundColor;
     }
-
+    if (hasColumnLink) {
+        divClasses.push('has-column-link');
+    }
+    const linkMarkup = !hasColumnLink ? '' : (
+        <a className={"blokki-grid-column-link"} title={columnLinkTitle} href={columnLinkURL}
+           target={columnLinkTarget} rel={"noopener"}></a>
+    );
 
     return (
-        <div className={divClass.join(' ')} style={divStyles}>
+        <div className={divClasses.join(' ')} style={divStyles}>
+            {linkMarkup}
             <InnerBlocks.Content/>
         </div>
     )

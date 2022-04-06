@@ -10,12 +10,22 @@
 //$break-mobile: 480px;
 //$break-zoomed-in: 280px;
 
+$blokki-padding-small: var(--blokki-has-padding-small, 1rem);
+$blokki-padding-medium: var(--blokki-has-padding-medium, 2rem);
+$blokki-padding-large: var(--blokki-has-padding-large, 3rem);
 
 $blokki-breakpoints: (
         small: 0,
         medium: 768px,
         large: 1080px,
 );
+
+$blokki-padding-map: (
+        small: $blokki-padding-small,
+        medium: $blokki-padding-medium,
+        large: $blokki-padding-large,
+);
+
 
 $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--blokki-grid-editor-border-style, dotted) var(--blokki-grid-editor-border-color, #D7D7D7);
 
@@ -35,6 +45,21 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
   @media screen and (min-width: #{map-get($blokki-breakpoints, xlarge)}) {
     @content;
   }
+}
+
+
+@mixin blokkiPaddingRules {
+
+  $padding-direction: 'top', 'bottom', 'left', 'right';
+
+  @each $padding-size, $padding-value in $blokki-padding-map {
+    @each $direction in $padding-direction {
+      .has-padding-#{$direction}-#{$padding-size} {
+        padding-#{$direction} : $padding-value;
+      }
+    }
+  }
+
 }
 
 
@@ -64,3 +89,10 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
   }
 }
 
+
+@include blokkiPaddingRules;
+//.wp-block {
+//  > * {
+//    @include blokkiPaddingRules;
+//  }
+//}

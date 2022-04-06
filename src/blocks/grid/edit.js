@@ -7,10 +7,21 @@ import {
     RangeControl
 } from '@wordpress/components'
 
-import {mapAlignment} from '../helpers'
+import PaddingControl from "../padding-control";
+
+import {
+    mapAlignment,
+    getPaddingClasses
+} from '../helpers'
 import './editor.scss'
 
-export default function Edit({attributes, setAttributes}) {
+
+export default function Edit(props) {
+    const {
+        attributes,
+        setAttributes,
+    } = props;
+
     const {
         colWidth,
         gridGap,
@@ -19,7 +30,12 @@ export default function Edit({attributes, setAttributes}) {
         mediumUp,
         smallUp
 
-    } = attributes
+    } = attributes;
+    let divClasses = ['wp-block-blokki-grid'];
+    /**
+     * Add Padding Classes
+     */
+    divClasses.push(...getPaddingClasses(attributes));
     const TEMPLATE = [['blokki/grid-column'], ['blokki/grid-column'], ['blokki/grid-column']];
     const ALLOWED_BLOCKS = ['blokki/grid-column'];
     return (
@@ -49,18 +65,19 @@ export default function Edit({attributes, setAttributes}) {
                         max={6}
                     />
                 </PanelBody>
-                <PanelBody title={__('Display', 'blokki')}>
+                <PanelBody title={__('Display Settings', 'blokki')}>
+                    <PaddingControl {...props} />
                     <TextControl
                         label={__('Column spacing', 'blokki')}
                         value={gridGap}
                         onChange={gridGap => setAttributes({gridGap})}
-                        help = {__('with units i.e 10px, 1rem', 'blokki')}
+                        help={__('with units i.e 10px, 1rem', 'blokki')}
                     />
                     <TextControl
                         label={__('Columns minimum width', 'blokki')}
                         value={colWidth}
                         onChange={colWidth => setAttributes({colWidth})}
-                        help = {__('with units i.e 200px, 10rem', 'blokki')}
+                        help={__('with units i.e 200px, 10rem', 'blokki')}
                     />
                 </PanelBody>
             </InspectorControls>
@@ -70,7 +87,7 @@ export default function Edit({attributes, setAttributes}) {
                     onChange={alignItems => setAttributes({alignItems})}
                 />
             </BlockControls>
-            <div className="wp-block-blokki-grid" style={{
+            <div className={divClasses.join(' ')} style={{
                 '--blokki-grid-gap': `${gridGap}`,
                 '--blokki-col-width': `${colWidth}`,
                 '--blokki-align-items': `${mapAlignment(alignItems)}`,
