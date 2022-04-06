@@ -17,38 +17,57 @@ import {
 	InspectorControls,
 	ColorPalette,
 	BlockControls,
-	AlignmentToolbar
-
+	AlignmentToolbar,
+	PanelColorSettings,
+	withColors
 } from '@wordpress/block-editor'
+
+import { useState } from '@wordpress/element';
 
 import classnames from 'classnames';
 
-export default function Edit({attributes, className, setAttributes}) {
+export default function Edit({attributes, className, setAttributes, textColor, backgroundColor ,setTextColor, setBackgroundColor}) {
+
+	let divClass = [];
+	let divStyles = {};
+	if (textColor !== undefined) {
+		if (textColor.class !== undefined) {
+			divClass.push(textColor.class);
+		} else {
+			divStyles.color = textColor.color;
+		}
+	}
+
+	if (backgroundColor !== undefined) {
+		if (backgroundColor.class !== undefined) {
+			divClass.push(backgroundColor.class);
+		} else {
+			divStyles.backgroundColor = backgroundColor.color;
+		}
+	}
 
 	const blockProps = useBlockProps();
 
-	console.log(attributes);
-
 	return [
 		<InspectorControls>
-			<PanelBody title={__('Color Settings', 'blokki')}>
-				<div className="components-base-control">
-					<div className="components-base-control__field">
-						<label className="components-base-control__label">
-							{__('Background Color', 'blokki')}
-							<ColorIndicator colorValue={attributes.backgroundColor}/>
-						</label>
-						<ColorPalette
-							value={attributes.backgroundColor}
-							onChange={backgroundColor => setAttributes({backgroundColor})}
-						/>
-					</div>
-				</div>
-			</PanelBody>
+			<PanelColorSettings
+				title={__('Color settings')}
+				colorSettings={[
+					{
+						value: textColor.color,
+						onChange: setTextColor,
+						label: __('Text color')
+					},
+					{
+						value: backgroundColor.color,
+						onChange: setBackgroundColor,
+						label: __('Background color')
+					},
+				]}
+			/>
+
 		</InspectorControls>,
-		<div {...blockProps} style={{
-			backgroundColor: attributes.backgroundColor
-		}}>
+		<div className={divClass.join(' ')} style={divStyles}>
 			<InnerBlocks />
 		</div>
 	];

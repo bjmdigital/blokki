@@ -1,7 +1,11 @@
 import { __ } from '@wordpress/i18n'
 import { registerBlockType } from '@wordpress/blocks'
+import {
+	withColors
+} from '@wordpress/block-editor'
+
 import icon from './icon'
-import edit from './edit'
+import Edit from './edit'
 import save from './save'
 
 registerBlockType('blokki/grid-column', {
@@ -14,10 +18,19 @@ registerBlockType('blokki/grid-column', {
 		html: false
 	},
 	attributes: {
+		textColor: {
+			type: 'string'
+		},
+		customTextColor: {
+			type: 'string'
+		},
 		backgroundColor: {
+			type: 'string'
+		},
+		customBackgroundColor: {
 			type: 'string'
 		}
 	},
-    edit,
+    edit : withColors({textColor: 'color', backgroundColor: 'background-color'})(Edit),
     save
 })
