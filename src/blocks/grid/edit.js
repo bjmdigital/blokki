@@ -36,7 +36,7 @@ export default function Edit(props) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Cards Per Row', 'blokki')}>
+                <PanelBody title={__('Columns Per Row', 'blokki')}>
                     <RangeControl
                         label={__("Desktop", "blokki")}
                         value={largeUp}
@@ -59,7 +59,7 @@ export default function Edit(props) {
                         max={6}
                     />
                 </PanelBody>
-                <PanelBody title={__('Display Settings', 'blokki')}>
+                <PanelBody title={__('Display Settings', 'blokki')} initialOpen={ false }>
                     <TextControl
                         label={__('Column spacing', 'blokki')}
                         value={gridGap}
