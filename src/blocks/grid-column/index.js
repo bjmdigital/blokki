@@ -47,23 +47,6 @@ registerBlockType('blokki/grid-column', {
             type: "string",
             default: "_self"
         },
-        paddingTop: {
-            type: "string",
-            default: ""
-        },
-        paddingBottom: {
-            type: "string",
-            default: ""
-        },
-        paddingLeft: {
-            type: "string",
-            default: ""
-        },
-        paddingRight: {
-            type: "string",
-            default: ""
-        }
-
     },
     edit: withColors({textColor: 'color', backgroundColor: 'background-color'})(Edit),
     save

@@ -2,7 +2,6 @@ import {
     InnerBlocks,
     getColorClassName
 } from '@wordpress/block-editor'
-import {getPaddingClasses} from "../helpers";
 
 export default function Save({attributes}) {
 
@@ -26,11 +25,6 @@ export default function Save({attributes}) {
     if (backgroundColor !== undefined) {
         divClasses.push(getColorClassName('background-color', backgroundColor));
     }
-
-    /**
-     * Add Padding Classes
-     */
-    divClasses.push(...getPaddingClasses(attributes))
 
     if (customTextColor !== undefined) {
         divStyles.color = customTextColor;

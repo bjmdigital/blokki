@@ -22,21 +22,5 @@ export default {
     smallUp: {
         type: "number",
         default: 1
-    },
-    paddingTop: {
-        type: "string",
-        default: ""
-    },
-    paddingBottom: {
-        type: "string",
-        default: ""
-    },
-    paddingLeft: {
-        type: "string",
-        default: ""
-    },
-    paddingRight: {
-        type: "string",
-        default: ""
     }
 }

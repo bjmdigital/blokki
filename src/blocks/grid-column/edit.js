@@ -13,9 +13,6 @@ import {
     PanelColorSettings,
 } from '@wordpress/block-editor'
 
-import PaddingControl from "../padding-control";
-
-import {getPaddingClasses} from "../helpers";
 
 export default function Edit(props) {
 
@@ -54,11 +51,6 @@ export default function Edit(props) {
         }
     }
 
-    /**
-     * Add Padding Classes
-     */
-    divClasses.push(...getPaddingClasses(attributes));
-
     return [
         <InspectorControls>
             <PanelColorSettings
@@ -76,8 +68,7 @@ export default function Edit(props) {
                     },
                 ]}
             />
-            <PanelBody title={__('Display Settings', 'blokki')}>
-                <PaddingControl {...props} />
+            <PanelBody title={__('Link Settings', 'blokki')}>
                 <ToggleControl
                     label={__("Link Column ?", "blokki")}
                     checked={hasColumnLink}

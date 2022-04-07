@@ -77,7 +77,7 @@ addFilter("editor.BlockEdit", "blokki/visibility",
  */
 addFilter("blocks.getSaveContent.extraProps", "blokki/visibility", (props, block, attributes) => {
 
-    const visibilityClasses = getVisibilityClasses(attributes);
+    const visibilityClasses = getVisibilityClasses(attributes, props.className);
 
     if (visibilityClasses.length) {
         return Object.assign(props, {

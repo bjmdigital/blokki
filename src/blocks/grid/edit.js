@@ -7,11 +7,8 @@ import {
     RangeControl
 } from '@wordpress/components'
 
-import PaddingControl from "../padding-control";
-
 import {
-    mapAlignment,
-    getPaddingClasses
+    mapAlignment
 } from '../helpers'
 import './editor.scss'
 
@@ -31,17 +28,14 @@ export default function Edit(props) {
         smallUp
 
     } = attributes;
+
     let divClasses = ['wp-block-blokki-grid'];
-    /**
-     * Add Padding Classes
-     */
-    divClasses.push(...getPaddingClasses(attributes));
+
     const TEMPLATE = [['blokki/grid-column'], ['blokki/grid-column'], ['blokki/grid-column']];
     const ALLOWED_BLOCKS = ['blokki/grid-column'];
     return (
         <>
             <InspectorControls>
-
                 <PanelBody title={__('Cards Per Row', 'blokki')}>
                     <RangeControl
                         label={__("Desktop", "blokki")}
@@ -66,7 +60,6 @@ export default function Edit(props) {
                     />
                 </PanelBody>
                 <PanelBody title={__('Display Settings', 'blokki')}>
-                    <PaddingControl {...props} />
                     <TextControl
                         label={__('Column spacing', 'blokki')}
                         value={gridGap}

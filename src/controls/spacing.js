@@ -18,6 +18,10 @@ import {getSpacingClasses} from "../blocks/helpers";
 addFilter("blocks.registerBlockType", "blokki/spacing", (props, name) => {
     const attributes = {
         ...props.attributes,
+        paddingAll: {
+            type: "string",
+            default: ""
+        },
         paddingTop: {
             type: "string",
             default: ""
@@ -31,6 +35,10 @@ addFilter("blocks.registerBlockType", "blokki/spacing", (props, name) => {
             default: ""
         },
         paddingRight: {
+            type: "string",
+            default: ""
+        },
+        marginAll: {
             type: "string",
             default: ""
         },
@@ -62,10 +70,12 @@ addFilter("editor.BlockEdit", "blokki/spacing",
     createHigherOrderComponent((BlockEdit) => (props) => {
         const {
             attributes: {
+                paddingAll,
                 paddingTop,
                 paddingBottom,
                 paddingLeft,
                 paddingRight,
+                marginAll,
                 marginTop,
                 marginBottom,
                 marginLeft,
@@ -87,6 +97,12 @@ addFilter("editor.BlockEdit", "blokki/spacing",
                 <InspectorControls>
                     <PanelBody title={__("Spacing")} initialOpen={false}>
                         <h5>{__("Padding", "blokki")}</h5>
+                        <SelectControl
+                            label={__("All", "blokki")}
+                            value={paddingAll}
+                            options={spacingOptions}
+                            onChange={paddingAll => setAttributes({paddingAll})}
+                        />
                         <Grid columns={4}>
                             <SelectControl
                                 label={__("Top", "blokki")}
@@ -114,6 +130,12 @@ addFilter("editor.BlockEdit", "blokki/spacing",
                             />
                         </Grid>
                         <h5>{__("Margin", "blokki")}</h5>
+                        <SelectControl
+                            label={__("All", "blokki")}
+                            value={marginAll}
+                            options={spacingOptions}
+                            onChange={marginAll => setAttributes({marginAll})}
+                        />
                         <Grid columns={4}>
                             <SelectControl
                                 label={__("Top", "blokki")}
@@ -148,11 +170,11 @@ addFilter("editor.BlockEdit", "blokki/spacing",
 );
 
 /**
- * Add a new properties i.e. visibility classes to the props object.
+ * Add a new properties i.e. spacing classes to the props object.
  */
 addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, attributes) => {
 
-    const spacingClasses = getSpacingClasses(attributes);
+    const spacingClasses = getSpacingClasses(attributes, props.className);
 
     if (spacingClasses.length) {
         return Object.assign(props, {
@@ -162,3 +184,18 @@ addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, a
 
     return props;
 });
+
+/**
+ * Add spacing classes to editor side as well.
+ */
+addFilter("editor.BlockListBlock", "blokki/spacing",
+    createHigherOrderComponent((BlockListBlock) => (props) => {
+        const spacingClasses = getSpacingClasses(props.attributes);
+
+        if (spacingClasses.length) {
+            return <BlockListBlock {...props} className={ spacingClasses.join(' ') }/>
+        }
+
+        return <BlockListBlock {...props} />
+    })
+);

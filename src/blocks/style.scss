@@ -9,10 +9,15 @@
 //$break-small: 600px;
 //$break-mobile: 480px;
 //$break-zoomed-in: 280px;
+:root {
+  --blokki-has-padding-small: 1rem;
+  --blokki-has-padding-medium: 2rem;
+  --blokki-has-padding-large: 3rem;
+}
 
-$blokki-padding-small: var(--blokki-has-padding-small, 1rem);
-$blokki-padding-medium: var(--blokki-has-padding-medium, 2rem);
-$blokki-padding-large: var(--blokki-has-padding-large, 3rem);
+$blokki-padding-small: var(--blokki-has-padding-small);
+$blokki-padding-medium: var(--blokki-has-padding-medium);
+$blokki-padding-large: var(--blokki-has-padding-large);
 
 $blokki-margin-small: var(--blokki-has-margin-small, 1rem);
 $blokki-margin-medium: var(--blokki-has-margin-medium, 2rem);
@@ -84,12 +89,19 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
 @mixin blokkiPaddingRules {
 
-  $padding-direction: 'top', 'bottom', 'left', 'right';
+  $padding-direction: 'all', 'top', 'bottom', 'left', 'right';
 
-  @each $padding-size, $padding-value in $blokki-padding-map {
-    @each $direction in $padding-direction {
-      .has-padding-#{$direction}-#{$padding-size} {
-        padding-#{$direction} : $padding-value;
+  @each $direction in $padding-direction {
+    @each $padding-size, $padding-value in $blokki-padding-map {
+      @if $direction == all {
+        .has-padding-#{$direction}-#{$padding-size} {
+          padding: $padding-value;
+        }
+
+      } @else {
+        .has-padding-#{$direction}-#{$padding-size} {
+          padding-#{$direction} : $padding-value;
+        }
       }
     }
   }
@@ -98,12 +110,18 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
 @mixin blokkiMarginRules {
 
-  $margin-direction: 'top', 'bottom', 'left', 'right';
+  $margin-direction: 'all', 'top', 'bottom', 'left', 'right';
 
-  @each $size, $value in $blokki-margin-map {
-    @each $direction in $margin-direction {
-      .has-margin-#{$direction}-#{$size} {
-        margin-#{$direction} : $value;
+  @each $direction in $margin-direction {
+    @each $size, $value in $blokki-margin-map {
+      @if $direction == all {
+        .has-margin-#{$direction}-#{$size} {
+          margin: $value;
+        }
+      } @else {
+        .has-margin-#{$direction}-#{$size} {
+          margin-#{$direction} : $value;
+        }
       }
     }
   }
@@ -127,7 +145,6 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
 .blokki-grid {
   &:not(.grid-x) {
-    margin: 0;
     display: grid;
     grid-row-gap: var(--blokki-grid-row-gap, 20px);
     grid-column-gap: var(--blokki-grid-column-gap, 20px);
