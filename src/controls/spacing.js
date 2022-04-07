@@ -10,7 +10,7 @@ import {
 } from '@wordpress/components'
 
 
-import {getSpacingClasses} from "../blocks/helpers";
+import {getSpacingClasses} from "../helpers";
 
 /**
  * Add options for visibility.

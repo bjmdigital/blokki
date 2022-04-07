@@ -1,5 +1,5 @@
 import {InnerBlocks, useBlockProps} from '@wordpress/block-editor'
-import {mapAlignment} from '../helpers'
+import {mapAlignment} from '../../helpers'
 
 
 export default function Save({attributes}) {

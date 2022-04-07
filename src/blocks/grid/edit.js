@@ -9,7 +9,7 @@ import {
 
 import {
     mapAlignment
-} from '../helpers'
+} from '../../helpers'
 import './editor.scss'
 
 

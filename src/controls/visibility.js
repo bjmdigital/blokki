@@ -6,7 +6,7 @@ import {InspectorControls} from '@wordpress/block-editor'
 import {PanelBody, ToggleControl} from '@wordpress/components'
 
 
-import {getVisibilityClasses} from "../blocks/helpers";
+import {getVisibilityClasses} from "../helpers";
 
 /**
  * Add options for visibility.
