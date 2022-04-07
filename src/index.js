@@ -10,8 +10,9 @@ import "./blocks/accordions";
 import "./blocks/grid";
 import "./blocks/grid-column";
 /**
- * Import Block Props
+ * Import Block Controls
  */
 import "./controls/visibility";
+import "./controls/spacing";
 
 

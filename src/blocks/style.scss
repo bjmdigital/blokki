@@ -14,6 +14,10 @@ $blokki-padding-small: var(--blokki-has-padding-small, 1rem);
 $blokki-padding-medium: var(--blokki-has-padding-medium, 2rem);
 $blokki-padding-large: var(--blokki-has-padding-large, 3rem);
 
+$blokki-margin-small: var(--blokki-has-margin-small, 1rem);
+$blokki-margin-medium: var(--blokki-has-margin-medium, 2rem);
+$blokki-margin-large: var(--blokki-has-margin-large, 3rem);
+
 $blokki-breakpoints: (
         small: 0,
         medium: 768px,
@@ -24,6 +28,12 @@ $blokki-padding-map: (
         small: $blokki-padding-small,
         medium: $blokki-padding-medium,
         large: $blokki-padding-large,
+);
+
+$blokki-margin-map: (
+        small: $blokki-margin-small,
+        medium: $blokki-margin-medium,
+        large: $blokki-margin-large,
 );
 
 
@@ -86,6 +96,20 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
 }
 
+@mixin blokkiMarginRules {
+
+  $margin-direction: 'top', 'bottom', 'left', 'right';
+
+  @each $size, $value in $blokki-margin-map {
+    @each $direction in $margin-direction {
+      .has-margin-#{$direction}-#{$size} {
+        margin-#{$direction} : $value;
+      }
+    }
+  }
+
+}
+
 
 @mixin blokkiGridColumns {
   $columns: 1, 2, 3, 4, 5, 6;
@@ -115,6 +139,7 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
 
 @include blokkiPaddingRules;
+@include blokkiMarginRules;
 @include blokkiVisibilityRules;
 //.wp-block {
 //  > * {

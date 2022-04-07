@@ -37,6 +37,48 @@ export function getPaddingClasses(attributes){
 	return paddingClasses;
 }
 
+export function getSpacingClasses(attributes){
+	const cssClasses = [];
+
+	const{
+		paddingTop,
+		paddingBottom,
+		paddingLeft,
+		paddingRight,
+		marginTop,
+		marginBottom,
+		marginLeft,
+		marginRight
+	} = attributes
+
+	if (paddingTop) {
+		cssClasses.push('has-padding-top-' + paddingTop)
+	}
+	if (paddingBottom) {
+		cssClasses.push('has-padding-bottom-' + paddingBottom)
+	}
+	if (paddingLeft) {
+		cssClasses.push('has-padding-left-' + paddingLeft)
+	}
+	if (paddingRight) {
+		cssClasses.push('has-padding-right-' + paddingRight)
+	}
+	if (marginTop) {
+		cssClasses.push('has-margin-top-' + marginTop)
+	}
+	if (marginBottom) {
+		cssClasses.push('has-margin-bottom-' + marginBottom)
+	}
+	if (marginLeft) {
+		cssClasses.push('has-margin-left-' + marginLeft)
+	}
+	if (marginRight) {
+		cssClasses.push('has-margin-right-' + marginRight)
+	}
+
+	return cssClasses;
+}
+
 export function getVisibilityClasses(attributes){
 	const cssClasses = [];
 
