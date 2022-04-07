@@ -17,6 +17,25 @@ function blokki_get_current_post_id() {
 
 }
 
+if ( ! function_exists( 'blokki_get_term_ids_from_tax_query' ) ) :
+
+	function blokki_get_term_ids_from_tax_query( array $tax_query ) {
+		$terms_ids = [];
+
+		foreach ( $tax_query as $term_query ):
+
+			if ( ! is_array( $term_query ) ) {
+				continue;
+			}
+			$term        = get_term_by( $term_query['field'], $term_query['terms'], $term_query['taxonomy'] );
+			$terms_ids[] = $term->term_id;
+		endforeach;
+
+		return $terms_ids;
+	}
+
+endif;
+
 function blokki_get_posts_query_for_block( $block_data = [] ) {
 
 	$default_args = blokki_get_default_posts_query_args();

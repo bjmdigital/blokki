@@ -559,7 +559,15 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 		}
 
 		$post_query_args = blokki_get_posts_query_for_block( $block_fields );
-		$settings        = wp_parse_args( $post_query_args, $settings );
+
+		/**
+		 * Fix tax_query according to the WPGB requirement for grid settings
+		 */
+		if ( isset( $post_query_args['tax_query'] ) ) {
+			$post_query_args['tax_query'] = blokki_get_term_ids_from_tax_query( $post_query_args['tax_query'] );
+		}
+
+		$settings = wp_parse_args( $post_query_args, $settings );
 
 		/**
 		 * Try to add block_id to settings as well and then target on the basis of block id
