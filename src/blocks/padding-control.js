@@ -44,7 +44,8 @@ export default class PaddingControl extends Component {
             setAttributes
         } = this.props;
 
-        return (
+        return [
+            <h5>{__("Padding Control", "blokki")}</h5>,
             <Grid columns={4}>
                 <SelectControl
                     label={__("Top", "blokki")}
@@ -71,6 +72,6 @@ export default class PaddingControl extends Component {
                     onChange={paddingRight => setAttributes({paddingRight})}
                 />
             </Grid>
-        );
+        ];
     }
 }

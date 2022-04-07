@@ -48,6 +48,30 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 }
 
 
+@mixin blokkiVisibilityRules {
+
+  @media (min-width: #{map-get($blokki-breakpoints, large)}) {
+    .blokki-hidden-large {
+      display: none;
+    }
+  }
+
+  @media (min-width: #{map-get($blokki-breakpoints, medium)}) and (max-width: calc(#{map-get($blokki-breakpoints, large)} - 1px)) {
+    .blokki-hidden-medium {
+      display: none;
+    }
+  }
+
+
+  @media (max-width: calc(#{map-get($blokki-breakpoints, medium)} - 1px)) {
+    .blokki-hidden-small {
+      display: none;
+    }
+  }
+
+
+}
+
 @mixin blokkiPaddingRules {
 
   $padding-direction: 'top', 'bottom', 'left', 'right';
@@ -91,6 +115,7 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
 
 @include blokkiPaddingRules;
+@include blokkiVisibilityRules;
 //.wp-block {
 //  > * {
 //    @include blokkiPaddingRules;

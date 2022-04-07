@@ -36,3 +36,25 @@ export function getPaddingClasses(attributes){
 
 	return paddingClasses;
 }
+
+export function getVisibilityClasses(attributes){
+	const cssClasses = [];
+
+	const{
+		hideOnLarge,
+		hideOnMedium,
+		hideOnSmall
+	} = attributes
+
+	if (hideOnLarge) {
+		cssClasses.push('blokki-hidden-large')
+	}
+	if (hideOnMedium) {
+		cssClasses.push('blokki-hidden-medium')
+	}
+	if (hideOnSmall) {
+		cssClasses.push('blokki-hidden-small')
+	}
+
+	return cssClasses;
+}
