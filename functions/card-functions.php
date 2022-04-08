@@ -20,18 +20,12 @@ function blokki_get_current_post_id() {
 if ( ! function_exists( 'blokki_get_term_ids_from_tax_query' ) ) :
 
 	function blokki_get_term_ids_from_tax_query( array $tax_query ) {
-		$terms_ids = [];
 
-		foreach ( $tax_query as $term_query ):
+		if ( isset( $tax_query['relation'] ) ) {
+			unset( $tax_query['relation'] );
+		}
 
-			if ( ! is_array( $term_query ) ) {
-				continue;
-			}
-			$term        = get_term_by( $term_query['field'], $term_query['terms'], $term_query['taxonomy'] );
-			$terms_ids[] = $term->term_id;
-		endforeach;
-
-		return $terms_ids;
+		return wp_list_pluck( $tax_query, 'terms' );
 	}
 
 endif;
@@ -66,13 +60,6 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 	}
 
 	/**
-	 * Show only top level
-	 */
-	if ( $block_data['show_only_top_level'] ?? 0 ) {
-		$query_args['post_parent'] = 0;
-	}
-
-	/**
 	 * Taxonomy Query
 	 */
 	if (
@@ -82,15 +69,20 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 	) {
 
 		/**
-		 * Try to decode JSON
+		 * OLD Code: Try to decode JSON
 		 */
-		$tax_query = blokki_json_decode( $query_args['tax_query'] );
+//		$tax_query = blokki_json_decode( $query_args['tax_query'] );
+
+		/**
+		 * New ACF Field for Multi Taxonomy Terms Select
+		 */
+		$tax_query = blokki_parse_multiple_taxonomy_terms_field( $query_args['tax_query'] );
 
 		/**
 		 * If we found valid array, then set the tax_query, else unset it
 		 */
 		if ( ! empty( $tax_query ) ) {
-			$query_args['tax_query'] = [ $tax_query ];
+			$query_args['tax_query'] = $tax_query;
 		} else {
 			unset( $query_args['tax_query'] );
 		}
@@ -104,6 +96,31 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 
 	return $query_args;
 
+
+}
+
+function blokki_parse_multiple_taxonomy_terms_field( array $multiple_taxonomy_terms ) {
+
+	$tax_query = [
+		'relation' => 'OR'
+	];
+	foreach ( $multiple_taxonomy_terms as $term ):
+		if ( ! is_array( $term ) ) {
+			$term = get_term( $term );
+			if ( is_wp_error( $term ) ) {
+				continue;
+			}
+		}
+//		add term to $tax_query
+		$tax_query[] = [
+			'taxonomy' => $term->taxonomy,
+			'field'    => 'id',
+			'terms'    => $term->term_id
+		];
+
+	endforeach;
+
+	return $tax_query;
 
 }
 

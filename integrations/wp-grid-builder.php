@@ -73,7 +73,6 @@ endif;
 add_filter( 'wp_grid_builder/grid/query_args', 'blokki_wpgb_query_exclude_current', 10, 2 );
 
 
-
 function blokki_wpgb_add_post_type_to_card_class( $atts, $card ) {
 
 	// We get post in the custom loop of the plugin.
@@ -100,7 +99,6 @@ if ( ! function_exists( 'blokki_wpgb_get_custom_card_id' ) ) :
 	}
 
 endif;
-
 
 
 if ( ! is_admin() ) {
@@ -144,7 +142,7 @@ endif;
 function blokki_wpgb_register_card_block( $blocks ) {
 
 	$blocks['blokki_full_card'] = [
-		'name' => __( 'Blokki Card', 'blokki' ),
+		'name'            => __( 'Blokki Card', 'blokki' ),
 		'render_callback' => 'blokki_wpgb_card_render_callback',
 	];
 
@@ -153,7 +151,6 @@ function blokki_wpgb_register_card_block( $blocks ) {
 }
 
 add_filter( 'wp_grid_builder/blocks', 'blokki_wpgb_register_card_block' );
-
 
 
 if ( ! function_exists( 'blokki_wpgb_set_custom_card_id_args' ) ) :
@@ -557,10 +554,15 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 		$post_query_args = blokki_get_posts_query_for_block( $block_fields );
 
 		/**
-		 * Fix tax_query according to the WPGB requirement for grid settings
+		 * Fix tax_query according to the WPGB requirement for grid settings which requires only term ids
 		 */
 		if ( isset( $post_query_args['tax_query'] ) ) {
-			$post_query_args['tax_query'] = blokki_get_term_ids_from_tax_query( $post_query_args['tax_query'] );
+			$term_ids = blokki_get_term_ids_from_tax_query( $post_query_args['tax_query'] );
+			if ( ! empty( $term_ids ) ) {
+				$post_query_args['tax_query'] = $term_ids;
+			} else {
+				unset( $post_query_args['tax_query'] );
+			}
 		}
 
 		$settings = wp_parse_args( $post_query_args, $settings );

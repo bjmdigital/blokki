@@ -129,12 +129,9 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 			return false;
 		}
 
-
 		// get all taxonomy if no taxonomy
 		if ( ! $field['taxonomy'] ) {
-
 			$field['taxonomy'] = acf_get_taxonomies();
-
 		}
 
 
@@ -146,8 +143,8 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 			$is_hierarchical = is_taxonomy_hierarchical( $taxonomy );
 			$is_pagination   = ( $options['paged'] > 0 );
 			$is_search       = false;
-			$limit           = 20;
-			$offset          = 20 * ( $options['paged'] - 1 );
+			$limit           = 100;  // this was changed from 20 to 100 to show all taxonomy terms
+			$offset          = 100 * ( $options['paged'] - 1 );
 
 
 			// args
@@ -291,7 +288,7 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 	 *
 	 * @date    1/11/2013
 	 *
-	 * @param WP_Term $term The term object.
+	 * @param \WP_Term $term The term object.
 	 * @param array $field The field settings.
 	 * @param mixed $post_id The post_id being edited.
 	 *
@@ -311,7 +308,7 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 		 * @date    1/11/2013
 		 *
 		 * @param string $title The term title.
-		 * @param WP_Term $term The term object.
+		 * @param \WP_Term $term The term object.
 		 * @param array $field The field settings.
 		 * @param    (int|string) $post_id The post_id being edited.
 		 *
@@ -436,7 +433,6 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 
 		}
 
-
 		// prepare choices
 		$choices = array();
 
@@ -509,8 +505,6 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 	*  This function will return an array of terms for a given field value
 	*
 	*  @type	function
-	*  @date	13/06/2014
-	*  @since	5.0.0
 	*
 	*  @param	$value (array)
 	*  @return	$value

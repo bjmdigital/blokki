@@ -112,7 +112,7 @@ class AcfBlocks {
 		add_filter( 'acf/load_field/name=post_type', [ $this, 'acf_field_choices_post_type' ] );
 		add_filter( 'acf/load_field/name=additional_taxonomy_filtering_1', [ $this, 'acf_field_choices_taxonomies' ] );
 		add_filter( 'acf/load_field/name=additional_taxonomy_filtering_2', [ $this, 'acf_field_choices_taxonomies' ] );
-		add_filter( 'acf/load_field/name=tax_query', [ $this, 'acf_field_choices_taxonomy_list' ] );
+//		add_filter( 'acf/load_field/name=tax_query', [ $this, 'acf_field_choices_taxonomy_list' ] );
 
 
 	}

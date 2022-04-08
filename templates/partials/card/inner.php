@@ -2,11 +2,8 @@
 
 $post_type_config = blokki_get_template_post_type_config( $post_type_config ?? [] );
 
-$partials = $post_type_config['partials'] ?? blokki_get_card_partials_inner();
-//blokki_dump( $partials);
-$partials = isset($partials['inner']) ? $partials['inner'] : $partials;
-//unset($partials['inner']);
-//$partials = $partials['inner'];
+$partials  = $post_type_config['partials'] ?? blokki_get_card_partials_inner();
+$partials  = isset( $partials['inner'] ) ? $partials['inner'] : $partials;
 $post_type = get_post_type( get_the_ID() );
 
 $template_path = 'partials/card';

@@ -115,46 +115,6 @@
             "key": "field_5e13cc25eb215",
             "label": "Taxonomy Terms",
             "name": "tax_query",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f7bc2caf34cf",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": {
-                "": "Show All",
-                "{\"taxonomy\":\"category\",\"field\":\"slug\",\"terms\":\"cat-1\"}": "Categories -> Cat 1",
-                "{\"taxonomy\":\"category\",\"field\":\"slug\",\"terms\":\"uncategorized\"}": "Categories -> Uncategorized",
-                "{\"taxonomy\":\"post_tag\",\"field\":\"slug\",\"terms\":\"tag-1\"}": "Tags -> Tag 1",
-                "{\"taxonomy\":\"product_cat\",\"field\":\"slug\",\"terms\":\"uncategorized\"}": "Product categories -> Uncategorized",
-                "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"personal-loan\"}": "Loan Categories -> Personal Loan",
-                "{\"taxonomy\":\"bjm_loan_cat\",\"field\":\"slug\",\"terms\":\"vehicle-loans\"}": "Loan Categories -> Vehicle Loans",
-                "{\"taxonomy\":\"bjm_faq_cat\",\"field\":\"slug\",\"terms\":\"faq-cat-1\"}": "FAQ Categories -> FAQ Cat 1",
-                "{\"taxonomy\":\"bjm_faq_cat\",\"field\":\"slug\",\"terms\":\"faq-cat-2\"}": "FAQ Categories -> FAQ Cat 2"
-            },
-            "default_value": [],
-            "allow_null": 0,
-            "multiple": 0,
-            "ui": 0,
-            "return_format": "value",
-            "ajax": 0,
-            "placeholder": ""
-        },
-        {
-            "key": "field_624ca88caa860",
-            "label": "Taxonomy",
-            "name": "taxonomy",
             "type": "multiple_taxonomy_terms",
             "instructions": "",
             "required": 0,
@@ -178,38 +138,8 @@
             "ui": 1,
             "save_terms": 0,
             "load_terms": 0,
-            "return_format": "object",
+            "return_format": "id",
             "multiple": 0
-        },
-        {
-            "key": "field_624ca89faa861",
-            "label": "Terms",
-            "name": "terms",
-            "type": "select",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f7bc2caf34cf",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "choices": [],
-            "default_value": [],
-            "allow_null": 1,
-            "multiple": 0,
-            "ui": 1,
-            "ajax": 0,
-            "return_format": "value",
-            "placeholder": ""
         },
         {
             "key": "field_623b2d7b4d0ec",
@@ -289,33 +219,6 @@
             "return_format": "value",
             "ajax": 0,
             "placeholder": ""
-        },
-        {
-            "key": "field_5e1e5513e6180",
-            "label": "Show only top-level?",
-            "name": "show_only_top_level",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5f7bc2caf34cf",
-                        "operator": "!=",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
         },
         {
             "key": "field_5e1ea69c12fff",
@@ -432,5 +335,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1649423205
+    "modified": 1649446602
 }
