@@ -15,8 +15,11 @@ if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
 		$post_id = get_the_ID();
 
 		$related_grids = get_field( 'wpgb_grid_related', 'options' );
-		$related_grids = array_map( 'intval', $related_grids );
 
+		if ( ! $related_grids ) {
+			return $query_args;
+		}
+		$related_grids = array_map( 'intval', $related_grids );
 
 		if ( ! in_array( $grid_id, $related_grids, true ) ) {
 			return $query_args;

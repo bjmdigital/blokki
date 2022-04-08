@@ -1,6 +1,8 @@
 .accordion-cell {
 
-  .accordion-icon{
+  width: 100%;
+
+  .accordion-icon {
     text-align: right;
   }
 
@@ -29,38 +31,6 @@
 
   .accordion-content {
     display: none;
-  }
-
-  //.accordion-content.open {
-  //  display: block;
-  //}
-}
-
-/**
- * For Testing Styling
- */
-.accordion-cell {
-
-  .card-inner{
-    border-radius: 5px;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-  }
-
-
-  .accordion-button {
-    padding: 1rem;
-    background-color: #f7f7f7;
-
-    &:focus,
-    &:hover{
-      background-color: #d5d5d5;
-    }
-  }
-
-  .accordion-content {
-    padding: 1rem;
   }
 
 }

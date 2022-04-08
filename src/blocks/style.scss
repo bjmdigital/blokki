@@ -1,23 +1,6 @@
-/**
-* WordPress Breakpoints
- */
-//$break-huge: 1440px;
-//$break-wide: 1280px;
-//$break-xlarge: 1080px;
-//$break-large: 960px;	// admin sidebar auto folds
-//$break-medium: 782px;	// adminbar goes big
-//$break-small: 600px;
-//$break-mobile: 480px;
-//$break-zoomed-in: 280px;
-:root {
-  --blokki-has-padding-small: 1rem;
-  --blokki-has-padding-medium: 2rem;
-  --blokki-has-padding-large: 3rem;
-}
-
-$blokki-padding-small: var(--blokki-has-padding-small);
-$blokki-padding-medium: var(--blokki-has-padding-medium);
-$blokki-padding-large: var(--blokki-has-padding-large);
+$blokki-padding-small: var(--blokki-has-padding-small , 1rem);
+$blokki-padding-medium: var(--blokki-has-padding-medium, 2rem);
+$blokki-padding-large: var(--blokki-has-padding-large, 3rem);
 
 $blokki-margin-small: var(--blokki-has-margin-small, 1rem);
 $blokki-margin-medium: var(--blokki-has-margin-medium, 2rem);
@@ -158,8 +141,3 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 @include blokkiPaddingRules;
 @include blokkiMarginRules;
 @include blokkiVisibilityRules;
-//.wp-block {
-//  > * {
-//    @include blokkiPaddingRules;
-//  }
-//}

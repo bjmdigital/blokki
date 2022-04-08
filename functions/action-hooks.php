@@ -25,7 +25,7 @@ if ( ! function_exists( 'blokki_cards_add_class_featured_first' ) ) :
 endif;
 
 add_filter( 'blokki_template_card_css_classes', 'blokki_cards_add_class_featured_first', 10, 3 );
-
+/*
 //
 //add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 //
@@ -257,3 +257,4 @@ add_action( 'blokki_block_accordions_partial_after_accordion_button_title', func
 
 
 
+*/
