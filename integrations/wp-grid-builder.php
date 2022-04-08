@@ -104,8 +104,12 @@ endif;
 
 
 if ( ! is_admin() ) {
-	// TODO: WPGB Support
-//	add_filter( 'wp_grid_builder/card/id', 'blokki_wpgb_get_custom_card_id', 10, 1 );
+	/**
+	 * TODO: WPGB Support
+	 * There is no indication as to which card id we are going to filter,
+	 * There is no context to this filter
+	 */
+	add_filter( 'wp_grid_builder/card/id', 'blokki_wpgb_get_custom_card_id', 10, 1 );
 }
 
 
@@ -130,7 +134,13 @@ if ( ! function_exists( 'blokki_wpgb_card_render_callback' ) ) :
 endif;
 
 
-
+/**
+ * TODO: WPGB Support
+ * This option does not work well due to:
+ * 1. Un-necessary html structure
+ * 2. Its not the actual card but instead a block in the card
+ * 3. Replacing the full card option seems more realistic
+ */
 function blokki_wpgb_register_card_block( $blocks ) {
 
 	$blocks['blokki_full_card'] = [
@@ -525,6 +535,10 @@ endif;
 
 /**
  * TODO: WPGB Support
+ * The problem is when the grid re-renders (after applying filters),
+ * the block data is not available, nor does the class instances data is available for this filter
+ * Probably due to AJAX request.
+ * We need to have some way to Re-use a grid on different pages with various Post Type, Taxonomy and Filtering option.
  */
 if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 

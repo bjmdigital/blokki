@@ -101,6 +101,11 @@ class AcfBlocks {
 		 */
 		add_filter( 'acf/get_post_types', [ $this, 'acf_add_blocks_to_post_types' ] );
 
+		// include new field types
+		add_action( 'acf/include_field_types', [ $this, 'include_field' ] ); // v5
+		add_action( 'acf/register_fields', [ $this, 'include_field' ] ); // v4
+
+
 		/**
 		 * Dynamically update field choices
 		 */
@@ -110,6 +115,29 @@ class AcfBlocks {
 		add_filter( 'acf/load_field/name=tax_query', [ $this, 'acf_field_choices_taxonomy_list' ] );
 
 
+	}
+
+	/*
+	*  include_field
+	*
+	*  This function will include the field type class
+	*
+	*  @param	$version (int) major ACF version. Defaults to false
+	*  @return	void
+	*/
+
+	function include_field( $version = false ) {
+
+		$include_field_settings = array(
+			'version' => BLOKKI_VERSION,
+			'url'     => plugin_dir_url( BLOKKI_PLUGIN_FILE ),
+			'path'    => plugin_dir_path( BLOKKI_PLUGIN_FILE )
+		);
+
+		/**
+		 * Multiple Taxonomy Terms
+		 */
+		new ACF_Field_Multiple_Taxonomy_Terms( $include_field_settings );
 	}
 
 	/**

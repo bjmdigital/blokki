@@ -155,7 +155,7 @@
             "key": "field_624ca88caa860",
             "label": "Taxonomy",
             "name": "taxonomy",
-            "type": "multiple_taxonomy",
+            "type": "multiple_taxonomy_terms",
             "instructions": "",
             "required": 0,
             "conditional_logic": [
@@ -432,5 +432,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1649369197
+    "modified": 1649423205
 }
