@@ -259,6 +259,15 @@ class AcfBlocks {
 			'mode'        => 'edit',
 		];
 
+		$blocks['social-share'] = [
+			'name'            => 'social-share',
+			'title'           => __( 'Blokki Social Share', 'blokki' ),
+			'description'     => __( 'Add social sharing buttons.', 'blokki' ),
+			'category'        => 'theme',
+			'icon'            => 'share',
+			'keywords'        => [ 'blokki', 'social-share' ],
+		];
+
 		return apply_filters( 'blokki_acf_blocks_config', $blocks );
 
 

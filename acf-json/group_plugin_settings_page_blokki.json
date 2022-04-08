@@ -38,6 +38,99 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_6250a9d5e27ba",
+            "label": "Social Sharing",
+            "name": "social_sharing",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_6250a9ede27bb",
+                    "label": "Facebook",
+                    "name": "facebook",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_6250aa0be27bc",
+                    "label": "Twitter",
+                    "name": "twitter",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_6250aa18e27bd",
+                    "label": "LinkedIn",
+                    "name": "linkedin",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 1,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_6250aa2ce27be",
+                    "label": "Email",
+                    "name": "email",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                }
+            ]
+        },
+        {
             "key": "field_62459fc3cfffd",
             "label": "Accordions",
             "name": "",
@@ -137,7 +230,15 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
+            "choices": {
+                "1": "Related Grid",
+                "2": "Archive Grid",
+                "3": "Swiper for Block",
+                "4": "Cards Grid for Block",
+                "5": "Cards Grid for Loans",
+                "6": "Swiper for Loans",
+                "7": "Swiper for Posts"
+            },
             "default_value": [],
             "allow_null": 1,
             "multiple": 1,
@@ -159,7 +260,15 @@
                 "class": "",
                 "id": ""
             },
-            "choices": [],
+            "choices": {
+                "1": "Related Grid",
+                "2": "Archive Grid",
+                "3": "Swiper for Block",
+                "4": "Cards Grid for Block",
+                "5": "Cards Grid for Loans",
+                "6": "Swiper for Loans",
+                "7": "Swiper for Posts"
+            },
             "default_value": [],
             "allow_null": 1,
             "multiple": 0,
@@ -186,5 +295,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1648930288
+    "modified": 1649453677
 }
