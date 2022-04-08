@@ -1,6 +1,7 @@
 <?php
 
 if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
+
 	function blokki_wpgb_query_related_cards( $query_args, $grid_id ) {
 
 		if ( ! is_singular() ) {
@@ -71,47 +72,6 @@ endif;
 
 add_filter( 'wp_grid_builder/grid/query_args', 'blokki_wpgb_query_exclude_current', 10, 2 );
 
-function blokki_wpgb_card_register_template( $templates ) {
-
-
-	// 'my_template' corresponds to the template ID.
-	$templates['blokki_card_template'] = [
-		'class'              => '',
-		'source_type'        => 'post_type',
-		'is_main_query'      => false,
-		'query_args'         => [
-			'post_type'      => 'post',
-			'posts_per_page' => 10,
-		],
-		'render_callback'    => 'blokki_wpgb_template_render_callback',
-		'noresults_callback' => 'blokki_wpgb_template_noresults_callback',
-	];
-
-	return $templates;
-
-}
-
-add_filter( 'wp_grid_builder/templates', 'blokki_wpgb_card_register_template', 10, 1 );
-
-
-if ( ! function_exists( 'blokki_wpgb_template_render_callback' ) ) :
-
-	function blokki_wpgb_template_render_callback( $post ) {
-		// No Need to setup_postdata as WPGB has already done it.
-		blokki_render_post();
-	}
-
-endif;
-
-if ( ! function_exists( 'blokki_wpgb_template_noresults_callback' ) ) :
-
-	function blokki_wpgb_template_noresults_callback() {
-
-		blokki_loader()->get_template_part( 'loop', 'no-content' );
-
-	}
-
-endif;
 
 
 function blokki_wpgb_add_post_type_to_card_class( $atts, $card ) {
@@ -140,8 +100,12 @@ if ( ! function_exists( 'blokki_wpgb_get_custom_card_id' ) ) :
 	}
 
 endif;
+
+
+
 if ( ! is_admin() ) {
-	add_filter( 'wp_grid_builder/card/id', 'blokki_wpgb_get_custom_card_id', 10, 1 );
+	// TODO: WPGB Support
+//	add_filter( 'wp_grid_builder/card/id', 'blokki_wpgb_get_custom_card_id', 10, 1 );
 }
 
 
@@ -164,6 +128,22 @@ if ( ! function_exists( 'blokki_wpgb_card_render_callback' ) ) :
 	}
 
 endif;
+
+
+
+function blokki_wpgb_register_card_block( $blocks ) {
+
+	$blocks['blokki_full_card'] = [
+		'name' => __( 'Blokki Card', 'blokki' ),
+		'render_callback' => 'blokki_wpgb_card_render_callback',
+	];
+
+	return $blocks;
+
+}
+
+add_filter( 'wp_grid_builder/blocks', 'blokki_wpgb_register_card_block' );
+
 
 
 if ( ! function_exists( 'blokki_wpgb_set_custom_card_id_args' ) ) :
@@ -543,7 +523,9 @@ endif;
 
 //add_filter( 'wp_grid_builder/grid/settings', 'bjm_wpgb_archive_grid_settings', 10, 1 );
 
-
+/**
+ * TODO: WPGB Support
+ */
 if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 
 	function blokki_wpgb_override_grid_settings_with_block( $settings ) {
@@ -596,3 +578,46 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 endif;
 
 add_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_settings_with_block' );
+
+
+//function blokki_wpgb_card_register_template( $templates ) {
+//
+//
+//	// 'my_template' corresponds to the template ID.
+//	$templates['blokki_card_template'] = [
+//		'class'              => '',
+//		'source_type'        => 'post_type',
+//		'is_main_query'      => false,
+//		'query_args'         => [
+//			'post_type'      => 'post',
+//			'posts_per_page' => 10,
+//		],
+//		'render_callback'    => 'blokki_wpgb_template_render_callback',
+//		'noresults_callback' => 'blokki_wpgb_template_noresults_callback',
+//	];
+//
+//	return $templates;
+//
+//}
+
+//add_filter( 'wp_grid_builder/templates', 'blokki_wpgb_card_register_template', 10, 1 );
+
+
+//if ( ! function_exists( 'blokki_wpgb_template_render_callback' ) ) :
+//
+//	function blokki_wpgb_template_render_callback( $post ) {
+//		// No Need to setup_postdata as WPGB has already done it.
+//		blokki_render_post();
+//	}
+//
+//endif;
+//
+//if ( ! function_exists( 'blokki_wpgb_template_noresults_callback' ) ) :
+//
+//	function blokki_wpgb_template_noresults_callback() {
+//
+//		blokki_loader()->get_template_part( 'loop', 'no-content' );
+//
+//	}
+//
+//endif;
