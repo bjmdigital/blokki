@@ -119,6 +119,7 @@ class Init {
 		$this->set_locale();
 		$this->template_loader_hooks();
 		$this->define_admin_hooks();
+		$this->define_api_hooks();
 		$this->define_public_hooks();
 		$this->define_blocks_hooks();
 		$this->define_acf_blocks_hooks();
@@ -271,6 +272,20 @@ class Init {
 		$this->front = new Front( $this->get_plugin_name(), $this->get_version() );
 
 	}
+
+	/**
+	 * Register hooks related to the API functionality
+	 * of the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 */
+	private function define_api_hooks() {
+
+		$this->api = new Api( $this->get_plugin_name(), $this->get_version() );
+
+	}
+
 
 	/**
 	 * Register all the hooks related to Gutenberg

@@ -2,30 +2,6 @@
 (function ($) {
     'use strict';
 
-    // const setupAccordions = function (accordionsBlock) {
-    //
-    //     const accordionItems = $(accordionsBlock).find('.accordions-grid .cell');
-    //
-    //     if (accordionItems) {
-    //
-    //         $(accordionItems).each(function (i, accordionItem) {
-    //
-    //             let title = $(accordionItem).find('.title-container');
-    //             let content = $(accordionItem).find('.content-container');
-    //
-    //             $(content).hide();
-    //
-    //             $(title).click(function (e) {
-    //                 content.slideToggle(350);
-    //                 $(accordionItem).toggleClass('is-active');
-    //             });
-    //         });
-    //     }
-    //
-    //
-    // }
-    //
-
     const toggleAria = function (element, attribute) {
         const currentValue = element.attr(attribute);
         const newValue = currentValue === 'true' ? 'false' : 'true';

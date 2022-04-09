@@ -180,6 +180,8 @@ class Blocks {
 			wp_set_script_translations( $this->editor_script_handle, 'blokki' );
 		}
 
+		wp_localize_script( $this->editor_script_handle, 'blokki', $this->get_localize_script_data() );
+
 		/**
 		 * Register CSS Style
 		 */
@@ -191,6 +193,23 @@ class Blocks {
 			array(),
 			filemtime( $this->get_build_dir( $editor_css ) )
 		);
+
+
+
+	}
+
+	/**
+	 *
+	 */
+	public function get_localize_script_data() {
+
+		$localize_data = [
+			'site_url' => get_site_url(),
+			'nonce'    => wp_create_nonce( 'wp_rest' ),
+		];
+
+
+		return apply_filters( 'blokki_editor_script_localize_data', $localize_data );
 
 	}
 
