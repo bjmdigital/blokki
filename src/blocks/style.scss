@@ -137,6 +137,15 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
   }
 }
 
+.micro-modal{
+  display: none;
+
+  &.is-open{
+    display: block;
+  }
+}
+
+
 
 @include blokkiPaddingRules;
 @include blokkiMarginRules;

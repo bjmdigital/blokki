@@ -12,3 +12,4 @@ require_once 'functions/action-hooks.php';
  * Integrations
  */
 require_once 'integrations/wp-grid-builder.php';
+require_once 'integrations/micro-modal.php';
