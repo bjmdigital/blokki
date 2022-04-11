@@ -290,6 +290,10 @@ class Blocks {
 		$this->current_grid_id = $grid_id;
 	}
 
+	public function reset_current_grid_id() {
+		$this->current_grid_id = null;
+	}
+
 	public function reset_current_block_id() {
 		$this->current_block_id = null;
 	}

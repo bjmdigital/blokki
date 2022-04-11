@@ -600,12 +600,7 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_query_with_block' ) ) :
 
 	function blokki_wpgb_override_grid_query_with_block( $query_args, $grid_id ) {
 
-//		blokki_dump( $query_args);
-
-//		return $query_args;
-
 		$block_grid_id = Blokki()->blocks->get_current_grid_id();
-		var_dump( $block_grid_id);
 
 		if($grid_id !== $block_grid_id){
 			return $query_args;
@@ -619,40 +614,8 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_query_with_block' ) ) :
 
 		$post_query_args = blokki_get_posts_query_for_block( $block_fields );
 
-		/**
-		 * Fix tax_query according to the WPGB requirement for grid settings which requires only term ids
-		 */
-//		if ( isset( $post_query_args['tax_query'] ) ) {
-//			$term_ids = blokki_get_term_ids_from_tax_query( $post_query_args['tax_query'] );
-//			if ( ! empty( $term_ids ) ) {
-//				$post_query_args['tax_query'] = $term_ids;
-//			} else {
-//				unset( $post_query_args['tax_query'] );
-//			}
-//		}
-
 		$query_args = wp_parse_args( $post_query_args, $query_args );
 
-		/**
-		 * Try to add block_id to settings as well and then target on the basis of block id
-		 */
-
-		/**
-		 * Check if we have facets for top region
-		 */
-//		$facets_top = $block_fields['wpgb_facets_top'] ?? null;
-//		if ( $facets_top && isset( $settings['grid_layout']['area-top-1']['facets'] ) ) {
-//			$settings['grid_layout']['area-top-1']['facets'] = $facets_top;
-//		}
-
-		/**
-		 * Check if we have facets for bottom region
-		 */
-//		$facets_bottom = $block_fields['wpgb_facets_bottom'] ?? null;
-//		if ( $facets_bottom && isset( $settings['grid_layout']['area-bottom-1']['facets'] ) ) {
-//			$settings['grid_layout']['area-bottom-1']['facets'] = $facets_bottom;
-//		}
-//		blokki_dump( $query_args);
 
 		return $query_args;
 
