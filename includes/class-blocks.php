@@ -24,6 +24,8 @@ class Blocks {
 
 	private $current_block_id = null;
 
+	private $current_grid_id = null;
+
 	private $current_block_fields;
 
 	private $block_fields = [];
@@ -278,6 +280,14 @@ class Blocks {
 
 	public function set_current_block_id( $block_id ) {
 		$this->current_block_id = $block_id;
+	}
+
+	public function get_current_grid_id() {
+		return $this->current_grid_id;
+	}
+
+	public function set_current_grid_id( $grid_id ) {
+		$this->current_grid_id = $grid_id;
 	}
 
 	public function reset_current_block_id() {
