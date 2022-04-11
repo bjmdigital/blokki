@@ -605,6 +605,7 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_query_with_block' ) ) :
 //		return $query_args;
 
 		$block_grid_id = Blokki()->blocks->get_current_grid_id();
+		var_dump( $block_grid_id);
 
 		if($grid_id !== $block_grid_id){
 			return $query_args;

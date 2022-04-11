@@ -25,8 +25,36 @@ if ( ! function_exists( 'blokki_cards_add_class_featured_first' ) ) :
 endif;
 
 add_filter( 'blokki_template_card_css_classes', 'blokki_cards_add_class_featured_first', 10, 3 );
+
+
 /*
-//
+ *
+ *
+
+
+add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
+
+	$post_type_config = [
+		'taxonomy'   => 'bjm_faq_cat',
+		'template'   => 'accordion',
+		'link_title' => false,
+//		'partials'   => [
+//			'accordion-button'  => [
+//				'title'
+//			],
+//			'accordion-content' => [
+//				'content',
+//				'anything'
+//			]
+//		]
+	];
+
+
+	return $post_type_config;
+
+} );
+
+
 //add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
 //
 //	return [
@@ -189,27 +217,7 @@ add_filter( 'blokki_get_post_type_config_bjm_case_study', function ( $post_type_
 //} );
 
 
-add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
 
-	$post_type_config = [
-		'taxonomy'   => 'bjm_faq_cat',
-		'template'   => 'accordion',
-		'link_title' => false,
-//		'partials'   => [
-//			'accordion-button'  => [
-//				'title'
-//			],
-//			'accordion-content' => [
-//				'content',
-//				'anything'
-//			]
-//		]
-	];
-
-
-	return $post_type_config;
-
-} );
 
 //add_action( 'blokki_block_cards_partial_before_image', function () {
 //

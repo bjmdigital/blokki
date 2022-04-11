@@ -8,36 +8,56 @@
         element.attr(attribute, newValue);
     }
 
+    const toggleAccordion = function (evt) {
+        let accordionButton = $(this);
+        let accordionContent = $('#' + accordionButton.attr('aria-controls'));
+
+        // set Classes
+        accordionContent.toggleClass('open').slideToggle(350);
+        accordionButton.closest('.accordion-cell').toggleClass('is-active');
+
+        // set Aria
+        toggleAria(accordionButton, 'aria-expanded');
+        toggleAria(accordionContent, 'aria-hidden');
+    }
+
     $(document).ready(function () {
 
-        const accordionButtons = $('.accordion-button');
 
-        if (accordionButtons.length) {
-
-            $(accordionButtons).each(function (i, accordionItem) {
-
-                $(accordionItem).click(function (evt) {
-
-                    let accordionButton = $(this);
-                    let accordionContent = $('#' + accordionButton.attr('aria-controls'));
-
-                    // set Classes
-                    accordionContent.toggleClass('open').slideToggle(350);
-
-                    accordionButton.closest('.accordion-cell').toggleClass('is-active');
-
-                    // set Aria
-                    toggleAria(accordionButton, 'aria-expanded');
-                    toggleAria(accordionContent, 'aria-hidden');
+        /**
+         * Accordions Button Click Function
+         */
+        $('button').click('.accordion-button', toggleAccordion)
 
 
-                })
-
-
-            });
-
-
-        }
+        // const accordionButtons = $('.accordion-button');
+        //
+        // if (accordionButtons.length) {
+        //
+        //     $(accordionButtons).each(function (i, accordionItem) {
+        //
+        //         $(accordionItem).click(function (evt) {
+        //
+        //             let accordionButton = $(this);
+        //             let accordionContent = $('#' + accordionButton.attr('aria-controls'));
+        //
+        //             // set Classes
+        //             accordionContent.toggleClass('open').slideToggle(350);
+        //
+        //             accordionButton.closest('.accordion-cell').toggleClass('is-active');
+        //
+        //             // set Aria
+        //             toggleAria(accordionButton, 'aria-expanded');
+        //             toggleAria(accordionContent, 'aria-hidden');
+        //
+        //
+        //         })
+        //
+        //
+        //     });
+        //
+        //
+        // }
 
 
         // var accordion_buttons = document.querySelectorAll('.accordion-button');

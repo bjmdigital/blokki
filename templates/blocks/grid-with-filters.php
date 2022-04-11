@@ -42,5 +42,6 @@ wpgb_render_grid( [
 //add_filter( 'wp_grid_builder/grid/query_args', 'blokki_wpgb_override_grid_query_with_block');
 //remove_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_settings_with_block' );
 
+remove_filter( 'wp_grid_builder/grid/settings', 'blokki_wpgb_override_grid_query_with_block' );
 
 printf( '</div><!-- .wp-block-acf-blokki-grid-with-filters -->' );
