@@ -1,4 +1,4 @@
-import MicroModal from 'micromodal';
+// import MicroModal from 'micromodal';
 
 // noinspection JSUnusedLocalSymbols,JSUnresolvedVariable
 (function ($) {
