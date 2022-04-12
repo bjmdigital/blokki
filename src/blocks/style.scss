@@ -131,9 +131,20 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
     display: grid;
     grid-row-gap: var(--blokki-grid-row-gap, 20px);
     grid-column-gap: var(--blokki-grid-column-gap, 20px);
-    align-items: stretch;
 
     @include blokkiGridColumns;
+  }
+}
+
+.blokki-align {
+  &-start {
+    align-items: start;
+  }
+  &-center {
+    align-items: center;
+  }
+  &-end {
+    align-items: end;
   }
 }
 

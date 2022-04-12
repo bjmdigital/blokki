@@ -1,15 +1,12 @@
 export default {
-	colWidth: {
-        type: 'number',
-        default: ''
-    },
-	gridGap: {
-        type: 'string',
-        default: ''
-    },
 	alignItems: {
-        type: 'string',
-        default: ''
+        type: 'string'
+    },
+    textColor: {
+        type: 'string'
+    },
+    backgroundColor: {
+        type: 'string'
     },
     largeUp: {
         type: "number",

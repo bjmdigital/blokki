@@ -17,7 +17,10 @@
 	"dependencies": {
 		"@wordpress/block-editor": "^8.4.0",
 		"@wordpress/blocks": "^11.4.0",
+		"@wordpress/components": "^19.8.0",
+		"@wordpress/element": "^4.4.0",
 		"@wordpress/i18n": "^4.5.0",
+		"@wordpress/icons": "^8.2.0",
 		"micromodal": "^0.4.10"
 	},
 	"devDependencies": {
