@@ -18,11 +18,7 @@
                 </h2>
                 <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
             </header>
-            <main class="modal__content" id="modal-video-content">
-                <p>
-                    Try hitting the <code>tab</code> key and notice how the focus stays within the modal itself. Also, <code>esc</code> to close modal.
-                </p>
-            </main>
+            <main class="modal__content" id="modal-video-content"></main>
             <footer class="modal__footer">
                 <button class="modal__btn modal__btn-primary">Continue</button>
                 <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button>

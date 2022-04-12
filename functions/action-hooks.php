@@ -27,6 +27,15 @@ endif;
 add_filter( 'blokki_template_card_css_classes', 'blokki_cards_add_class_featured_first', 10, 3 );
 
 
+add_filter('register_post_type_args', function($args, $post_type) {
+	if ($post_type === 'wp_block') {
+		$args['show_in_rest'] = true;
+
+	}
+
+	return $args;
+}, 10, 2);
+
 /*
  *
  *

@@ -577,10 +577,10 @@ if ( ! function_exists( 'blokki_wpgb_override_grid_settings_with_block' ) ) :
 		/**
 		 * Check if we have facets for top region
 		 */
-		$facets_top = $block_fields['wpgb_facets_top'] ?? null;
-		if ( $facets_top && isset( $settings['grid_layout']['area-top-1']['facets'] ) ) {
-			$settings['grid_layout']['area-top-1']['facets'] = $facets_top;
-		}
+//		$facets_top = $block_fields['wpgb_facets_top'] ?? null;
+//		if ( $facets_top && isset( $settings['grid_layout']['area-top-1']['facets'] ) ) {
+//			$settings['grid_layout']['area-top-1']['facets'] = $facets_top;
+//		}
 
 		/**
 		 * Check if we have facets for bottom region

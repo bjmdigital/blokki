@@ -86,9 +86,9 @@ addFilter("editor.BlockEdit", "blokki/spacing",
 
         const spacingOptions = [
             {value: "", label: __("-", "blokki")},
-            {value: "small", label: __("S", "blokki")},
-            {value: "medium", label: __("M", "blokki")},
-            {value: "large", label: __("L", "blokki")}
+            {value: "small", label: __("Small", "blokki")},
+            {value: "medium", label: __("Medium", "blokki")},
+            {value: "large", label: __("Large", "blokki")}
         ];
 
         return (
