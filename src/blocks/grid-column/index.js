@@ -1,8 +1,5 @@
 import {__} from '@wordpress/i18n'
 import {registerBlockType} from '@wordpress/blocks'
-import {
-    withColors
-} from '@wordpress/block-editor'
 import attrs from './attrs'
 
 import './style.scss';
