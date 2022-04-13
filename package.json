@@ -5,6 +5,7 @@
 	"author": "BJM Team",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
+	"prettier": "@wordpress/prettier-config",
 	"scripts": {
 		"build": "wp-scripts build",
 		"format:js": "wp-scripts format-js",
@@ -17,14 +18,12 @@
 	"dependencies": {
 		"@wordpress/block-editor": "^8.4.0",
 		"@wordpress/blocks": "^11.4.0",
-		"@wordpress/components": "^19.8.0",
-		"@wordpress/element": "^4.4.0",
 		"@wordpress/i18n": "^4.5.0",
-		"@wordpress/icons": "^8.2.0",
 		"micromodal": "^0.4.10"
 	},
 	"devDependencies": {
 		"@wordpress/base-styles": "^4.3.0",
+		"@wordpress/prettier-config": "^1.1.3",
 		"@wordpress/scripts": "^22.3.0"
 	}
 }
