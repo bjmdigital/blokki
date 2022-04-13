@@ -1,6 +1,6 @@
 import {useBlockProps, useInnerBlocksProps} from "@wordpress/block-editor";
 import {getGridColumnClasses} from "../../helpers";
-import {__} from '@wordpress/i18n'
+import {_x} from '@wordpress/i18n'
 
 export default function Save({attributes}) {
     const {linkUrl, linkTarget} = attributes;
@@ -12,8 +12,8 @@ export default function Save({attributes}) {
             className="blokki-grid-column-link"
             href={linkUrl}
             target={linkTarget}
-            aria-label={__(`Go to ${linkUrl}`, 'blokki')}
+            aria-label={_x(`Go to`, 'go to link url', 'blokki') + ' ' + linkUrl}
         ></a>}
-        <div {...innerBlocksProps} />
+        {innerBlocksProps.children}
     </div>
 }

@@ -16,7 +16,7 @@ export default function Edit(props) {
     const {attributes, isSelected, setAttributes} = props;
     const {linkUrl, linkTarget} = attributes;
     const [isEditingURL, setIsEditingURL] = useState(false);
-    const blockProps = useBlockProps({className: "blokki-grid-column"});
+    const blockProps = useBlockProps();
 
     const innerBlocksProps = useInnerBlocksProps(blockProps, {
         template: [["core/paragraph"]],

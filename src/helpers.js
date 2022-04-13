@@ -115,7 +115,7 @@ export function getGridClasses(attributes) {
 
 export function getGridColumnClasses(attributes) {
     const {linkUrl} = attributes
-    const cssClasses = ['blokki-grid-column'];
+    const cssClasses = [];
 
     if (linkUrl) {
         cssClasses.push('has-column-link')
