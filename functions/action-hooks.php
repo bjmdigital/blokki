@@ -36,11 +36,6 @@ add_filter('register_post_type_args', function($args, $post_type) {
 	return $args;
 }, 10, 2);
 
-/*
- *
- *
-
-
 add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
 
 	$post_type_config = [
@@ -62,6 +57,13 @@ add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config 
 	return $post_type_config;
 
 } );
+
+/*
+ *
+ *
+
+
+
 
 
 //add_filter( 'blokki_get_post_type_config_post', function ( $post_type_config ) {
