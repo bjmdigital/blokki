@@ -1,3 +1,5 @@
+import {useBlockProps} from "@wordpress/block-editor";
+
 /**
  * Get a usable value from the BlockVerticalAlignmentToolbar.
  */
@@ -12,7 +14,6 @@ export function mapAlignment(value) {
 }
 
 export function getSpacingClasses(attributes, className = '') {
-
     const cssClasses = [];
 
     const {
@@ -85,4 +86,31 @@ export function getVisibilityClasses(attributes, className = '') {
     }
 
     return cssClasses;
+}
+
+export function getGridClasses(attributes) {
+    const cssClasses = ['wp-block-blokki-grid', 'blokki-grid'];
+
+    const {
+        largeUp,
+        mediumUp,
+        smallUp,
+        alignItems
+    } = attributes
+
+    if (largeUp) {
+        cssClasses.push('large-up-' + largeUp)
+    }
+    if (mediumUp) {
+        cssClasses.push('medium-up-' + mediumUp)
+    }
+    if (smallUp) {
+        cssClasses.push('small-up-' + smallUp)
+    }
+
+    if (alignItems) {
+        cssClasses.push('blokki-align-' + mapAlignment(alignItems));
+    }
+
+    return cssClasses.join(' ');
 }

@@ -1,110 +1,64 @@
 import {
-    TextControl,
-    PanelBody,
-    ToggleControl,
-    SelectControl,
-} from '@wordpress/components';
-
-import {__} from '@wordpress/i18n';
-
+    useBlockProps,
+    useInnerBlocksProps,
+    __experimentalLinkControl as LinkControl,
+    BlockControls
+} from "@wordpress/block-editor";
 import {
-    InnerBlocks,
-    InspectorControls,
-    PanelColorSettings,
-} from '@wordpress/block-editor'
-
+    ToolbarButton,
+    Popover,
+} from '@wordpress/components';
+import {useState} from '@wordpress/element';
+import {link, linkOff} from '@wordpress/icons';
+import {__} from '@wordpress/i18n'
 
 export default function Edit(props) {
+    const {attributes, isSelected, setAttributes} = props;
+    const {linkUrl, linkTarget} = attributes;
+    const [isEditingURL, setIsEditingURL] = useState(false);
+    const blockProps = useBlockProps({className: "blokki-grid-column"});
 
-    const {
-        attributes,
-        setAttributes,
-        textColor,
-        backgroundColor,
-        setTextColor,
-        setBackgroundColor
-    } = props;
+    const innerBlocksProps = useInnerBlocksProps(blockProps, {
+        template: [["core/paragraph"]],
+    });
 
-    const {
-        hasColumnLink,
-        columnLinkURL,
-        columnLinkTitle,
-        columnLinkTarget,
-    } = attributes;
+    const opensInNewTab = linkTarget === '_blank';
 
-    let divClasses = [];
-
-    let divStyles = {};
-    if (textColor !== undefined) {
-        if (textColor.class !== undefined) {
-            divClasses.push(textColor.class);
-        } else {
-            divStyles.color = textColor.color;
-        }
-    }
-
-    if (backgroundColor !== undefined) {
-        if (backgroundColor.class !== undefined) {
-            divClasses.push(backgroundColor.class);
-        } else {
-            divStyles.backgroundColor = backgroundColor.color;
-        }
-    }
-
-    return [
-        <InspectorControls>
-            <PanelColorSettings
-                title={__('Color settings')}
-                colorSettings={[
-                    {
-                        value: textColor.color,
-                        onChange: setTextColor,
-                        label: __('Text color')
-                    },
-                    {
-                        value: backgroundColor.color,
-                        onChange: setBackgroundColor,
-                        label: __('Background color')
-                    },
-                ]}
+    return <>
+        <BlockControls>
+            <ToolbarButton
+                name="link"
+                icon={linkUrl ? linkOff : link}
+                title={__('Link', 'blokki')}
+                onClick={() => setIsEditingURL(!isEditingURL)}
             />
-            <PanelBody title={__('Link Settings', 'blokki')}>
-                <ToggleControl
-                    label={__("Link Column ?", "blokki")}
-                    checked={hasColumnLink}
-                    onChange={hasColumnLink => setAttributes({hasColumnLink})}
+        </BlockControls>
+        {(isSelected && isEditingURL) && (
+            <Popover
+                position="bottom center"
+                onClose={() => setIsEditingURL(false)}
+                focusOnMount={isEditingURL ? 'firstElement' : false}
+            >
+                <LinkControl
+                    className="wp-block-navigation-link__inline-link-input"
+                    value={{url: linkUrl, opensInNewTab}}
+                    onChange={({ url: newURL, opensInNewTab: newOpensInNewTab  }) => {
+                        setAttributes({
+                            linkUrl: newURL,
+                            linkTarget: newOpensInNewTab ? '_blank' : undefined
+                        });
+                    }}
+                    onRemove={() => {
+                        setAttributes({
+                            linkUrl: undefined,
+                            linkTarget: undefined,
+                        });
+                        setIsEditingURL(false);
+                    }}
+                    forceIsEditingLink={isEditingURL}
                 />
-                {
-                    hasColumnLink && [
-                        <TextControl
-                            label={__('Link URL', 'blokki')}
-                            type={'url'}
-                            value={columnLinkURL}
-                            onChange={columnLinkURL => setAttributes({columnLinkURL})}
-                        />,
-                        <TextControl
-                            label={__('Link Title', 'blokki')}
-                            value={columnLinkTitle}
-                            onChange={columnLinkTitle => setAttributes({columnLinkTitle})}
-                        />,
-                        <SelectControl
-                            label={__("Link Target", "blokki")}
-                            value={columnLinkTarget}
-                            options={[
-                                {value: "_self", label: __("_self", "blokki")},
-                                {value: "_blank", label: __("_blank", "blokki")},
-                                {value: "_top", label: __("_top", "blokki")},
-                                {value: "_parent", label: __("_parent", "blokki")}
-                            ]}
-                            onChange={columnLinkTarget => setAttributes({columnLinkTarget})}
-                        />
-                    ]
-                }
-
-            </PanelBody>
-        </InspectorControls>,
-        <div className={divClasses.join(' ')} style={divStyles}>
-            <InnerBlocks/>
-        </div>
-    ];
+            </Popover>
+        )}
+        <div {...innerBlocksProps} />
+    </>
 }

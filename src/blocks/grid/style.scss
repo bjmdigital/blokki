@@ -1,0 +1,5 @@
+.wp-block-blokki-grid {
+  > span:empty {
+    display: none;
+  }
+}
