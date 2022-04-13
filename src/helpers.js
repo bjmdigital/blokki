@@ -1,5 +1,3 @@
-import {useBlockProps} from "@wordpress/block-editor";
-
 /**
  * Get a usable value from the BlockVerticalAlignmentToolbar.
  */
@@ -66,7 +64,7 @@ export function getSpacingClasses(attributes, className = '') {
     return cssClasses;
 }
 
-export function getVisibilityClasses(attributes, className = '') {
+export function getVisibilityClasses(attributes) {
     const cssClasses = [];
 
     const {
@@ -75,13 +73,13 @@ export function getVisibilityClasses(attributes, className = '') {
         hideOnSmall
     } = attributes
 
-    if (hideOnLarge && !className.includes('blokki-hidden-large')) {
+    if (hideOnLarge) {
         cssClasses.push('blokki-hidden-large')
     }
-    if (hideOnMedium && !className.includes('blokki-hidden-medium')) {
+    if (hideOnMedium) {
         cssClasses.push('blokki-hidden-medium')
     }
-    if (hideOnSmall && !className.includes('blokki-hidden-small')) {
+    if (hideOnSmall) {
         cssClasses.push('blokki-hidden-small')
     }
 
@@ -99,17 +97,28 @@ export function getGridClasses(attributes) {
     } = attributes
 
     if (largeUp) {
-        cssClasses.push('large-up-' + largeUp)
+        cssClasses.push(`large-up-${largeUp}`)
     }
     if (mediumUp) {
-        cssClasses.push('medium-up-' + mediumUp)
+        cssClasses.push(`medium-up-${mediumUp}`)
     }
     if (smallUp) {
-        cssClasses.push('small-up-' + smallUp)
+        cssClasses.push(`small-up-${smallUp}`)
     }
 
     if (alignItems) {
         cssClasses.push('blokki-align-' + mapAlignment(alignItems));
+    }
+
+    return cssClasses.join(' ');
+}
+
+export function getGridColumnClasses(attributes) {
+    const {linkUrl} = attributes
+    const cssClasses = ['blokki-grid-column'];
+
+    if (linkUrl) {
+        cssClasses.push('has-column-link')
     }
 
     return cssClasses.join(' ');
