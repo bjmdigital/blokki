@@ -107,6 +107,42 @@ class Blocks {
 		 */
 		add_action( 'enqueue_block_assets', [ $this, 'enqueue_block_assets' ] );
 
+		/**
+		 * Filter Render Block
+		 */
+		add_filter( 'render_block', [ $this, 'filter_render_block' ], 10, 2 );
+
+
+	}
+
+	/**
+	 * Filter block render
+	 */
+	public function filter_render_block( $block_content, $block ) {
+		if ( "core/image" == $block['blockName'] ) {
+			return $this->modify_block_image( $block_content, $block );
+		} else {
+			return $block_content;
+		}
+	}
+
+	/**
+	 *
+	 */
+	public function modify_block_image( $block_content, $block ) {
+		if ( ! empty( $block['attrs']['lightbox'] ) && $block['attrs']['lightbox'] == 'lightboxvideo' ) {
+
+			$additional_content = sprintf( '<span class="video-play-button">%s</span>',
+				apply_filters(
+					'blokki_controls_lightbox_video_image',
+					'<i class="fa fa-play-circle"></i>'
+				)
+			);
+
+			$block_content = str_replace( '</a>', $additional_content . '</a>', $block_content );
+		}
+
+		return $block_content;
 
 	}
 
@@ -197,7 +233,6 @@ class Blocks {
 		);
 
 
-
 	}
 
 	/**
@@ -282,6 +317,10 @@ class Blocks {
 		$this->current_block_id = $block_id;
 	}
 
+	public function reset_current_block_id() {
+		$this->current_block_id = null;
+	}
+
 	public function get_current_grid_id() {
 		return $this->current_grid_id;
 	}
@@ -292,10 +331,6 @@ class Blocks {
 
 	public function reset_current_grid_id() {
 		$this->current_grid_id = null;
-	}
-
-	public function reset_current_block_id() {
-		$this->current_block_id = null;
 	}
 
 	public function get_grid_settings( string $grid_id ) {
