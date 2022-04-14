@@ -88,7 +88,8 @@ addFilter("editor.BlockEdit", "blokki/spacing",
             {value: "", label: __("-", "blokki")},
             {value: "small", label: __("Small", "blokki")},
             {value: "medium", label: __("Medium", "blokki")},
-            {value: "large", label: __("Large", "blokki")}
+            {value: "large", label: __("Large", "blokki")},
+            {value: "none", label: __("None", "blokki")},
         ];
 
         return (
