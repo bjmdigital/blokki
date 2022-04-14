@@ -52,20 +52,20 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 
   @media (min-width: #{map-get($blokki-breakpoints, large)}) {
     .blokki-hidden-large {
-      display: none;
+      display: none !important;
     }
   }
 
   @media (min-width: #{map-get($blokki-breakpoints, medium)}) and (max-width: calc(#{map-get($blokki-breakpoints, large)} - 1px)) {
     .blokki-hidden-medium {
-      display: none;
+      display: none !important;
     }
   }
 
 
   @media (max-width: calc(#{map-get($blokki-breakpoints, medium)} - 1px)) {
     .blokki-hidden-small {
-      display: none;
+      display: none !important;
     }
   }
 
@@ -155,4 +155,4 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
 @include blokkiVisibilityRules;
 
 @import "micromodal";
-@import ".././controls/controls-style";
+@import ".././controls/style";

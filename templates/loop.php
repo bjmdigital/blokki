@@ -20,7 +20,7 @@ if ( ! isset( $template ) ) {
 $template = blokki_to_string( $template );
 
 if ( $loop->have_posts() ) :
-	do_action( 'blokki_block_cards_loop_before', $block, $loop );
+	do_action( 'blokki_template_posts_loop_before', $loop, $block );
 	$card_index = 0;
 	while ( $loop->have_posts() ) : $loop->the_post();
 		blokki_loader()->set_template_data( $block, 'block' )
@@ -29,7 +29,7 @@ if ( $loop->have_posts() ) :
 		$card_index ++;
 
 	endwhile;
-	do_action( 'blokki_block_cards_loop_after', $block, $loop );
+	do_action( 'blokki_template_posts_loop_after', $loop, $block );
 else:
 
 	blokki_loader()->set_template_data( $loop, 'loop' )
