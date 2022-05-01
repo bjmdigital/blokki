@@ -6,24 +6,14 @@ import {InspectorControls} from '@wordpress/block-editor'
 import {PanelBody, ToggleControl} from '@wordpress/components'
 
 
-import {getVisibilityClasses} from "../helpers";
+import {getBlockTypesForBlokkiControls, getVisibilityClasses} from "../helpers";
 
 // Enable control on the following block types
-let enableVisibilityControlOnBlockTypes = [
-    'core',
-    'acf',
-    'blokki',
-];
+let enableVisibilityControlOnBlockTypes = getBlockTypesForBlokkiControls();
 
 enableVisibilityControlOnBlockTypes =
     applyFilters(
-        'blokki_block_type_controls',
-        enableVisibilityControlOnBlockTypes
-    );
-
-enableVisibilityControlOnBlockTypes =
-    applyFilters(
-        'blokki_block_type_visibility_control', enableVisibilityControlOnBlockTypes
+        'blokki_block_types_visibility_control', enableVisibilityControlOnBlockTypes
     );
 
 const shouldBlockHaveVisibilityControl = function (blockName) {

@@ -10,18 +10,12 @@ import {
 } from '@wordpress/components'
 
 
-import {getSpacingClasses} from "../helpers";
+import {getSpacingClasses, getBlockTypesForBlokkiControls} from "../helpers";
 
 // Enable control on the following block types
-let enableSpacingControlOnBlockTypes = [
-    'core',
-    'acf',
-    'blokki',
-];
+let enableSpacingControlOnBlockTypes = getBlockTypesForBlokkiControls();
 
-enableSpacingControlOnBlockTypes = applyFilters('blokki_block_type_controls', enableSpacingControlOnBlockTypes);
-
-enableSpacingControlOnBlockTypes = applyFilters('blokki_block_type_spacing_control', enableSpacingControlOnBlockTypes);
+enableSpacingControlOnBlockTypes = applyFilters('blokki_block_types_spacing_control', enableSpacingControlOnBlockTypes);
 
 const shouldBlockHaveSpacingControl = function (blockName) {
     return enableSpacingControlOnBlockTypes.find(element => {
