@@ -1,5 +1,5 @@
 import {__} from '@wordpress/i18n'
-import {addFilter} from '@wordpress/hooks'
+import {addFilter, applyFilters} from '@wordpress/hooks'
 import {Fragment} from '@wordpress/element'
 import {createHigherOrderComponent} from '@wordpress/compose'
 import {InspectorControls} from '@wordpress/block-editor'
@@ -8,10 +8,40 @@ import {PanelBody, ToggleControl} from '@wordpress/components'
 
 import {getVisibilityClasses} from "../helpers";
 
+// Enable control on the following block types
+let enableVisibilityControlOnBlockTypes = [
+    'core',
+    'acf',
+    'blokki',
+];
+
+enableVisibilityControlOnBlockTypes =
+    applyFilters(
+        'blokki_block_type_controls',
+        enableVisibilityControlOnBlockTypes
+    );
+
+enableVisibilityControlOnBlockTypes =
+    applyFilters(
+        'blokki_block_type_visibility_control', enableVisibilityControlOnBlockTypes
+    );
+
+const shouldBlockHaveVisibilityControl = function (blockName) {
+    return enableVisibilityControlOnBlockTypes.find(element => {
+        if (blockName && blockName.includes(element)) {
+            return true;
+        }
+    });
+}
+
+
 /**
  * Add options for visibility.
  */
 addFilter("blocks.registerBlockType", "blokki/visibility", (props, name) => {
+    if (!shouldBlockHaveVisibilityControl(name)) {
+        return props;
+    }
     const attributes = {
         ...props.attributes,
         hideOnLarge: {
@@ -36,6 +66,13 @@ addFilter("blocks.registerBlockType", "blokki/visibility", (props, name) => {
  */
 addFilter("editor.BlockEdit", "blokki/visibility",
     createHigherOrderComponent((BlockEdit) => (props) => {
+        // Do nothing if it's another block type than our defined ones.
+        if (!shouldBlockHaveVisibilityControl(props.name)) {
+            return (
+                <BlockEdit {...props} />
+            );
+        }
+
         const {
             attributes: {
                 hideOnLarge,
@@ -76,6 +113,11 @@ addFilter("editor.BlockEdit", "blokki/visibility",
  * Add a new properties i.e. visibility classes to the props object.
  */
 addFilter("blocks.getSaveContent.extraProps", "blokki/visibility", (props, block, attributes) => {
+
+
+    if (!shouldBlockHaveVisibilityControl(props.name)) {
+        return props;
+    }
 
     const visibilityClasses = getVisibilityClasses(attributes, props.className);
 
