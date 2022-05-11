@@ -122,6 +122,7 @@ class Init {
 		$this->define_api_hooks();
 		$this->define_public_hooks();
 		$this->define_blocks_hooks();
+		$this->define_schema_hooks();
 		$this->define_acf_blocks_hooks();
 
 		do_action( 'blokki_init_construct' );
@@ -304,6 +305,17 @@ class Init {
 
 	}
 
+	/**
+	 * Register all the hooks related to SEO Schema
+	 *
+	 * @since    1.0.1
+	 * @access   private
+	 */
+	private function define_schema_hooks() {
+
+		$this->schema = new Schema( $this->get_plugin_name(), $this->get_version() );
+
+	}
 	/**
 	 * Register all the hooks related to ACF Blocks
 	 *

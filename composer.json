@@ -16,7 +16,8 @@
     "classmap": [
       "includes",
       "admin",
-      "public"
+      "public",
+      "schema"
     ]
   }
 }
