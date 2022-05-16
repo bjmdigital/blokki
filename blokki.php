@@ -53,7 +53,7 @@ if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) ) {
 	deactivate_plugins( basename( __FILE__ ) );
 	wp_die( esc_html__( 'Please run composer install before activating plugin.' ) );
 }
-require 'vendor/autoload.php';
+require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 /**
  * The code that runs during plugin activation.
