@@ -105,7 +105,7 @@ addFilter("editor.BlockEdit", "blokki/visibility",
 addFilter("blocks.getSaveContent.extraProps", "blokki/visibility", (props, block, attributes) => {
 
 
-    if (!shouldBlockHaveVisibilityControl(props.name)) {
+    if (!shouldBlockHaveVisibilityControl(block.name)) {
         return props;
     }
 

@@ -200,7 +200,7 @@ addFilter("editor.BlockEdit", "blokki/spacing",
  */
 addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, attributes) => {
 
-    if (!shouldBlockHaveSpacingControl(props.name)) {
+    if (!shouldBlockHaveSpacingControl(block.name)) {
         return props;
     }
     const spacingClasses = getSpacingClasses(attributes, props.className);
@@ -219,7 +219,7 @@ addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, a
  */
 addFilter("editor.BlockListBlock", "blokki/spacing",
     createHigherOrderComponent((BlockListBlock) => (props) => {
-        if (!shouldBlockHaveSpacingControl(props.name)) {
+        if (! props.block.name || !shouldBlockHaveSpacingControl(props.block.name)) {
             return (
                 <BlockListBlock {...props} />
             );
