@@ -40,7 +40,7 @@ class Schema {
 	 */
 	public function setup_schema_for_post_in_wp_grid_card( $object ) {
 
-		// we are only interested in Post Object
+		// we are only interested in WP_Post Object
 		if ( 'WP_Post' === get_class( $object ) ) {
 			$this->enqueue_post_schema( $object );
 		}
@@ -49,7 +49,7 @@ class Schema {
 	}
 
 	/**
-	 *
+	 * Enqueue Schema using the $post object
 	 */
 	public function enqueue_post_schema( $post ) {
 
@@ -59,13 +59,23 @@ class Schema {
 			return null;
 		}
 
-		$this->setup_schema_type( $schema_type );
+		/**
+		 * Lets setup Schema Type class for the specified schema_type
+		 * This will set up schema class
+		 */
+		$schema_type_class = $this->setup_schema_type( $schema_type );
 
-		$this->schema_array[ $schema_type ]->add_post_schema( $post );
+		if ( ! $schema_type_class ) {
+			return null;
+		}
+		/**
+		 * Add Post Schema to the class
+		 */
+		$schema_type_class->add_post_schema( $post );
 	}
 
 	/**
-	 *
+	 * Get Schema Type from Post Object
 	 */
 	public function get_post_schema_type( $post ) {
 
@@ -95,16 +105,42 @@ class Schema {
 		return "Blokki\\Schema\\{$schema_type}";
 	}
 
+
 	/**
+	 * @param $schema_type
 	 *
+	 * @return mixed|null
 	 */
 	public function setup_schema_type( $schema_type ) {
 
-		if ( ! isset( $this->schema_array[ $schema_type ] ) ) {
-			$class = $this->get_namespace_class_name( $schema_type );
+		$class = $this->get_namespace_class_name( $schema_type );
 
+		// if the required class not found, we should return
+		if ( ! class_exists( $class ) ) {
+			return null;
+		}
+
+		/**
+		 * If not Already initiated, then initiate a new one
+		 */
+		if ( ! isset( $this->schema_array[ $schema_type ] ) ) {
 			$this->schema_array[ $schema_type ] = new $class;
 		}
+
+		return $this->schema_array[ $schema_type ];
+
+	}
+
+	/**
+	 * Get the schema_type class from schema array
+	 */
+	public function get_schema_type_class( $schema_type ) {
+
+		if ( isset( $this->schema_array[ $schema_type ] ) ) {
+			return $this->schema_array[ $schema_type ];
+		}
+
+		return null;
 
 	}
 
