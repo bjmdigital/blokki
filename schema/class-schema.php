@@ -21,36 +21,31 @@ class Schema {
 	public function __construct() {
 
 
+		/**
+		 * Blokki Loop action
+		 */
 		add_action( 'blokki_template_posts_loop_post', [ $this, 'setup_schema_for_post_in_loop' ], 10, 3 );
+
+		/**
+		 * WP Grid Builder Action for Card
+		 */
+		add_action( 'wp_grid_builder/grid/the_object', [ $this, 'setup_schema_for_post_in_wp_grid_card' ], 10, 1 );
 
 		add_action( 'wp_footer', [ $this, 'output_schema' ] );
 	}
 
 	/**
 	 * Setup Schema for Post inside loop in a block
+	 * @hooked wp_grid_builder/card/wrapper_start
 	 */
-	public function setup_schema_for_post_in_loop( $post, $block, $loop ) {
+	public function setup_schema_for_post_in_wp_grid_card( $object ) {
 
-
-		if ( $this->is_disable_schema_block( $block ) ) {
-			return null;
+		// we are only interested in Post Object
+		if ( 'WP_Post' === get_class( $object ) ) {
+			$this->enqueue_post_schema( $object );
 		}
 
-		$this->enqueue_post_schema( $post );
-
-	}
-
-	/**
-	 *
-	 */
-	public function is_disable_schema_block( $block ) {
-
-		if ( isset( $block->data['disable_schema'] ) && $block->data['disable_schema'] ) {
-			return true;
-		}
-
-		return false;
-
+		return $object;
 	}
 
 	/**
@@ -110,6 +105,34 @@ class Schema {
 
 			$this->schema_array[ $schema_type ] = new $class;
 		}
+
+	}
+
+	/**
+	 * Setup Schema for Post inside loop in a block
+	 * @hooked blokki_template_posts_loop_post
+	 */
+	public function setup_schema_for_post_in_loop( $post, $block, $loop ) {
+
+
+		if ( $this->is_disable_schema_block( $block ) ) {
+			return null;
+		}
+
+		$this->enqueue_post_schema( $post );
+
+	}
+
+	/**
+	 *
+	 */
+	public function is_disable_schema_block( $block ) {
+
+		if ( isset( $block->data['disable_schema'] ) && $block->data['disable_schema'] ) {
+			return true;
+		}
+
+		return false;
 
 	}
 
