@@ -32,7 +32,7 @@ class Schema {
 		/**
 		 * WP Grid Builder Action for Card
 		 */
-		add_action( 'wp_grid_builder/grid/the_object', [ $this, 'setup_schema_for_post_in_wp_grid_card' ], 10, 1 );
+		add_action( 'wp_grid_builder/grid/the_object', [ $this, 'setup_schema_for_post_in_wp_grid_loop' ], 10, 1 );
 
 		add_action( 'wp_footer', [ $this, 'output_schema' ] );
 	}
@@ -41,11 +41,11 @@ class Schema {
 	 * Setup Schema for Post inside loop in a block
 	 * @hooked wp_grid_builder/card/wrapper_start
 	 */
-	public function setup_schema_for_post_in_wp_grid_card( $object ) {
+	public function setup_schema_for_post_in_wp_grid_loop( $object ) {
 
 		// we are only interested in WP_Post Object
 		if ( 'WP_Post' === get_class( $object ) ) {
-			$this->enqueue_post_schema( $object );
+			$this->enqueue_post_loop_schema( $object );
 		}
 
 		return $object;
@@ -54,9 +54,9 @@ class Schema {
 	/**
 	 * Enqueue Schema using the $post object
 	 */
-	public function enqueue_post_schema( $post ) {
+	public function enqueue_post_loop_schema( $post ) {
 
-		$schema_type = $this->get_post_schema_type( $post );
+		$schema_type = $this->get_post_loop_schema_type( $post );
 
 		if ( ! $schema_type ) {
 			return null;
@@ -78,22 +78,31 @@ class Schema {
 	}
 
 	/**
+	 * Get Loop Schema Type from Post Object
+	 */
+	public function get_post_loop_schema_type( $post ) {
+
+		return $this->get_post_schema_type( $post, true );
+
+	}
+
+	/**
 	 * Get Schema Type from Post Object
 	 */
-	public function get_post_schema_type( $post ) {
+	public function get_post_schema_type( $post, $for_post_loop = false ) {
+
+		$schema_use = $for_post_loop ? 'loop_schema' : 'schema';
 
 		$post_type_config = blokki_get_post_type_config( get_post_type( $post ) );
 
 		if (
 			is_array( $post_type_config )
-			&& isset( $post_type_config['schema'] )
-			&& is_string( $post_type_config['schema'] )
+			&& isset( $post_type_config[ $schema_use ] )
+			&& is_string( $post_type_config[ $schema_use ] )
 		) {
-			$class = $this->get_namespace_class_name( $post_type_config['schema'] );
+			$class = $this->get_namespace_class_name( $post_type_config[ $schema_use ] );
 			if ( class_exists( $class ) ) {
-				return $post_type_config['schema'];
-			} else {
-				return false;
+				return $post_type_config[ $schema_use ];
 			}
 		}
 
@@ -163,7 +172,7 @@ class Schema {
 			return null;
 		}
 
-		$this->enqueue_post_schema( $post );
+		$this->enqueue_post_loop_schema( $post );
 
 	}
 
