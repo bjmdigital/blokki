@@ -11,6 +11,7 @@ abstract class BaseSchema {
 
 	protected $self;
 	protected $schema;
+	protected $properties;
 
 
 	/**
@@ -20,11 +21,41 @@ abstract class BaseSchema {
 	 */
 	public function __construct() {
 		$this->setup_base_schema();
+		$this->properties = $this->set_required_properties();
 	}
 
-	abstract public function setup_base_schema();
+	/**
+	 * Setup base schema
+	 */
+	public function setup_base_schema() {
+		$this->schema = $this->get_base_schema_type( $this->get_class_short_name() );
+
+	}
+
+	/**
+	 * Get Base Schema type for schema.org context
+	 */
+	public function get_base_schema_type( string $schema_type ) {
+
+		return (object) [
+			'@context' => 'https://schema.org',
+			'@type'    => $schema_type
+		];
+
+	}
+
+	/**
+	 * Get Short name of the static class
+	 * @return string
+	 */
+	private function get_class_short_name() {
+		return ( new \ReflectionClass( static::class ) )->getShortName();
+	}
+
+	abstract protected function set_required_properties();
 
 	abstract public function add_post_schema();
+
 
 	/**
 	 * Get Schema Array
@@ -37,26 +68,29 @@ abstract class BaseSchema {
 			);
 		}
 
-		return false;
+		return null;
 
-	}
-
-	abstract public function has_schema();
-
-	private function get_class_short_name() {
-		return ( new \ReflectionClass( static::class ) )->getShortName();
 	}
 
 	/**
-	 * Get Base Schema type for schema.org context
+	 * Check if we have the schema
 	 */
-	public function get_base_schema_type( string $schema_type ) {
+	protected function has_schema() {
 
+		if ( ! $this->schema ) {
+			return false;
+		}
+		if ( ! is_array( $this->properties ) ) {
+			return false;
+		}
 
-		return (object) [
-			'@context' => 'https://schema.org',
-			'@type'    => $schema_type
-		];
+		foreach ( $this->properties as $property ) {
+			if ( $property && ! property_exists( $this->schema, $property ) ) {
+				return false;
+			}
+		}
+
+		return true;
 
 	}
 

@@ -9,7 +9,6 @@ if ( class_exists( 'Blokki\Schema\FAQPage' ) ) {
 
 class FAQPage extends BaseSchema {
 
-
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -18,32 +17,21 @@ class FAQPage extends BaseSchema {
 	public function __construct() {
 
 		parent::__construct();
-	}
-
-	/**
-	 * Setup Base Schema
-	 */
-	public function setup_base_schema() {
-
-		$this->schema = $this->get_base_schema_type( 'FAQPage' );
-
-		$this->schema->mainEntity = [];
-
+		$this->setup_schema_properties();
 	}
 
 	/**
 	 *
 	 */
-	public function has_schema() {
-		if ( $this->schema
-		     && property_exists( $this->schema, 'mainEntity' )
-		     && ! empty( $this->schema->mainEntity )
-		) {
-			return true;
-		}
+	protected function set_required_properties() {
+		return [ 'mainEntity' ];
+	}
 
-		return false;
-
+	/**
+	 * Setup Base Schema
+	 */
+	public function setup_schema_properties() {
+		$this->schema->mainEntity = [];
 	}
 
 	/**
@@ -51,19 +39,17 @@ class FAQPage extends BaseSchema {
 	 */
 	public function add_post_schema( $post = 0 ) {
 
-		$post = get_post( $post );
+		$question_schema = new Question();
+		$question_schema->add_post_schema( $post );
 
-		$question_schema = $this->get_base_schema_type( 'Question' );
-
-		$question_schema->name = wp_strip_all_tags( $post->post_title );
-
-		$answer_schema       = $this->get_base_schema_type( 'Answer' );
-		$answer_schema->text = wp_strip_all_tags( $post->post_content );
-
-		$question_schema->acceptedAnswer = $answer_schema;
-
-		$this->schema->mainEntity[] = $question_schema;
+		$schema = $question_schema->get_schema();
+		if ( $schema ) {
+			$this->schema->mainEntity[] = $schema;
+		}
+		// unset the variable as it's not needed now
+		unset( $schema, $question_schema );
 
 	}
+
 
 }
