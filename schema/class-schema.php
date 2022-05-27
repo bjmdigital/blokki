@@ -7,6 +7,9 @@ if ( class_exists( 'Blokki\Schema' ) ) {
 	return;
 }
 
+/**
+ * The class to control the Schema offered by BJM
+ */
 class Schema {
 
 	protected $schema_array;
@@ -147,9 +150,14 @@ class Schema {
 	/**
 	 * Setup Schema for Post inside loop in a block
 	 * @hooked blokki_template_posts_loop_post
+	 *
+	 * @param $post \WP_Post
+	 * @param $block
+	 * @param $loop \WP_Query
+	 *
+	 * @return void|null
 	 */
 	public function setup_schema_for_post_in_loop( $post, $block, $loop ) {
-
 
 		if ( $this->is_disable_schema_block( $block ) ) {
 			return null;
@@ -160,11 +168,16 @@ class Schema {
 	}
 
 	/**
-	 *
+	 * Check if the $block properties hav disabled schema
 	 */
 	public function is_disable_schema_block( $block ) {
 
-		if ( isset( $block->data['disable_schema'] ) && $block->data['disable_schema'] ) {
+		if (
+			is_object( $block )
+			&& property_exists( $block, 'data' )
+			&& isset( $block->data['disable_schema'] )
+			&& $block->data['disable_schema']
+		) {
 			return true;
 		}
 
@@ -173,6 +186,7 @@ class Schema {
 	}
 
 	/**
+	 * Output the Schema script
 	 * @hooked wp_footer
 	 */
 	public function output_schema() {
@@ -189,7 +203,9 @@ class Schema {
 	}
 
 	/**
-	 *
+	 * The main function to buildup the schema
+	 * It will only build schema if it has found one
+	 * and there are no json errors in schema
 	 */
 	public function build_schema() {
 
@@ -201,12 +217,16 @@ class Schema {
 
 		foreach ( $this->schema_array as $schema_class ):
 			$schema = $schema_class->get_schema();
+
 			if ( $schema ) {
-				$combined_schema[] = $schema_class->get_schema();
+				$combined_schema[] = $schema;
 			}
 		endforeach;
 
+		$combined_schema = apply_filters( 'blokki_schema_combined_before_json_encode', $combined_schema );
+
 		$schema_json = wp_json_encode( $combined_schema );
+
 		if ( ! json_last_error() ) {
 			$this->schema = $schema_json;
 		}
