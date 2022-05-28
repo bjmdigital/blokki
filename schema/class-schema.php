@@ -219,7 +219,7 @@ class Schema {
 	public function build_schema() {
 
 		if ( ! is_array( $this->schema_array ) || empty( $this->schema_array ) ) {
-			return;
+			return null;
 		}
 
 		$combined_schema = [];
@@ -234,6 +234,9 @@ class Schema {
 
 		$combined_schema = apply_filters( 'blokki_schema_combined_before_json_encode', $combined_schema );
 
+		if ( empty( $combined_schema ) ) {
+			return null;
+		}
 		$schema_json = wp_json_encode( $combined_schema );
 
 		if ( ! json_last_error() ) {

@@ -85,7 +85,11 @@ abstract class BaseSchema {
 		}
 
 		foreach ( $this->properties as $property ) {
-			if ( $property && ! property_exists( $this->schema, $property ) ) {
+
+			if (
+				! property_exists( $this->schema, $property )
+				|| empty( $this->schema->$property )
+			) {
 				return false;
 			}
 		}
