@@ -3,11 +3,11 @@
 namespace Blokki\Schema;
 
 // if class already defined, bail out
-if ( class_exists( 'Blokki\Schema\BaseSchema' ) ) {
+if ( class_exists( 'Blokki\Schema\BaseSchemaType' ) ) {
 	return;
 }
 
-abstract class BaseSchema {
+abstract class BaseSchemaType {
 
 	protected $self;
 	protected $schema;

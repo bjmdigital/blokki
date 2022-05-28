@@ -7,7 +7,7 @@ if ( class_exists( 'Blokki\Schema\FAQPage' ) ) {
 	return;
 }
 
-class FAQPage extends BaseSchema {
+class FAQPage extends BaseSchemaType {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -21,7 +21,9 @@ class FAQPage extends BaseSchema {
 	}
 
 	/**
-	 *
+	 * abstract function on parent class
+	 * to set required properties
+	 * @return array
 	 */
 	protected function set_required_properties() {
 		return [ 'mainEntity' ];

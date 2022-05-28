@@ -7,7 +7,7 @@ if ( class_exists( 'Blokki\Schema\Question' ) ) {
 	return;
 }
 
-class Question extends BaseSchema {
+class Question extends BaseSchemaType {
 
 
 	/**
@@ -38,6 +38,7 @@ class Question extends BaseSchema {
 	/**
 	 * abstract function on parent class
 	 * to set required properties
+	 * @return array
 	 */
 	protected function set_required_properties() {
 		return [ 'name', 'acceptedAnswer' ];

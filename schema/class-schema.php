@@ -55,26 +55,26 @@ class Schema {
 	 * Enqueue Schema using the $post object
 	 */
 	public function enqueue_post_loop_schema( $post ) {
+		$post = get_post( $post );
 
-		$schema_type = $this->get_post_loop_schema_type( $post );
+		$loop_schema_type = $this->get_post_loop_schema_type( $post );
 
-		if ( ! $schema_type ) {
+		if ( ! $loop_schema_type ) {
 			return null;
 		}
 
 		/**
-		 * Lets setup Schema Type class for the specified schema_type
-		 * This will set up schema class
+		 * Lets setup Schema Type class for the specified loop_schema
 		 */
-		$schema_type_class = $this->setup_schema_type( $schema_type );
+		$loop_schema_type_class = $this->setup_schema_type( $loop_schema_type, $post->post_type );
 
-		if ( ! $schema_type_class ) {
+		if ( ! $loop_schema_type_class ) {
 			return null;
 		}
 		/**
 		 * Add Post Schema to the class
 		 */
-		$schema_type_class->add_post_schema( $post );
+		$loop_schema_type_class->add_post_schema( $post );
 	}
 
 	/**
@@ -100,10 +100,7 @@ class Schema {
 			&& isset( $post_type_config[ $schema_use ] )
 			&& is_string( $post_type_config[ $schema_use ] )
 		) {
-			$class = $this->get_namespace_class_name( $post_type_config[ $schema_use ] );
-			if ( class_exists( $class ) ) {
-				return $post_type_config[ $schema_use ];
-			}
+			return $post_type_config[ $schema_use ];
 		}
 
 		return false;
@@ -111,36 +108,40 @@ class Schema {
 	}
 
 	/**
-	 *
-	 */
-	public function get_namespace_class_name( $schema_type ) {
-		return "Blokki\\Schema\\{$schema_type}";
-	}
-
-
-	/**
-	 * @param $schema_type
+	 * @param $loop_schema_type
 	 *
 	 * @return mixed|null
 	 */
-	public function setup_schema_type( $schema_type ) {
+	public function setup_schema_type( $loop_schema_type, $post_schema_type = '' ) {
 
-		$class = $this->get_namespace_class_name( $schema_type );
+		$class = $this->get_namespace_class_name( $loop_schema_type );
 
 		// if the required class not found, we should return
 		if ( ! class_exists( $class ) ) {
 			return null;
 		}
+		/**
+		 * We need a key identifying the different types of post schema
+		 * so that on list contains only one type of schema,
+		 * Reference: https://developers.google.com/search/docs/advanced/structured-data/carousel#guidelines
+		 */
+		$array_key = $loop_schema_type . '_' . $post_schema_type;
 
 		/**
 		 * If not Already initiated, then initiate a new one
 		 */
-		if ( ! isset( $this->schema_array[ $schema_type ] ) ) {
-			$this->schema_array[ $schema_type ] = new $class;
+		if ( ! isset( $this->schema_array[ $array_key ] ) ) {
+			$this->schema_array[ $array_key ] = new $class;
 		}
 
-		return $this->schema_array[ $schema_type ];
+		return $this->schema_array[ $array_key ];
+	}
 
+	/**
+	 *
+	 */
+	public function get_namespace_class_name( $schema_type ) {
+		return "Blokki\\Schema\\{$schema_type}";
 	}
 
 	/**
