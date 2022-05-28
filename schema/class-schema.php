@@ -23,7 +23,9 @@ class Schema {
 	 */
 	public function __construct() {
 
-
+		if ( ! get_field( 'blokki_schema_support', 'options' ) ) {
+			return null;
+		}
 		/**
 		 * Blokki Loop action
 		 */
@@ -237,7 +239,7 @@ class Schema {
 			return;
 		}
 
-		printf( '<!-- BJM-SEO Schema added by BJM --><script type="application/ld+json">%s</script>',
+		printf( "\n<!-- BJM-SEO Schema added by BJM --><script type=\"application/ld+json\">%s</script>\n",
 			$this->schema
 		);
 	}

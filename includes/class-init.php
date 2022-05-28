@@ -321,7 +321,7 @@ class Init {
 	 */
 	private function define_schema_hooks() {
 
-		$this->schema = new Schema( $this->get_plugin_name(), $this->get_version() );
+		$this->schema = new Schema();
 
 	}
 	/**
