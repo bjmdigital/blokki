@@ -24,10 +24,16 @@ class ListItem extends BaseSchemaType {
 	 */
 	public function add_post_schema( $post = 0 ) {
 
-		$post = get_post( $post );
+		$cached_schema = $this->get_cache_schema_for_post( $post );
 
-		$this->schema->url = get_permalink($post);
+		if ( $cached_schema ) {
+			$this->schema = $cached_schema;
 
+			return;
+		}
+
+		$this->schema->url = get_permalink( $post );
+		$this->set_cache_schema_for_post( $this->schema, $post );
 	}
 
 	/**

@@ -12,8 +12,8 @@ if ( class_exists( 'Blokki\Schema' ) ) {
  */
 class Schema {
 
-	protected $schema_array;
-	protected $schema;
+	protected array $schema_array;
+	protected string $schema;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -34,7 +34,31 @@ class Schema {
 		 */
 		add_action( 'wp_grid_builder/grid/the_object', [ $this, 'setup_schema_for_post_in_wp_grid_loop' ], 10, 1 );
 
+		/**
+		 * Output the schema in footer
+		 */
 		add_action( 'wp_footer', [ $this, 'output_schema' ] );
+
+		/**
+		 * Remove Schema cache transient on post save
+		 */
+		add_action( 'save_post', [ $this, 'remove_schema_cache_on_post_save' ] );
+
+
+	}
+
+	/**
+	 * Remove schema cached result on post_save
+	 */
+	public function remove_schema_cache_on_post_save( $post_id ) {
+
+		global $wpdb;
+		$wpdb->query(
+			$wpdb->prepare( "DELETE FROM $wpdb->options WHERE `option_name` LIKE %s",
+				'_transient_' . BLOKKI_SCHEMA_CACHE_PREFIX . $post_id . '%'
+			)
+		);
+
 	}
 
 	/**
@@ -56,6 +80,10 @@ class Schema {
 	 */
 	public function enqueue_post_loop_schema( $post ) {
 		$post = get_post( $post );
+
+		if ( ! $post ) {
+			return null;
+		}
 
 		$loop_schema_type = $this->get_post_loop_schema_type( $post );
 
@@ -109,10 +137,11 @@ class Schema {
 
 	/**
 	 * @param $loop_schema_type
+	 * @param string $post_schema_type
 	 *
 	 * @return mixed|null
 	 */
-	public function setup_schema_type( $loop_schema_type, $post_schema_type = '' ) {
+	public function setup_schema_type( $loop_schema_type, string $post_schema_type = '' ) {
 
 		$class = $this->get_namespace_class_name( $loop_schema_type );
 
@@ -141,7 +170,7 @@ class Schema {
 	 *
 	 */
 	public function get_namespace_class_name( $schema_type ) {
-		return "Blokki\\Schema\\{$schema_type}";
+		return "Blokki\\Schema\\$schema_type";
 	}
 
 	/**
@@ -166,8 +195,9 @@ class Schema {
 	 * @param $loop \WP_Query
 	 *
 	 * @return void|null
+	 * @noinspection PhpUnusedParameterInspection
 	 */
-	public function setup_schema_for_post_in_loop( $post, $block, $loop ) {
+	public function setup_schema_for_post_in_loop( \WP_Post $post, $block, \WP_Query $loop ) {
 
 		if ( $this->is_disable_schema_block( $block ) ) {
 			return null;

@@ -164,6 +164,14 @@ class Init {
 		/** @noinspection PhpUnused */
 		define( 'BLOKKI_URL_PATH', plugin_dir_url( BLOKKI_PLUGIN_FILE ) );
 
+
+		/**
+		 * Transient Prefix for schema cache
+		 * Start at version 1.0.1
+		 */
+		/** @noinspection PhpUnused */
+		define( 'BLOKKI_SCHEMA_CACHE_PREFIX', 'blokki_schema_cache_' );
+
 	}
 
 	/**

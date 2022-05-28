@@ -24,7 +24,12 @@ class Question extends BaseSchemaType {
 	 */
 	public function add_post_schema( $post = 0 ) {
 
-		$post = get_post( $post );
+		$cached_schema = $this->get_cache_schema_for_post( $post );
+		if ( $cached_schema ) {
+			$this->schema = $cached_schema;
+
+			return;
+		}
 
 		$this->schema->name = wp_strip_all_tags( $post->post_title );
 
@@ -32,6 +37,7 @@ class Question extends BaseSchemaType {
 		$answer_schema->text = wp_strip_all_tags( $post->post_content );
 
 		$this->schema->acceptedAnswer = $answer_schema;
+		$this->set_cache_schema_for_post( $this->schema, $post );
 
 	}
 

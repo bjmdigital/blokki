@@ -56,7 +56,6 @@ abstract class BaseSchemaType {
 
 	abstract public function add_post_schema();
 
-
 	/**
 	 * Get Schema Array
 	 */
@@ -96,6 +95,42 @@ abstract class BaseSchemaType {
 
 		return true;
 
+	}
+
+	/**
+	 * Get the cached schema for post for the schema type
+	 */
+	protected function get_cache_schema_for_post( \WP_Post $post ) {
+
+		$cache_id = $this->get_cache_id( $post );
+
+		return get_transient( $cache_id );
+
+	}
+
+	/**
+	 * Get Cache Transient id
+	 */
+	public function get_cache_id( \WP_Post $post ) {
+		return BLOKKI_SCHEMA_CACHE_PREFIX . $post->ID . '_' . $this->get_class_short_name();
+	}
+
+	/**
+	 * Set the cached schema for post for the schema type
+	 */
+	protected function set_cache_schema_for_post( $schema, \WP_Post $post ) {
+
+		$cache_id = $this->get_cache_id( $post );
+
+		set_transient( $cache_id, $schema, $this->get_cache_expiry() );
+
+	}
+
+	/**
+	 * Get Transient cache expiry
+	 */
+	protected function get_cache_expiry() {
+		return apply_filters( 'blokki_schema_get_cache_expiry', 24 * HOUR_IN_SECONDS );
 	}
 
 
