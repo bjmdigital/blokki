@@ -23,7 +23,9 @@ class Schema {
 	 */
 	public function __construct() {
 
-		if ( ! get_field( 'blokki_schema_support', 'options' ) ) {
+		if ( ! function_exists( 'get_field')
+			||
+			! get_field( 'blokki_schema_support', 'options' ) ) {
 			return null;
 		}
 		/**
