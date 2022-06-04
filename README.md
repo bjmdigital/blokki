@@ -31,7 +31,7 @@ Once you have done all the build and plugin is ready to be released, you may run
 
 ### Post Type Config Possible values and defaults
 
-####Cards
+#### Cards
 ```php
 $post_type_config_cards =
 	array(
@@ -73,7 +73,7 @@ $post_type_config_cards =
 	);
 
 ```
-####Accordions
+#### Accordions
 ```php
 
 $post_type_config_accordions =
@@ -102,9 +102,10 @@ array(
 
 ```
 
-##Change Log
+## Change Log
 
 **1.0.1**
+
 - Dev: Updated npm packages to the latest versions
 - Dev: Ability to create `.zip` file for plugin release
 - Dev: Code Optimization and Refactoring
@@ -120,7 +121,8 @@ array(
   - Caching System for Schema added by plugin for speed optimization
 
 **1.0.0**
-- Initial Release of plugin
+
+* Initial Release of plugin
 
 ## Known Issues 
 
