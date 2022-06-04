@@ -135,7 +135,7 @@ class Init {
 	public function define_constants() {
 
 
-		define( 'BLOKKI_VERSION', '1.0.0' );
+		define( 'BLOKKI_VERSION', '1.0.1' );
 
 		define( 'BLOKKI_PLUGIN_NAME', 'blokki' );
 

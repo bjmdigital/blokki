@@ -23,23 +23,11 @@
 
 ## Steps required to release plugin:
 
-Once you have done all the build and plugin is ready to be released, you may follow these steps to issue the new plugin
-release:
+Once you have done all the build and plugin is ready to be released, you may run the following command to create a `.zip` file for plugin release:
 
-1. Clone the repo toa new location probably your desktop:
-    * `git clone your_repo_link.git`
+ 1. `npm run plugin-zip`
+ 2. Cut the `.zip` file and upload to the repo release
 
-2. Run Composer Update to build and install composer dependencies:
-    * `composer update`
-3. install npm modules and run build
-    * `npm install`
-    * `npm run build`
-
-4. Once everything is built, you should remove the git directories, node_modules and other unnecessary directories:
-    * `find . | grep .git | xargs rm -rf` to remove all git related files and directories
-    * `rm node_modules -r` to remove all node modules since these are not required after the build process is done.
-    * `rm composer.lock` optionally remove composer lock file
-    * `rm package-lock.json` optionally remove npm package lock file
 
 ### Post Type Config Possible values and defaults
 
@@ -113,3 +101,27 @@ array(
 );
 
 ```
+
+##Change Log
+
+**1.0.1**
+- Dev: Updated npm packages to the latest versions
+- Dev: Ability to create `.zip` file for plugin release
+- Dev: Code Optimization and Refactoring
+- Fix: Blokki block controls for spacing and visibility only to core, acf and blokki block types
+- Fix: composer autoload path
+- Fix: visibility and spacing controls not adding CSS classes
+- Fix: Block alignment class added to social share block
+- Schema Feature: 
+  - FAQPage Schema added for accordion block
+  - Added ItemList schema for cards block
+  - Option to turn off schema in plugin settings
+  - Option to disable schema on Cards block
+  - Caching System for Schema added by plugin for speed optimization
+
+**1.0.0**
+- Initial Release of plugin
+
+## Known Issues 
+
+- Blokki plugin is not compatible with BJM Blocks.

@@ -12,8 +12,8 @@ if ( class_exists( 'Blokki\Schema' ) ) {
  */
 class Schema {
 
-	protected array $schema_array;
-	protected string $schema;
+	protected array $schema_array = [];
+	protected string $schema = '';
 
 	/**
 	 * Initialize the class and set its properties.
