@@ -247,6 +247,7 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 		];
 		switch ( $block_name ):
 			case( 'accordions' ):
+				$config['link_title']     = false;
 				$config['template']       = 'accordion';
 				$config['title_html_tag'] = 'span';
 				break;

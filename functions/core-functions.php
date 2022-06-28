@@ -195,7 +195,6 @@ if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
 		if ( $tax_query_args ) {
 			$tax_query_args['relation'] = 'OR';
 		}
-		
 
 
 		return $tax_query_args;
@@ -203,3 +202,14 @@ if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
 	}
 
 endif;
+
+if ( ! function_exists( 'write_log' ) ) {
+	function write_log( $log ) {
+
+		if ( is_array( $log ) || is_object( $log ) ) {
+			$log = print_r( $log, true );
+		}
+		error_log( basename( __FILE__ ) . " : " . __LINE__ . " : " . $log . PHP_EOL, 3, plugin_dir_path( BLOKKI_PLUGIN_FILE ) . 'debug.log' );
+
+	}
+}
