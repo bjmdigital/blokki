@@ -1,5 +1,5 @@
 import {__} from '@wordpress/i18n'
-import {addFilter} from '@wordpress/hooks'
+import {addFilter, applyFilters} from '@wordpress/hooks'
 import {Fragment} from '@wordpress/element'
 import {createHigherOrderComponent} from '@wordpress/compose'
 import {InspectorControls} from '@wordpress/block-editor'
@@ -10,12 +10,30 @@ import {
 } from '@wordpress/components'
 
 
-import {getSpacingClasses} from "../helpers";
+import {getSpacingClasses, getBlockTypesForBlokkiControls} from "../helpers";
+
+// Enable control on the following block types
+let enableSpacingControlOnBlockTypes = getBlockTypesForBlokkiControls();
+
+enableSpacingControlOnBlockTypes = applyFilters('blokki_block_types_spacing_control', enableSpacingControlOnBlockTypes);
+
+const shouldBlockHaveSpacingControl = function (blockName) {
+    return enableSpacingControlOnBlockTypes.find(element => {
+        if (blockName && blockName.includes(element)) {
+            return true;
+        }
+    });
+}
 
 /**
  * Add options for visibility.
  */
 addFilter("blocks.registerBlockType", "blokki/spacing", (props, name) => {
+
+    if (!shouldBlockHaveSpacingControl(name)) {
+        return props;
+    }
+
     const attributes = {
         ...props.attributes,
         paddingAll: {
@@ -68,6 +86,13 @@ addFilter("blocks.registerBlockType", "blokki/spacing", (props, name) => {
  */
 addFilter("editor.BlockEdit", "blokki/spacing",
     createHigherOrderComponent((BlockEdit) => (props) => {
+        // Do nothing if it's another block type than our defined ones.
+        if (!shouldBlockHaveSpacingControl(props.name)) {
+            return (
+                <BlockEdit {...props} />
+            );
+        }
+
         const {
             attributes: {
                 paddingAll,
@@ -175,6 +200,9 @@ addFilter("editor.BlockEdit", "blokki/spacing",
  */
 addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, attributes) => {
 
+    if (!shouldBlockHaveSpacingControl(block.name)) {
+        return props;
+    }
     const spacingClasses = getSpacingClasses(attributes, props.className);
 
     if (spacingClasses.length) {
@@ -191,10 +219,15 @@ addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, a
  */
 addFilter("editor.BlockListBlock", "blokki/spacing",
     createHigherOrderComponent((BlockListBlock) => (props) => {
+        if (! props.block.name || !shouldBlockHaveSpacingControl(props.block.name)) {
+            return (
+                <BlockListBlock {...props} />
+            );
+        }
         const spacingClasses = getSpacingClasses(props.attributes);
 
         if (spacingClasses.length) {
-            return <BlockListBlock {...props} className={ spacingClasses.join(' ') }/>
+            return <BlockListBlock {...props} className={spacingClasses.join(' ')}/>
         }
 
         return <BlockListBlock {...props} />

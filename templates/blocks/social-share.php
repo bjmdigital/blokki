@@ -3,6 +3,11 @@
 $block           = $block ?? [];
 $block_css_class = $block['className'] ?? 'wp-block-acf-blokki-social-share';
 $block_classes   = [ $block_css_class ];
+$block_align     = $block['align'] ?? '';
+
+if ( $block_align ) {
+	$block_classes[] = 'align' . $block_align;
+}
 
 $share_text = get_field( 'share_text' );
 
@@ -25,7 +30,7 @@ $icon_size            = apply_filters( 'blokki_block_social_share_icon_size_clas
 $icon_wrapper_classes = apply_filters( 'blokki_block_social_share_wrapper_classes', [ 'share-icons' ] );
 $block_classes        = apply_filters( 'blokki_block_social_share_block_classes', $block_classes, $block );
 
-
+$block_classes = array_filter( $block_classes );
 /**
  * HTML Output
  */

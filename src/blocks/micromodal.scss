@@ -13,7 +13,7 @@
 }
 
 .modal__container {
-  width: 100%;
+  width: var(--blokki-modal-container-max, 100%);
   max-width: var(--blokki-modal-container-max-width, 90vw);
   max-height: var(--blokki-modal-container-max-height, 100vh);
   overflow-y: auto;

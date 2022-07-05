@@ -20,7 +20,7 @@
  * Requires PHP:      7.0
  * Requires at least: 5.0
  * Tested up to:      5.9
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
@@ -53,7 +53,7 @@ if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) ) {
 	deactivate_plugins( basename( __FILE__ ) );
 	wp_die( esc_html__( 'Please run composer install before activating plugin.' ) );
 }
-require 'vendor/autoload.php';
+require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
 /**
  * The code that runs during plugin activation.

@@ -260,12 +260,12 @@ class AcfBlocks {
 		];
 
 		$blocks['social-share'] = [
-			'name'            => 'social-share',
-			'title'           => __( 'Blokki Social Share', 'blokki' ),
-			'description'     => __( 'Add social sharing buttons.', 'blokki' ),
-			'category'        => 'theme',
-			'icon'            => 'share',
-			'keywords'        => [ 'blokki', 'social-share' ],
+			'name'        => 'social-share',
+			'title'       => __( 'Blokki Social Share', 'blokki' ),
+			'description' => __( 'Add social sharing buttons.', 'blokki' ),
+			'category'    => 'theme',
+			'icon'        => 'share',
+			'keywords'    => [ 'blokki', 'social-share' ],
 		];
 
 		return apply_filters( 'blokki_acf_blocks_config', $blocks );
@@ -496,7 +496,7 @@ class AcfBlocks {
 	public function acf_field_choices_post_type( $field ) {
 
 		$field['choices'] = [];
-		$choices          = get_post_types( [ 'public' => true ], 'labels' );
+		$choices          = get_post_types( ['publicly_queryable' => true], 'labels' );
 
 		if ( is_array( $choices ) ) {
 			foreach ( $choices as $slug => $choice ) {
@@ -584,7 +584,10 @@ class AcfBlocks {
 	 */
 	public function acf_add_blocks_to_post_types( $post_types ) {
 
-		$post_types[] = 'wp_block';
+		if ( ! in_array( 'wp_block', $post_types ) ) {
+			$post_types[] = 'wp_block';
+		}
+
 
 		return $post_types;
 

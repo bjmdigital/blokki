@@ -122,6 +122,7 @@ class Init {
 		$this->define_api_hooks();
 		$this->define_public_hooks();
 		$this->define_blocks_hooks();
+		$this->define_schema_hooks();
 		$this->define_acf_blocks_hooks();
 
 		do_action( 'blokki_init_construct' );
@@ -134,7 +135,7 @@ class Init {
 	public function define_constants() {
 
 
-		define( 'BLOKKI_VERSION', '1.0.0' );
+		define( 'BLOKKI_VERSION', '1.0.1' );
 
 		define( 'BLOKKI_PLUGIN_NAME', 'blokki' );
 
@@ -162,6 +163,14 @@ class Init {
 		 */
 		/** @noinspection PhpUnused */
 		define( 'BLOKKI_URL_PATH', plugin_dir_url( BLOKKI_PLUGIN_FILE ) );
+
+
+		/**
+		 * Transient Prefix for schema cache
+		 * Start at version 1.0.1
+		 */
+		/** @noinspection PhpUnused */
+		define( 'BLOKKI_SCHEMA_CACHE_PREFIX', 'blokki_schema_cache_' );
 
 	}
 
@@ -304,6 +313,17 @@ class Init {
 
 	}
 
+	/**
+	 * Register all the hooks related to SEO Schema
+	 *
+	 * @since    1.0.1
+	 * @access   private
+	 */
+	private function define_schema_hooks() {
+
+		$this->schema = new Schema();
+
+	}
 	/**
 	 * Register all the hooks related to ACF Blocks
 	 *

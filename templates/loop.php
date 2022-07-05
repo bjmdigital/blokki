@@ -27,7 +27,7 @@ if ( $loop->have_posts() ) :
 		               ->set_template_data( $card_index, 'card_index' )
 		               ->get_template_part( $template, get_post_type( get_the_ID() ) );
 		$card_index ++;
-
+		do_action( 'blokki_template_posts_loop_post', $post, $block, $loop );
 	endwhile;
 	do_action( 'blokki_template_posts_loop_after', $loop, $block );
 else:

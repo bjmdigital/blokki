@@ -38,6 +38,25 @@
             "ui_off_text": ""
         },
         {
+            "key": "field_62920f83cf063",
+            "label": "Schema Support",
+            "name": "blokki_schema_support",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_6250a9d5e27ba",
             "label": "Social Sharing",
             "name": "social_sharing",
@@ -237,7 +256,8 @@
                 "4": "Cards Grid for Block",
                 "5": "Cards Grid for Loans",
                 "6": "Swiper for Loans",
-                "7": "Swiper for Posts"
+                "7": "Swiper for Posts",
+                "8": "FAQ Grid with Filters"
             },
             "default_value": [],
             "allow_null": 1,
@@ -267,7 +287,8 @@
                 "4": "Cards Grid for Block",
                 "5": "Cards Grid for Loans",
                 "6": "Swiper for Loans",
-                "7": "Swiper for Posts"
+                "7": "Swiper for Posts",
+                "8": "FAQ Grid with Filters"
             },
             "default_value": [],
             "allow_null": 1,
@@ -295,5 +316,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1649453677
+    "modified": 1653739529
 }

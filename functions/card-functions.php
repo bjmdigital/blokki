@@ -236,26 +236,29 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 	function blokki_get_post_type_config_default( string $block_name = 'cards' ) {
 
 		$config = [
-			'image_size'    => 'medium_large',
 			'link_card'     => false,
 			'link_title'    => true,
-			'link_image'    => true,
 			'link_target'   => '_self',
-			'taxonomy'      => '',
 			'link_taxonomy' => false,
 			'card_html_tag' => 'div',
-			'template'      => 'card',
-			'partials'      => blokki_get_block_partials_default( $block_name )
+			'taxonomy'      => '',
+			'schema'        => '',
+			'loop_schema'   => ''
 		];
 		switch ( $block_name ):
 			case( 'accordions' ):
+				$config['link_title']     = false;
+				$config['template']       = 'accordion';
 				$config['title_html_tag'] = 'span';
 				break;
 			case( 'cards' ):
 			default:
+				$config['template']       = 'card';
+				$config['image_size']     = 'medium_large';
+				$config['link_image']     = true;
 				$config['title_html_tag'] = 'h3';
 		endswitch;
-
+		$config['partials'] = blokki_get_block_partials_default( $block_name );
 
 		$display_config = blokki_get_block_display_config_default( $block_name );
 		$config         = array_merge( $display_config, $config );

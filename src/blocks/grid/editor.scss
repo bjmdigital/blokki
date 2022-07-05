@@ -2,7 +2,9 @@
 
 .wp-block-blokki-grid {
   border: $blokki-block-border-editor;
-
+  > .wp-block-blokki-grid-column{
+    margin: unset;
+  }
   > .block-editor-inner-blocks > .block-editor-block-list__layout {
     display: grid;
     gap: var(--blokki-grid-gap-editor, 10px);

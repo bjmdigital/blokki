@@ -1,3 +1,5 @@
+import {applyFilters} from "@wordpress/hooks";
+
 /**
  * Get a usable value from the BlockVerticalAlignmentToolbar.
  */
@@ -9,6 +11,14 @@ export function mapAlignment(value) {
     }
 
     return alignment[value]
+}
+
+export function getBlockTypesForBlokkiControls(){
+    return applyFilters('blokki_controls_block_types', [
+        'core',
+        'acf',
+        'blokki',
+    ]);
 }
 
 export function getSpacingClasses(attributes, className = '') {
