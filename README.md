@@ -1,4 +1,30 @@
-# Blokki
+<div id="top"></div>
+
+<!-- PROJECT SHIELDS -->
+[![Contributors][contributors-shield]][contributors-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![GNU License][license-shield]][license-url]
+
+<!-- PROJECT INTRO -->
+<br />
+<div align="center">
+
+<h3 align="center">Blokki</h3>
+
+  <p align="center">
+    project_description
+    <br />
+    <a href="https://github.com/bjmdigital/blokki"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/bjmdigital/blokki">View Demo</a>
+    ·
+    <a href="https://github.com/bjmdigital/blokki/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/bjmdigital/blokki/issues">Request Feature</a>
+  </p>
+</div>
 
 ## Changes Required to start Development:
 
