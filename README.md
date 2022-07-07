@@ -87,7 +87,7 @@
 
 ## About The Project
 
-This plugin provides some blocks functionality for BJM projects.
+This plugin provides some blocks' functionality for BJM projects.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -109,19 +109,12 @@ Please refer to the following section for setting up your project locally.
 
 ### Prerequisites
 
-1. ACF Pro You should have the ACF Pro installed on the site to use this plugin as it relies on ACF functions for block
-   options and plugin settings.
+1. [ACF Pro](https://www.advancedcustomfields.com/pro/) should be installed on the site to use this plugin as it relies on ACF functions for block options and plugin settings.
 
-2. Composer
-   [Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin
+2. [Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin
 
-3. Node.js
-   [node.js](https://nodejs.org/en/) should also be installed on your machine as we shall need to install some node
+3. [Node.js](https://nodejs.org/en/) should also be installed on your machine as we shall need to install some node
    modules using `npm`
-
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Setup
 
@@ -165,6 +158,7 @@ Please refer to the following section for setting up your project locally.
 Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you
 may follow the steps described below.
 
+:warning:
 Please remember to update the readme.txt file with the new version number for the plugin as this version number shall be
 sued to check for available update.
 
@@ -186,14 +180,19 @@ Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Githu
 create a new tag name corresponding to the new plugin version number and upload the `blokki.zip` to the release assets.
 You may rename the `blokki.zip` to include the version number. e.g. `blokki-v1.0.1.zip`
 
-Once you created a new release, remove the `blokki.zip` file from the plugin repo directory stat was created in Step 1
+Once you created a new release, remove the `blokki.zip` file from the plugin repo directory stat was created in Step-1
 above.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Blocks
 
-The plugin offers primarily 3 blocks
+The plugin offers primarily 3 blocks:
+<ul>
+    <li><a href="#cards-block">Cards Block</a></li>
+    <li><a href="#accordions-block">Accordions Block</a></li>
+    <li><a href="#grid-block">Grid Block</a></li>
+</ul>
 
 ### Cards Block
 
@@ -255,6 +254,7 @@ Visibility control is added to control the visibility of a block for various scr
 Spacing controls are added to give a uniformity to spacing for blocks. These include **Padding** and **Margin** controls
 with option to set all of set different options for
 
+- All
 - Top
 - Bottom
 - Left
@@ -352,21 +352,31 @@ $post_type_config_accordions = array(
 ### Overriding a Template
 
 Plugin make use of template partials to build the markup of a card/accordion. These **templates** are located
-here : `wp-content/plugins/blokki/templates`
+here : 
+```
+wp-content/plugins/blokki/templates
+```
 
 If you need to override any template partial, you shall need to create a directory `blokki` in your theme directory and
 then create a file with same name and folder structure to override the one provided by the plugin.
 
 For instance, if you want to override the following template partial file:
-```wp-content/plugins/blokki/templates/partials/card/image.php```
+```
+wp-content/plugins/blokki/templates/partials/card/image.php
+```
+
 then, you shall need to create a file in your theme with following structure:
-```wp-content/your-theme/blokki/partials/card/image.php```
+```
+wp-content/your-theme/blokki/partials/card/image.php
+```
 
 ### Creating a New Template
 
 If you need an entirely new template partial, then you can follow the method described in the
 section [Overriding a Template](#overriding-a-template) and create a new file with any name and then use this file name
-in the `partials` defined in the CPT config
+in the `partials` defined in the CPT config. 
+
+More on this in Example for [Custom Template for CPT](#custom-template-for-cpt)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -379,18 +389,18 @@ In this section, we shall provide various examples and use cases to use the filt
 In these examples, we shall assume that we have these registered CPTs `bjm_resource`, `bjm_faq` and `bjm_document` for
 the site.
 
-- `bjm_resource` shall need to be displayed in cards and
-- `bjm_faq` shall be displayed as accordion
-- `bjm_document` shall use a specified template to show the CPT card
+- `bjm_resource` shall need to be displayed using *card* template
+- `bjm_faq` shall be displayed using *accordion* template
+- `bjm_document` shall use a *custom template* to show the CPT card
 
 ### Card config example
 
 We shall make use of the filter hook `blokki_get_post_type_config_{CPT}` to configure `bjm_resource` CPT to:
 
-- Use the **card** template
+- Use the *card* template
 - do not show readmore
 - do not show image
-- title html tag to use **h4**
+- title html tag to use *h4*
 
 ```php
 add_filter( 'blokki_get_post_type_config_bjm_resource', function ( $post_type_config ) {
@@ -411,7 +421,7 @@ add_filter( 'blokki_get_post_type_config_bjm_resource', function ( $post_type_co
 
 We shall make use of the filter hook `blokki_get_post_type_config_{CPT}` to configure `bjm_faq` CPT to:
 
-- Use the **accordion** template
+- Use the *accordion* template
 - remove link to the post title
 - use `FAQPage` schema for the CPT loop in the blocks
 
@@ -428,11 +438,13 @@ add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config 
 
 ### Custom Template for CPT
 
-In this example, we suppose that we do not want to use either **card** or **accordion** template, rather we want to
+In this example, we suppose that we do not want to use either *card* or *accordion* template, rather we want to
 create our own template for the `bjm_document` CPT.
 
 In this case, we shall need to create a file in our theme directory with following structure:
-```wp-content/your-theme/blokki/partials/card/document-info.php```
+```
+wp-content/your-theme/blokki/partials/card/document-info.php
+```
 
 The file `document-info.php` shall be used to output the markup for the card of CPT `bjm_document`.
 
