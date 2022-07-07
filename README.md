@@ -1,12 +1,5 @@
 <div id="top"></div>
 
-<!-- PROJECT SHIELDS -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![GNU License][license-shield]][license-url]
-
-
 <!-- PROJECT INTRO -->
 <br />
 <div align="center">
@@ -14,7 +7,7 @@
 <h3 align="center">Blokki</h3>
 
   <p align="center">
-    a WordPress Plugin by BJM
+    Blocks functionality from BJM Digital
     <br />
     <a href="https://github.com/bjmdigital/blokki"><strong>Explore the docs »</strong></a>
     <br />
@@ -44,6 +37,7 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#setup">Setup</a></li>
         <li><a href="#development">Development</a></li>
+        <li><a href="#releasing-update">Releasing Update</a></li>
       </ul>
     </li>
     <li>
@@ -54,7 +48,33 @@
             <li><a href="#grid-block">Grid Block</a></li>
       </ul>
     </li>
+    <li>
+        <a href="#block-controls">Block Controls</a>
+        <ul>
+            <li><a href="#visibility">Visibility</a></li>
+            <li><a href="#spacing">Spacing</a></li>
+            <li><a href="#link-type">Link Type</a></li>
+      </ul>
+    </li>
+    <li>
+        <a href="#usage">Usage</a>
+        <ul>
+            <li><a href="#cpt-config">CPT Config</a></li>
+            <li><a href="#overriding-a-template">Overriding a Template</a></li>
+            <li><a href="#creating-a-new-template">Creating a New Template</a></li>
+      </ul>
+    </li>
+    <li>
+        <a href="#examples">Examples</a>
+        <ul>
+            <li><a href="#hypothesis">Hypothesis</a></li>
+            <li><a href="#card-config-example">Card config example</a></li>
+            <li><a href="#accordion-config-example">Accordion config example</a></li>
+            <li><a href="#custom-template-for-cpt">Custom Template for CPT</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#known-issues">Known Issues</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -64,6 +84,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 This plugin provides some blocks functionality for BJM projects.
@@ -71,38 +92,40 @@ This plugin provides some blocks functionality for BJM projects.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- Installation -->
+
 ## Installation
 
-To get the latest installable plugin file, look for the `.zip` in assets of the latest release in the [Releases](https://github.com/bjmdigital/blokki/releases)
+To get the latest installable plugin file, look for the `.zip` in assets of the latest release in
+the [Releases](https://github.com/bjmdigital/blokki/releases)
 
 You need to have ACF Pro installed and active on the site where the blokki is to be used.
 
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 Please refer to the following section for setting up your project locally.
 
 ### Prerequisites
 
-**ACF Pro**
+1. ACF Pro You should have the ACF Pro installed on the site to use this plugin as it relies on ACF functions for block
+   options and plugin settings.
 
-You should have the ACF Pro installed on the site to use this plugin as it relies on ACF functions for block options and plugin settings.
+2. Composer
+   [Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin
 
-**Composer**
+3. Node.js
+   [node.js](https://nodejs.org/en/) should also be installed on your machine as we shall need to install some node
+   modules using `npm`
 
-[Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin  
-
-**node**
-
-[node.js](https://nodejs.org/en/) should also be installed on your machine as we shall need to install some node modules using `npm`
   ```sh
   npm install npm@latest -g
   ```
 
 ### Setup
 
-1. Clone the repo in your plugins directory i.e. **/wp-content/plugins**
+1. Clone the repo in the plugins directory i.e. **/wp-content/plugins**
    ```sh
    git clone https://github.com/bjmdigital/blokki.git
    ```
@@ -114,14 +137,14 @@ You should have the ACF Pro installed on the site to use this plugin as it relie
    ```sh
    npm install
    ```
-5. Install composer dependencies, this will create the `vendor` directory and the `autoload.php` file. 
+5. Install composer dependencies, this will create the `vendor` directory and the `autoload.php` file.
    ```sh
    composer update
    ```
 
 ### Development
 
-1. While developing you may use the watcher by using the command:
+1. While developing you may use the file watcher by using the command:
    ```sh
    npm run start
    ```
@@ -129,105 +152,347 @@ You should have the ACF Pro installed on the site to use this plugin as it relie
    ```sh
    npm run build
    ```
-3. Plugin is created using the [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block), so you can update the node dependencies using this command:
+3. Plugin is created using the [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block), so you
+   can update the node dependencies using this command:
    ```sh
    npm run packages-update
    ```
-   Complete list of commands can be found here: [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
-
+   Complete list of commands can be found
+   here: [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
 
 ### Releasing Updated
 
-Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you may follow the steps described below.
+Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you
+may follow the steps described below.
 
-Please remember to update the readme.txt file with the new version number for the plugin as this version number shall be sued to check for available update. 
-
+Please remember to update the readme.txt file with the new version number for the plugin as this version number shall be
+sued to check for available update.
 
 Follow these Steps:
 
-**Step 1: Creating Zip**
+#### Step 1: Creating Zip
 
 you may run the following command to create a `.zip` file for plugin release:
+
    ```sh
    npm run plugin-zip
    ```
+
 This command will create a `blokki.zip` file in the repo directory.
 
-**Step 2: Creating a Release**
+#### Step 2: Creating a Release
 
-Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Github and create a new release.
-You should create a new tag name corresponding to the new plugin version number and upload the `blokki.zip` to the release assets.
+Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Github and create a new release. You should
+create a new tag name corresponding to the new plugin version number and upload the `blokki.zip` to the release assets.
 You may rename the `blokki.zip` to include the version number. e.g. `blokki-v1.0.1.zip`
 
-Once you created a new release, remove the `blokki.zip` file from the plugin repo directory stat was created in Step 1 above. 
+Once you created a new release, remove the `blokki.zip` file from the plugin repo directory stat was created in Step 1
+above.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Blocks 
+## Blocks
 
 The plugin offers primarily 3 blocks
 
 ### Cards Block
 
-This block is to be used for creating a grid of CPT cards. You have many options to configure the block as per need. Some of the configurations are:
+This block is to be used for creating a grid of CPT cards. You have many options to configure the block as per need.
+Some of the configurations are:
 
 - Block Heading with link (optional)
 - Posts Selection
-  - Post Type
-  - Taxonomy
-  - Order
-  - Limit
+    - Post Type
+    - Taxonomy
+    - Order
+    - Limit
 - Layout Options to select the cards in a row for various screens
 - Display options to control the visibility of various partials used in the card, like
-  - title
-  - image
-  - meta
-  - author etc.
+    - title
+    - image
+    - meta
+    - author etc.
 - SEO Schema control to add the Rich data schema for the cards.
-  - example: `FAQPage` schema for a certain CPT (you shall need to update Post Type Config using filter hook to use a schema )
+    - example: `FAQPage` schema for a certain CPT (you shall need to update Post Type Config using filter hook to use a
+      schema )
 
 ### Accordions Block
 
-This block is to create accordions for the selected CPTs. 
-Most of the options from Cards Block are also available for this block like  
+This block is to create accordions for the selected CPTs. Most of the options from Cards Block are also available for
+this block like
 
 - Post Selection
 - Layout Options
 - Heading with link
 - SEO Schema
 
+### Grid Block
+
+This block is an alternate for the core `columns` block in gutenberg and has child block `grid-column`
+The prime objective is to control the spanning of `grid-column` for different screen sizes.
+
+## Block Controls
+
+The plugin also adds some block level controls to blocks. The controls are added to following block types to avoid
+conflicts:
+
+- core blocks
+- acf blocks
+- blokki blocks
+
+The controls added by plugin are as follows:
+
+### Visibility
+
+Visibility control is added to control the visibility of a block for various screen sizes:
+
+- Hide on Large
+- Hide on Medium
+- Hide on Small
+
+### Spacing
+
+Spacing controls are added to give a uniformity to spacing for blocks. These include **Padding** and **Margin** controls
+with option to set all of set different options for
+
+- Top
+- Bottom
+- Left
+- Right
+
+### Link Type
+
+The plugin also adds a control to open Video in Lightbox to `core/button` and `core/image` blocks. You need to select
+the "Link Type" as Video Popup and provide the Youtube or Vimeo video url as the link to the image or button to open the
+video in popup.
+
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This plugin extensively use [action and filter hooks](https://developer.wordpress.org/plugins/hooks/) and thus provides
+an opportunity to pass post type configurations for cards and accordions.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### CPT Config
+
+Following are the possible values and defaults that can be used to configure CPT card/accordion display.
+
+#### Card
+
+```php
+$post_type_config_cards =  array(
+    'show_title'     => true,
+    'show_image'     => true,
+    'show_excerpt'   => true,
+    'show_readmore'  => true,
+    'show_meta'      => true,
+    'show_date'      => true,
+    'show_author'    => true,
+    'show_taxonomy'  => true,
+    'show_inner'     => true,
+    'show_content'   => false,
+    'link_card'      => false,
+    'link_title'     => true,
+    'link_target'    => '_self',
+    'link_taxonomy'  => false,
+    'card_html_tag'  => 'div',
+    'taxonomy'       => '',
+    'schema'         => '',
+    'loop_schema'    => '',
+    'template'       => 'card',
+    'image_size'     => 'medium_large',
+    'link_image'     => true,
+    'title_html_tag' => 'h3',
+    'partials'       => array(
+        'image',
+        'inner' => array(
+            'title',
+            'meta' => array(
+                'date',
+                'taxonomy',
+                'author',
+            ),
+            'excerpt',
+            'readmore',
+        ),
+    ),
+);
+```
+
+**Note:** Please notice the `template` is set to `card`, so it will look for the `partials`
+under `templates/card/partials`
+
+#### Accordion
+
+```php
+$post_type_config_accordions = array(
+    'show_title'     => true,
+    'show_content'   => true,
+    'link_card'      => false,
+    'link_title'     => true,
+    'link_target'    => '_self',
+    'link_taxonomy'  => false,
+    'card_html_tag'  => 'div',
+    'taxonomy'       => '',
+    'schema'         => '',
+    'loop_schema'    => '',
+    'template'       => 'accordion',
+    'title_html_tag' => 'span',
+    'partials'       => array(
+        'accordion-button'  => array(
+            'title',
+        ),
+        'accordion-content' => array(
+            'content',
+        ),
+    ),
+);
+```
+
+### Overriding a Template
+
+Plugin make use of template partials to build the markup of a card/accordion. These **templates** are located
+here : `wp-content/plugins/blokki/templates`
+
+If you need to override any template partial, you shall need to create a directory `blokki` in your theme directory and
+then create a file with same name and folder structure to override the one provided by the plugin.
+
+For instance, if you want to override the following template partial file:
+```wp-content/plugins/blokki/templates/partials/card/image.php```
+then, you shall need to create a file in your theme with following structure:
+```wp-content/your-theme/blokki/partials/card/image.php```
+
+### Creating a New Template
+
+If you need an entirely new template partial, then you can follow the method described in the
+section [Overriding a Template](#overriding-a-template) and create a new file with any name and then use this file name
+in the `partials` defined in the CPT config
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Examples
 
+In this section, we shall provide various examples and use cases to use the filter hooks to configure CPTs.
+
+### Hypothesis
+
+In these examples, we shall assume that we have these registered CPTs `bjm_resource`, `bjm_faq` and `bjm_document` for
+the site.
+
+- `bjm_resource` shall need to be displayed in cards and
+- `bjm_faq` shall be displayed as accordion
+- `bjm_document` shall use a specified template to show the CPT card
+
+### Card config example
+
+We shall make use of the filter hook `blokki_get_post_type_config_{CPT}` to configure `bjm_resource` CPT to:
+
+- Use the **card** template
+- do not show readmore
+- do not show image
+- title html tag to use **h4**
+
+```php
+add_filter( 'blokki_get_post_type_config_bjm_resource', function ( $post_type_config ) {
+
+	$post_type_config = [
+		'template'      => 'card', // this is default, adding it only for demonstration
+		'show_readmore' => false,
+		'show_image'    => false,
+		'title_html_tag'=> 'h4'
+	];
+
+	return $post_type_config;
+
+} );
+```
+
+### Accordion config example
+
+We shall make use of the filter hook `blokki_get_post_type_config_{CPT}` to configure `bjm_faq` CPT to:
+
+- Use the **accordion** template
+- remove link to the post title
+- use `FAQPage` schema for the CPT loop in the blocks
+
+```php
+add_filter( 'blokki_get_post_type_config_bjm_faq', function ( $post_type_config ) {
+	$post_type_config = [
+		'template'    => 'accordion',
+		'link_title'  => false,
+		'loop_schema' => 'FAQPage'
+	];
+	return $post_type_config;
+} );
+```
+
+### Custom Template for CPT
+
+In this example, we suppose that we do not want to use either **card** or **accordion** template, rather we want to
+create our own template for the `bjm_document` CPT.
+
+In this case, we shall need to create a file in our theme directory with following structure:
+```wp-content/your-theme/blokki/partials/card/document-info.php```
+
+The file `document-info.php` shall be used to output the markup for the card of CPT `bjm_document`.
+
+now, to make use of this created file, we need to use the filter as follows:
+
+```php
+add_filter( 'blokki_get_post_type_config_bjm_document', function ( $post_type_config ) {
+
+	$post_type_config = [
+        'partials'      => [
+            'document-info'
+		],
+        'template'      => 'card' // default value, added just for explanation 
+		'taxonomy'      => 'bjm_document_category', // optional, a custom taxonomy to display in this CPT card
+		'show_meta'     => false, // optional
+		'show_readmore' => false, // optional
+		'show_image'    => false, // optional
+		'link_card'     => false, // optional
+		'link_image'    => false, // optional
+		'link_title'    => false, // optional
+	];
+
+	return $post_type_config;
+
+} );
+```
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-   - [ ] Nested Feature
+- [ ] Plugin Auto Update Feature
+- [ ] Link Type to open Modal
+- [ ] Breakpoints override
+- [ ] More Schema options for CPT
+- [ ] Pagination `rel` tags
 
-See the [open issues](https://github.com/bjmdigital/blokki/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/bjmdigital/blokki/issues) for a full list of proposed features (and known
+issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- Known Issues -->
 
+## Known Issues
+
+- Blokki plugin is not compatible with BJM Blocks.
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+This plugin is primarily developed for use on BJM Projects and the site we build for clients. Please remember that we
+only intend to add a feature if we consider it to be beneficial for our own use case.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any
+contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also
+simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -238,172 +503,41 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
 <!-- LICENSE -->
+
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- CONTACT -->
+
 ## Contact
 
-Your Name - [@bjm_digital](https://twitter.com/bjm_digital) - contact@bjmdigital.com.au
+**BJM Digital** 
+
+- [Twitter](https://twitter.com/bjm_digital)
+- [Linkedin](https://www.linkedin.com/company/bjm-design/)
+- [Facebook](https://www.facebook.com/BJMDigital/)
+- [Instagram](https://www.instagram.com/bjmdigital/)
+- [Strava](https://www.strava.com/clubs/team-bjm-25626)
+- [Email](mailto:contact@bjmdigital.com.au)
 
 Project Link: [https://github.com/bjmdigital/blokki](https://github.com/bjmdigital/blokki)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
+* [Gamajo-Template-Loader](https://github.com/GaryJones/Gamajo-Template-Loader)
+* [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/bjmdigital/blokki.svg?style=for-the-badge
-[contributors-url]: https://github.com/bjmdigital/blokki/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/bjmdigital/blokki.svg?style=for-the-badge
-[forks-url]: https://github.com/bjmdigital/blokki/network/members
-[stars-shield]: https://img.shields.io/github/stars/bjmdigital/blokki.svg?style=for-the-badge
-[stars-url]: https://github.com/bjmdigital/blokki/stargazers
-[issues-shield]: https://img.shields.io/github/issues/bjmdigital/blokki.svg?style=for-the-badge
-[issues-url]: https://github.com/bjmdigital/blokki/issues
-[license-shield]: https://img.shields.io/github/license/bjmdigital/blokki.svg?style=for-the-badge
-[license-url]: https://github.com/bjmdigital/blokki/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/bjm-design
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com
-
-## Changes Required to start Development:
-
-1. After Adding more files as you go, use composer to update autoload if you need to. You shall need to have composer
-   installed on your computer. In Terminal in the plugin directory, run following:
-    * `composer update`
-
-1. To install NPM dependencies, run the following command:
-    * `npm install`
-
-1. After doing all the magic of coding, run:
-    * `npm run build`
-
-1. While developing you may use the watcher by using the command:
-    * `npm run start`
-
-1. To Updates WordPress packages to the latest version:
-    * `npm run packages-update`
-
-1. Complete list of commands can be found
-   here: [https://www.npmjs.com/package/@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
-
-## Steps required to release plugin:
-
-Once you have done all the build and plugin is ready to be released, you may run the following command to create a `.zip` file for plugin release:
-
- 1. `npm run plugin-zip`
- 2. Cut the `.zip` file and upload to the repo release
-
-
-### Post Type Config Possible values and defaults
-
-#### Cards
-```php
-$post_type_config_cards =
-	array(
-		'show_title'     => true,
-		'show_image'     => true,
-		'show_excerpt'   => true,
-		'show_readmore'  => true,
-		'show_meta'      => true,
-		'show_date'      => true,
-		'show_author'    => true,
-		'show_taxonomy'  => true,
-		'show_inner'     => true,
-		'show_content'   => false,
-		'link_card'      => false,
-		'link_title'     => true,
-		'link_target'    => '_self',
-		'link_taxonomy'  => false,
-		'card_html_tag'  => 'div',
-		'taxonomy'       => '',
-		'schema'         => '',
-		'loop_schema'    => '',
-		'template'       => 'card',
-		'image_size'     => 'medium_large',
-		'link_image'     => true,
-		'title_html_tag' => 'h3',
-		'partials'       => array(
-			'image',
-			'inner' => array(
-				'title',
-				'meta' => array(
-					'date',
-					'taxonomy',
-					'author',
-				),
-				'excerpt',
-				'readmore',
-			),
-		),
-	);
-
-```
-#### Accordions
-```php
-
-$post_type_config_accordions =
-array(
-	'show_title'     => true,
-	'show_content'   => true,
-	'link_card'      => false,
-	'link_title'     => true,
-	'link_target'    => '_self',
-	'link_taxonomy'  => false,
-	'card_html_tag'  => 'div',
-	'taxonomy'       => '',
-	'schema'         => '',
-	'loop_schema'    => '',
-	'template'       => 'accordion',
-	'title_html_tag' => 'span',
-	'partials'       => array(
-		'accordion-button'  => array(
-			'title',
-		),
-		'accordion-content' => array(
-			'content',
-		),
-	),
-);
-
-```
-
-## Known Issues 
-
-- Blokki plugin is not compatible with BJM Blocks.
