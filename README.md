@@ -36,14 +36,24 @@
       <a href="#about-the-project">About The Project</a>
     </li>
     <li>
+      <a href="#installation">Installation</a>
+    </li>
+    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#setup">Setup</a></li>
         <li><a href="#development">Development</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+        <a href="#blocks">Blocks</a>
+        <ul>
+            <li><a href="#cards-block">Cards Block</a></li>
+            <li><a href="#accordions-block">Accordions Block</a></li>
+            <li><a href="#grid-block">Grid Block</a></li>
+      </ul>
+    </li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -60,6 +70,12 @@ This plugin provides some blocks functionality for BJM projects.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- Installation -->
+## Installation
+
+To get the latest installable plugin file, look for the `.zip` in assets of the latest release in the [Releases](https://github.com/bjmdigital/blokki/releases)
+
+You need to have ACF Pro installed and active on the site where the blokki is to be used.
 
 
 <!-- GETTING STARTED -->
@@ -69,19 +85,22 @@ Please refer to the following section for setting up your project locally.
 
 ### Prerequisites
 
-* ACF Pro
- You should have the ACF Pro installed on the site to use this plugin as it relies on ACF functions for block options and plugin settings.
+**ACF Pro**
 
-* Composer
- [Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin  
+You should have the ACF Pro installed on the site to use this plugin as it relies on ACF functions for block options and plugin settings.
 
-* node
- [node](https://nodejs.org/en/) should also be installed on your machine as we shall need to install some node modules using `npm`
+**Composer**
+
+[Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin  
+
+**node**
+
+[node.js](https://nodejs.org/en/) should also be installed on your machine as we shall need to install some node modules using `npm`
   ```sh
   npm install npm@latest -g
   ```
 
-### Installation
+### Setup
 
 1. Clone the repo in your plugins directory i.e. **/wp-content/plugins**
    ```sh
@@ -117,9 +136,65 @@ Please refer to the following section for setting up your project locally.
    Complete list of commands can be found here: [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
 
 
+### Releasing Updated
+
+Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you may follow the steps described below.
+
+Please remember to update the readme.txt file with the new version number for the plugin as this version number shall be sued to check for available update. 
+
+
+Follow these Steps:
+
+**Step 1: Creating Zip**
+
+you may run the following command to create a `.zip` file for plugin release:
+   ```sh
+   npm run plugin-zip
+   ```
+This command will create a `blokki.zip` file in the repo directory.
+
+**Step 2: Creating a Release**
+
+Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Github and create a new release.
+You should create a new tag name corresponding to the new plugin version number and upload the `blokki.zip` to the release assets.
+You may rename the `blokki.zip` to include the version number. e.g. `blokki-v1.0.1.zip`
+
+Once you created a new release, remove the `blokki.zip` file from the plugin repo directory stat was created in Step 1 above. 
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Blocks 
 
+The plugin offers primarily 3 blocks
+
+### Cards Block
+
+This block is to be used for creating a grid of CPT cards. You have many options to configure the block as per need. Some of the configurations are:
+
+- Block Heading with link (optional)
+- Posts Selection
+  - Post Type
+  - Taxonomy
+  - Order
+  - Limit
+- Layout Options to select the cards in a row for various screens
+- Display options to control the visibility of various partials used in the card, like
+  - title
+  - image
+  - meta
+  - author etc.
+- SEO Schema control to add the Rich data schema for the cards.
+  - example: `FAQPage` schema for a certain CPT (you shall need to update Post Type Config using filter hook to use a schema )
+
+### Accordions Block
+
+This block is to create accordions for the selected CPTs. 
+Most of the options from Cards Block are also available for this block like  
+
+- Post Selection
+- Layout Options
+- Heading with link
+- SEO Schema
 
 <!-- USAGE EXAMPLES -->
 ## Usage
