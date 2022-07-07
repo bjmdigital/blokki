@@ -547,8 +547,6 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
   </p>
 </div>
 
-Project Link: [https://github.com/bjmdigital/blokki](https://github.com/bjmdigital/blokki)
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
