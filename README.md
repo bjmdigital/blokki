@@ -530,14 +530,22 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-**BJM Digital** 
+<div align="center">
 
-- [Twitter](https://twitter.com/bjm_digital)
-- [Linkedin](https://www.linkedin.com/company/bjm-design/)
-- [Facebook](https://www.facebook.com/BJMDigital/)
-- [Instagram](https://www.instagram.com/bjmdigital/)
-- [Strava](https://www.strava.com/clubs/team-bjm-25626)
-- [Email](mailto:contact@bjmdigital.com.au)
+<h3 align="center">BJM Digital</h3>
+
+  <p align="center">
+    <a href="https://twitter.com/bjm_digital">Twitter</a>
+    ·
+    <a href="https://www.linkedin.com/company/bjm-design/">Linkedin</a>
+    ·
+    <a href="https://www.facebook.com/BJMDigital/">Facebook</a>
+    ·
+    <a href="https://www.instagram.com/bjmdigital/">Instagram</a>
+    ·
+    <a href="mailto:contact@bjmdigital.com.au">Email</a>
+  </p>
+</div>
 
 Project Link: [https://github.com/bjmdigital/blokki](https://github.com/bjmdigital/blokki)
 
