@@ -1,5 +1,13 @@
 # Changelog
 
+**1.0.2**
+
+- Fix: post type selection dropdown for cards query and case of specific posts
+- Fix: blokki settings for wpgb grid integration for related and archive grid selection
+- Fix: blokki acf block classes and helper function
+- Dev: Updating npm command to create zip and readme updates
+- Dev: Packages update to the latest versions and version number bump to 1.0.2
+
 **1.0.1**
 
 - Dev: Updated npm packages to the latest versions
