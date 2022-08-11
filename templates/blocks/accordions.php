@@ -1,8 +1,8 @@
 <?php
 // to fix IDE crying for unset variable
 $block           = $block ?? [];
-$block_css_class = $block['className'] ?? 'wp-block-acf-blokki-accordions';
-$block_classes   = [ $block_css_class ];
+$block_classname = blokki_acf_get_block_classname( $block, 'wp-block-acf-blokki-accordions' );
+
 /**
  * Build Grid CSS Classes
  */
@@ -26,14 +26,13 @@ $loop = apply_filters( 'blokki_block_accordions_loop', $loop );
 /**
  * Setup template to use for loop
  */
-$template      = 'accordion';
-$block_classes = apply_filters( 'blokki_block_accordions_block_classes', $block_classes, $block );
-$grid_classes  = apply_filters( 'blokki_block_accordions_grid_classes', $grid_classes, $block );
+$template     = 'accordion';
+$grid_classes = apply_filters( 'blokki_block_accordions_grid_classes', $grid_classes, $block );
 
 /**
  * HTML Output
  */
-printf( '<div class="%s">', implode( ' ', $block_classes ) );
+printf( '<div class="%s">', $block_classname );
 
 // Heading and Link
 blokki_loader()->set_template_data( $block, 'block' )

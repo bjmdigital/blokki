@@ -1,8 +1,8 @@
 <?php
 // to fix IDE crying for unset variable
 $block           = $block ?? [];
-$block_css_class = $block['className'] ?? 'wp-block-acf-blokki-cards';
-$block_classes   = [ $block_css_class ];
+$block_classname = blokki_acf_get_block_classname( $block, 'wp-block-acf-blokki-cards' );
+
 /**
  * Build Grid CSS Classes
  */
@@ -28,13 +28,12 @@ $loop = apply_filters( 'blokki_block_cards_loop', $loop );
  * Setup template to use for loop
  */
 $template      = 'card';
-$block_classes = apply_filters( 'blokki_block_cards_block_classes', $block_classes, $block );
 $grid_classes  = apply_filters( 'blokki_block_cards_grid_classes', $grid_classes, $block );
 $grid_classes  = array_filter( $grid_classes );
 /**
  * HTML Output
  */
-printf( '<div class="%s">', implode( ' ', $block_classes ) );
+printf( '<div class="%s">', $block_classname );
 
 // Heading and Link
 blokki_loader()->set_template_data( $block, 'block' )
