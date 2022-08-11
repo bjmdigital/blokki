@@ -20,7 +20,7 @@
  * Requires PHP:      7.0
  * Requires at least: 5.0
  * Tested up to:      5.9
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
@@ -39,6 +39,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
+define( 'BLOKKI_VERSION', '1.0.2' );
 
 if ( ! defined( 'BLOKKI_PLUGIN_FILE' ) ) {
 	define( 'BLOKKI_PLUGIN_FILE', __FILE__ );
