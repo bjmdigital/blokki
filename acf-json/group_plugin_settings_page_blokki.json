@@ -249,16 +249,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "1": "Related Grid",
-                "2": "Archive Grid",
-                "3": "Swiper for Block",
-                "4": "Cards Grid for Block",
-                "5": "Cards Grid for Loans",
-                "6": "Swiper for Loans",
-                "7": "Swiper for Posts",
-                "8": "FAQ Grid with Filters"
-            },
+            "choices": { },
             "default_value": [],
             "allow_null": 1,
             "multiple": 1,
@@ -280,16 +271,7 @@
                 "class": "",
                 "id": ""
             },
-            "choices": {
-                "1": "Related Grid",
-                "2": "Archive Grid",
-                "3": "Swiper for Block",
-                "4": "Cards Grid for Block",
-                "5": "Cards Grid for Loans",
-                "6": "Swiper for Loans",
-                "7": "Swiper for Posts",
-                "8": "FAQ Grid with Filters"
-            },
+            "choices": { },
             "default_value": [],
             "allow_null": 1,
             "multiple": 0,
