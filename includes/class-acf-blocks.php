@@ -496,7 +496,7 @@ class AcfBlocks {
 	public function acf_field_choices_post_type( $field ) {
 
 		$field['choices'] = [];
-		$choices          = get_post_types( ['publicly_queryable' => true], 'labels' );
+		$choices          = get_post_types( ['public' => true], 'labels' );
 
 		if ( is_array( $choices ) ) {
 			foreach ( $choices as $slug => $choice ) {

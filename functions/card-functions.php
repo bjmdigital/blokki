@@ -60,6 +60,22 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 	}
 
 	/**
+	 * Show Specific Posts
+	 */
+	if ( get_field( 'show_specific_cards' ) && $post__in = get_field( 'post__in' ) ) {
+		/**
+		 * Fix for CPTs with `exclude_from_search` => true
+		 */
+		$post_ids = wp_list_pluck( $post__in, 'ID' );
+
+		/** $post_ids will only be available if post object is returned by ACF */
+		if ( $post_ids ) {
+			$query_args['post__in']  = $post_ids;
+			$query_args['post_type'] = wp_list_pluck( $post__in, 'post_type' );
+		}
+	}
+
+	/**
 	 * Taxonomy Query
 	 */
 	if (
@@ -67,11 +83,6 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 		&&
 		( $query_args['tax_query'] ?? '' )
 	) {
-
-		/**
-		 * OLD Code: Try to decode JSON
-		 */
-//		$tax_query = blokki_json_decode( $query_args['tax_query'] );
 
 		/**
 		 * New ACF Field for Multi Taxonomy Terms Select
@@ -128,7 +139,7 @@ function blokki_parse_multiple_taxonomy_terms_field( array $multiple_taxonomy_te
 function blokki_get_default_posts_query_args() {
 
 	$default_query_args = [
-		'post_type'           => is_admin() ? 'post' : 'any',
+		'post_type'           => 'any',
 		'posts_per_page'      => get_option( 'posts_per_page' ),
 		'post_status'         => 'publish',
 		'ignore_sticky_posts' => true

@@ -92,14 +92,14 @@
                 "page": "Pages",
                 "attachment": "Media",
                 "product": "Products",
-                "bjm_loan": "Loans",
-                "bjm_faq": "FAQs",
-                "bjm_testimonial": "Testimonials",
-                "bjm_template": "Templates",
-                "bjm_case_study": "Case Studies",
-                "bjm_glossary": "Glossaries",
-                "bjm_calculator": "Calculators",
-                "bjm_doc_download": "Documents & Downloads"
+                "bjm_faqs": "FAQs",
+                "bjm_template": "Theme Templates",
+                "bjm_disease": "Diseases",
+                "bjm_product_guide": "Product Guides",
+                "bjm_service": "Services",
+                "bjm_event": "Events",
+                "bjm_webinar": "Webinars",
+                "bjm_clinical_support": "Clinical Supports"
             },
             "default_value": [
                 "post"
@@ -335,5 +335,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1649446602
+    "modified": 1660199090
 }
