@@ -169,10 +169,12 @@ Follow these Steps:
 you may run the following command to create a `.zip` file for plugin release:
 
    ```sh
-   npm run plugin-zip
+   npm run create-zip
    ```
 
 This command will create a `blokki.zip` file in the repo directory.
+
+This `.zip` file shall have the `vendors` and `build` directory and excluding the `src` directory. For details please check `.npmignore` file. 
 
 #### Step 2: Creating a Release
 
@@ -180,7 +182,7 @@ Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Githu
 create a new tag name corresponding to the new plugin version number and upload the `blokki.zip` to the release assets.
 You may rename the `blokki.zip` to include the version number. e.g. `blokki-v1.0.1.zip`
 
-Once you created a new release, remove the `blokki.zip` file from the plugin repo directory stat was created in Step-1
+Once you created a new release, remove the `blokki.zip` file from the plugin repo directory that was created in Step-1
 above.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
