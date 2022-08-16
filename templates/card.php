@@ -80,8 +80,6 @@ do_action( 'blokki_block_cards_inner_content_start' );
 
 $block_id = $block['id'] ?? '';
 
-Blokki()->blocks->set_current_block_fields(get_fields());
-
 $show_inner = $post_type_config['show_inner'] ?? false;
 
 if ( ! $show_inner ) {

@@ -20,18 +20,6 @@ if ( class_exists( 'Blokki\Blocks' ) ) {
  */
 class Blocks {
 
-	private $block;
-
-	private $current_block_id = null;
-
-	private $current_grid_id = null;
-
-	private $current_block_fields;
-
-	private $block_fields = [];
-
-	private $grid_settings = [];
-
 	/**
 	 * The ID of this plugin.
 	 *
@@ -277,69 +265,6 @@ class Blocks {
 		}
 
 
-	}
-
-
-	public function get_current_block_fields() {
-		return $this->current_block_fields;
-	}
-
-	public function set_current_block_fields( $block_fields ) {
-		return $this->current_block_fields = $block_fields;
-	}
-
-	public function reset_current_block_fields() {
-		return $this->current_block_fields = [];
-	}
-
-	public function get_block_fields( string $block_id ) {
-		return isset( $this->block_fields[ $block_id ] ) ? $this->block_fields[ $block_id ] : [];
-	}
-
-	public function set_block_fields( string $block_id, array $block_fields ) {
-		$this->set_current_block_id( $block_id );
-
-		return $this->block_fields[ $block_id ] = $block_fields;
-	}
-
-	public function reset_block_fields( string $block_id ) {
-		if ( $block_id === $this->get_current_block_id() ) {
-			$this->reset_current_block_id();
-		}
-		unset( $this->block_fields[ $block_id ] );
-	}
-
-	public function get_current_block_id() {
-		return $this->current_block_id;
-	}
-
-	public function set_current_block_id( $block_id ) {
-		$this->current_block_id = $block_id;
-	}
-
-	public function reset_current_block_id() {
-		$this->current_block_id = null;
-	}
-
-	public function get_current_grid_id() {
-		return $this->current_grid_id;
-	}
-
-	public function set_current_grid_id( $grid_id ) {
-		$this->current_grid_id = $grid_id;
-	}
-
-	public function reset_current_grid_id() {
-		$this->current_grid_id = null;
-	}
-
-	public function get_grid_settings( string $grid_id ) {
-		return isset( $this->grid_settings[ $grid_id ] ) ? $this->grid_settings[ $grid_id ] : [];
-	}
-
-	public function set_grid_settings( string $grid_id, array $settings ) {
-
-		return $this->grid_settings[ $grid_id ] = $settings;
 	}
 
 
