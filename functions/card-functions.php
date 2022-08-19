@@ -119,7 +119,7 @@ function blokki_update_query_args_with_related_tax_query( $query_args, $block_da
 		 * New ACF Field for Multi Taxonomy Terms Select
 		 */
 		$tax_query = blokki_get_related_tax_query_args(
-			240,
+			get_the_ID(),
 			null,
 			$block_data['related_taxonomies'] ?? []
 		);
