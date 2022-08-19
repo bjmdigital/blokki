@@ -110,10 +110,7 @@ class AcfBlocks {
 		 * Dynamically update field choices
 		 */
 		add_filter( 'acf/load_field/name=post_type', [ $this, 'acf_field_choices_post_type' ] );
-		add_filter( 'acf/load_field/name=additional_taxonomy_filtering_1', [ $this, 'acf_field_choices_taxonomies' ] );
-		add_filter( 'acf/load_field/name=additional_taxonomy_filtering_2', [ $this, 'acf_field_choices_taxonomies' ] );
-//		add_filter( 'acf/load_field/name=tax_query', [ $this, 'acf_field_choices_taxonomy_list' ] );
-
+		add_filter( 'acf/load_field/name=related_taxonomies', [ $this, 'acf_field_choices_taxonomies' ] );
 
 	}
 
@@ -270,7 +267,7 @@ class AcfBlocks {
 	public function acf_field_choices_post_type( $field ) {
 
 		$field['choices'] = [];
-		$choices          = get_post_types( ['public' => true], 'labels' );
+		$choices          = get_post_types( [ 'public' => true ], 'labels' );
 
 		if ( is_array( $choices ) ) {
 			foreach ( $choices as $slug => $choice ) {
@@ -289,36 +286,13 @@ class AcfBlocks {
 	 */
 	public function acf_field_choices_taxonomies( $field ) {
 
-		$field['choices']     = [];
-		$field['choices'][''] = __( 'None', 'blokki' );
+		$field['choices'] = [];
 
 		$taxonomies = get_taxonomies( [ 'public' => true ], 'labels' );
 
-		$post_types = [];
-
 		foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
-			if ( ! empty( $taxonomy->object_type ) ) {
-				foreach ( $taxonomy->object_type as $post_type ) {
-					$post_types[ $post_type ][] = array(
-						'label' => $taxonomy->label,
-						'slug'  => $taxonomy->name,
-					);
-				}
-			}
-		}
+			$field['choices'][ $taxonomy_slug ] = $taxonomy->label;
 
-		if ( ! empty( $post_types ) ) {
-			foreach ( $post_types as $post_type_slug => $taxonomies ) {
-				$post_type = get_post_type_object( $post_type_slug );
-				foreach ( $taxonomies as $taxonomy ) {
-
-					$field['choices'][ json_encode( [
-						'post_type' => $post_type_slug,
-						'taxonomy'  => $taxonomy['slug']
-					] ) ] = $post_type->labels->singular_name . ' -> ' . $taxonomy['label'];
-				}
-
-			}
 		}
 
 		return $field;

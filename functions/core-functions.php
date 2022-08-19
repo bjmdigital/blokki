@@ -175,7 +175,7 @@ endif;
 
 if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
 
-	function blokki_get_related_tax_query_args( $post_id, $block_or_grid_id = null ) {
+	function blokki_get_related_tax_query_args( $post_id, $block_or_grid_id = null, $related_taxonomies = [] ) {
 		$tax_query_args = [];
 
 		$taxonomies = get_post_taxonomies( $post_id );
@@ -183,20 +183,23 @@ if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
 		$post_type_config = blokki_get_post_type_config( get_post_type( $post_id ) );
 
 		// Related Taxonomy
-		$related_taxonomies = (
-			isset( $post_type_config['related_taxonomies'] )
-			&& is_array( $post_type_config['related_taxonomies'] )
-		)
-			? $post_type_config['related_taxonomies']
-			: [];
+		if ( empty( $related_taxonomies ) ) {
+			$related_taxonomies = (
+				isset( $post_type_config['related_taxonomies'] )
+				&& is_array( $post_type_config['related_taxonomies'] )
+			)
+				? $post_type_config['related_taxonomies']
+				: [];
 
 
-		$related_taxonomies = apply_filters(
-			'blokki_get_related_tax_query_args_related_taxonomies',
-			$related_taxonomies,
-			$block_or_grid_id,
-			$post_id
-		);
+			$related_taxonomies = apply_filters(
+				'blokki_get_related_tax_query_args_related_taxonomies',
+				$related_taxonomies,
+				$block_or_grid_id,
+				$post_id
+			);
+		}
+
 
 		foreach ( $taxonomies as $taxonomy ) {
 
