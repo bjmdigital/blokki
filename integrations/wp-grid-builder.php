@@ -26,7 +26,8 @@ if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
 		}
 
 		$query_args['post_type'] = [ $post_type ];
-		$tax_query_args          = blokki_get_related_tax_query_args( $post_id );
+		$tax_query_args          = blokki_get_related_tax_query_args( $post_id, $grid_id );
+
 		if ( ! empty( $tax_query_args ) ) :
 
 			// check if we have some posts with related args

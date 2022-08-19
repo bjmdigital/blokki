@@ -247,14 +247,15 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 	function blokki_get_post_type_config_default( string $block_name = 'cards' ) {
 
 		$config = [
-			'link_card'     => false,
-			'link_title'    => true,
-			'link_target'   => '_self',
-			'link_taxonomy' => false,
-			'card_html_tag' => 'div',
-			'taxonomy'      => '',
-			'schema'        => '',
-			'loop_schema'   => ''
+			'link_card'          => false,
+			'link_title'         => true,
+			'link_target'        => '_self',
+			'link_taxonomy'      => false,
+			'card_html_tag'      => 'div',
+			'taxonomy'           => '',
+			'schema'             => '',
+			'loop_schema'        => '',
+			'related_taxonomies' => []
 		];
 		switch ( $block_name ):
 			case( 'accordions' ):
