@@ -1,6 +1,6 @@
 {
 	"name": "blokki",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Blocks functionality from BJM Team",
 	"author": "BJM Team",
 	"license": "GPL-2.0-or-later",
@@ -28,6 +28,6 @@
 	"devDependencies": {
 		"@wordpress/base-styles": "^4.7.0",
 		"@wordpress/prettier-config": "^1.4.0",
-		"@wordpress/scripts": "^23.7.0"
+		"@wordpress/scripts": "^23.7.2"
 	}
 }
