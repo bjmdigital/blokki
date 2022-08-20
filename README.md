@@ -45,6 +45,7 @@
         <ul>
             <li><a href="#cards-block">Cards Block</a></li>
             <li><a href="#accordions-block">Accordions Block</a></li>
+            <li><a href="#content-accordion-block">Content Accordion Block</a></li>
             <li><a href="#grid-block">Grid Block</a></li>
       </ul>
     </li>
@@ -63,6 +64,9 @@
             <li><a href="#overriding-a-template">Overriding a Template</a></li>
             <li><a href="#creating-a-new-template">Creating a New Template</a></li>
       </ul>
+    </li>
+    <li>
+        <a href="#using-acf">Using ACF</a>
     </li>
     <li>
         <a href="#examples">Examples</a>
