@@ -347,13 +347,6 @@
                 "operator": "==",
                 "value": "acf\/accordions"
             }
-        ],
-        [
-            {
-                "param": "block",
-                "operator": "==",
-                "value": "all"
-            }
         ]
     ],
     "menu_order": 0,
@@ -364,5 +357,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1660905240
+    "modified": 1661410541
 }

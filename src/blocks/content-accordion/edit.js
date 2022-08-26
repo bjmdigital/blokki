@@ -16,9 +16,7 @@ export default function Edit({attributes, setAttributes, clientId}) {
      * We need a unique block id for aria-content to work properly
      */
     React.useEffect(() => {
-        if (!blockId) {
-            setAttributes({blockId: clientId});
-        }
+        setAttributes({blockId: clientId});
     }, []);
 
     return (
