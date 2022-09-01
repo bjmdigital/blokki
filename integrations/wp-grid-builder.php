@@ -162,6 +162,7 @@ if ( ! function_exists( 'blokki_wpgb_set_custom_card_id_args' ) ) :
 	function blokki_wpgb_set_custom_card_id_args( $cards ) {
 
 		$cards[ blokki_wpgb_get_custom_card_id() ] = array(
+			'name'            => __( 'Blokki Card', 'blokki' ),
 			'render_callback' => 'blokki_wpgb_card_render_callback',
 		);
 

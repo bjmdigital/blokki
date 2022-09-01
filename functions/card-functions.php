@@ -609,7 +609,7 @@ if ( ! function_exists( 'blokki_get_taxonomy_terms_markup' ) ) :
 
 
 			if ( $terms_has_link ) {
-				$term_html = sprintf( '<a href="%s" rel="tag" title="%s">%s</a>',
+				$term_html = sprintf( '<a href="%s" rel="tag" title="%s" tabindex="-1">%s</a>',
 					get_term_link( $term->term_id ),
 					esc_html__( 'View', 'blokki' ) . ' ' . $term->name,
 					$term->name
