@@ -29,7 +29,13 @@ if ( ! function_exists( 'blokki_acf_get_block_classname' ) ) {
 			$classes[] = 'align-' . $block['align_content'];
 		}
 
+		if ( ! empty( $block['textColor'] ) ) {
+			$classes[] = 'has-text-color';
+			$classes[] = 'has-' . $block['textColor'] . '-color';
+		}
+
 		if ( ! empty( $block['backgroundColor'] ) ) {
+			$classes[] = 'has-background';
 			$classes[] = 'has-' . $block['backgroundColor'] . '-background-color';
 		}
 
