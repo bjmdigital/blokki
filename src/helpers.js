@@ -18,6 +18,7 @@ export function getBlockTypesForBlokkiControls(){
         'core',
         'acf',
         'blokki',
+        'briks',
     ]);
 }
 
