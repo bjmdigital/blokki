@@ -288,7 +288,7 @@ class AcfBlocks {
 
 		$field['choices'] = [];
 
-		$taxonomies = get_taxonomies( [ 'public' => true ], 'labels' );
+		$taxonomies = get_taxonomies( [ 'show_ui' => true ], 'labels' );
 
 		foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
 			$field['choices'][ $taxonomy_slug ] = $taxonomy->label;
