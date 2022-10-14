@@ -21,7 +21,7 @@ if ( apply_filters( 'blokki_block_cards_partial_render_image', true ) ) {
 			get_the_post_thumbnail( get_the_ID(), $image_size )
 		);
 	} else {
-		the_post_thumbnail();
+		the_post_thumbnail( $image_size );
 	}
 
 }
