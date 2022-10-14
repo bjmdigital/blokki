@@ -312,8 +312,10 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 		$config = [
 			'link_card'          => false,
 			'link_title'         => true,
+			'title_skip_tab'     => true,
 			'link_target'        => '_self',
 			'link_taxonomy'      => false,
+			'taxonomy_skip_tab'  => true,
 			'card_html_tag'      => 'div',
 			'taxonomy'           => '',
 			'schema'             => '',
@@ -323,6 +325,7 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 		switch ( $block_name ):
 			case( 'accordions' ):
 				$config['link_title']     = false;
+				$config['title_skip_tab'] = true;
 				$config['template']       = 'accordion';
 				$config['title_html_tag'] = 'span';
 				break;
@@ -331,6 +334,7 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 				$config['template']       = 'card';
 				$config['image_size']     = 'medium_large';
 				$config['link_image']     = true;
+				$config['image_skip_tab'] = true;
 				$config['title_html_tag'] = 'h3';
 		endswitch;
 		$config['partials'] = blokki_get_block_partials_default( $block_name );
@@ -350,16 +354,17 @@ if ( ! function_exists( 'blokki_get_block_display_config_default' ) ) :
 
 		$blocks_display_config = [
 			'cards'      => [
-				'show_title'    => true,
-				'show_image'    => true,
-				'show_excerpt'  => true,
-				'show_readmore' => true,
-				'show_meta'     => true,
-				'show_date'     => true,
-				'show_author'   => true,
-				'show_taxonomy' => true,
-				'show_inner'    => true,
-				'show_content'  => false,
+				'show_title'        => true,
+				'show_image'        => true,
+				'show_excerpt'      => true,
+				'show_readmore'     => true,
+				'show_meta'         => true,
+				'show_date'         => true,
+				'show_author'       => true,
+				'show_taxonomy'     => true,
+				'show_inner'        => true,
+				'show_content'      => false,
+				'readmore_skip_tab' => false,
 			],
 			'accordions' => [
 				'show_title'   => true,
@@ -678,19 +683,31 @@ if ( ! function_exists( 'blokki_override_post_type_config_with_block' ) ) :
 
 endif;
 
-if ( ! function_exists( 'blokki_get_post_title' ) ) :
+if ( ! function_exists( 'blokki_render_post_title' ) ) :
 
-	function blokki_render_post_title( int $post_id, bool $has_link = true, string $link_target = '_self' ) {
+	function blokki_render_post_title( int $post_id, bool $has_link = true, string $link_target = '_self', bool $skip_tab_index = false ) {
 		if ( $has_link && is_post_publicly_viewable( $post_id ) && ! is_admin() ) {
-			printf( '<a href="%s" target="%s" title="%s">%s</a>',
+			printf( '<a href="%s" target="%s" title="%s" %s>%s</a>',
 				get_the_permalink( $post_id ),
 				$link_target,
 				blokki_get_post_link_title( $post_id ),
+				blokki_get_skip_tab_index( $skip_tab_index ),
 				get_the_title( $post_id )
 			);
 		} else {
 			echo get_the_title( $post_id );
 		}
+	}
+
+endif;
+
+
+if ( ! function_exists( 'blokki_get_skip_tab_index' ) ) :
+
+	function blokki_get_skip_tab_index( $skip = true ) {
+		$skip = apply_filters( 'blokki_block_cards_skip_tab_index', $skip );
+
+		return $skip ? 'tabindex="-1"' : '';
 	}
 
 endif;
