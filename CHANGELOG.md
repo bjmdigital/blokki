@@ -2,10 +2,11 @@
 
 **1.0.3**
 
-*2022-08-XX*
+*2022-11-15*
 
 - Feature: For Blokki Cards block, now, there is an option to show the `related` posts. There is also an option to select which taxonomies to use for getting the related taxonomies. This applies to both Blokki Cards and WPGB integration.
 - Feature: A new block *Blokki Content Accordion* added that can be used for any custom content toggle. 
+- Feature : Keyboard Tab key skip configuration added to `title`, `image` and `readmore`
 - Dev: Code Cleanup and removed the WPGB block which was experimental and was not working.
 - Dev: Some helper functions are added to get the block classes for ACF built blocks.
 - Dev: Packages update to the latest versions and version number bump to 1.0.3
