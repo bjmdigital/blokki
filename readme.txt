@@ -1,18 +1,54 @@
-# Changelog
+=== Blokki ===
+Contributors: bjmdigital
+Tags: cards, posts, query, blocks
+Requires at least: 5.0
+Tested up to: 6.0.3
+Requires PHP: 7.4
+Stable tag: v1.0.4
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-**1.0.4**
+This plugin provides some blocks' functionality for BJM projects.
 
-*2022-11-XX*
+== Description ==
 
-- Feature: Ability to provide auto updates for the plguin from GitHub repo releases.
-- Dev: Packages update to the latest versions and version number bump to 1.0.4
+This plugin provides some blocks' functionality for BJM projects.
+
+For details, please check [Github Repo](https://github.com/bjmdigital/blokki)
+
+
+== Installation ==
+
+1. Log in to your WordPress Site dashboard.
+1. Go to “Plugins -> Add New” and click "Upload" button
+1. Browse the installable .zip plugin file and upload.
+1. Click to “Install Now” button.
+1. Activate the plugin by clicking “Activate”.
+
+
+== Frequently Asked Questions ==
+
+= Does this plugin creat CPTs?  =
+
+No, it only displays CPTs in various formats
+
+= Which Blocks are added by this plugin and how these block function?  =
+
+Please check plugin [Github Repo](https://github.com/bjmdigital/blokki) for details.
+
+= Is this available on Wordpress.org repo? =
+
+No, It's a private plugin
+
+
+== Changelog ==
 
 **1.0.3**
 
 *2022-11-15*
 
 - Feature: For Blokki Cards block, now, there is an option to show the `related` posts. There is also an option to select which taxonomies to use for getting the related taxonomies. This applies to both Blokki Cards and WPGB integration.
-- Feature: A new block *Blokki Content Accordion* added that can be used for any custom content toggle. 
+- Feature: A new block *Blokki Content Accordion* added that can be used for any custom content toggle.
 - Feature : Keyboard Tab key skip configuration added to `title`, `image` and `readmore`
 - Dev: Code Cleanup and removed the WPGB block which was experimental and was not working.
 - Dev: Some helper functions are added to get the block classes for ACF built blocks.
@@ -50,3 +86,8 @@
 **1.0.0**
 
 * Initial Release of plugin
+
+== Upgrade Notice ==
+
+Read Changelog for all the goodness added
+

@@ -80,14 +80,24 @@ class Init {
 	 * @var      Admin $admin
 	 */
 	protected $admin;
+
 	/**
-	 * The admin class of the plugin.
+	 * The front/public class of the plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Front $front The current version of the plugin.
+	 * @var      Front $front
 	 */
 	protected $front;
+
+	/**
+	 * The updater class of the plugin.
+	 *
+	 * @since    1.0.4
+	 * @access   protected
+	 * @var      Updater $upater
+	 */
+	protected $upater;
 
 
 	/**
@@ -116,6 +126,7 @@ class Init {
 
 
 		$this->load_dependencies();
+		$this->load_updater();
 		$this->set_locale();
 		$this->template_loader_hooks();
 		$this->define_admin_hooks();
@@ -170,6 +181,12 @@ class Init {
 		/** @noinspection PhpUnused */
 		define( 'BLOKKI_SCHEMA_CACHE_PREFIX', 'blokki_schema_cache_' );
 
+		/**
+		 * Plugin GitHub repo URL
+		 * @since version 1.0.4
+		 */
+		define( 'BLOKKI_GITHUB_REPO_URL', 'https://github.com/bjmdigital/blokki' );
+
 	}
 
 	/**
@@ -198,6 +215,19 @@ class Init {
 	}
 
 	/**
+	 * Load the required Auto updater for the plugin
+	 *
+	 *
+	 * @since    1.0.4
+	 * @access   private
+	 */
+	private function load_updater() {
+
+		$this->upater = new Updater();
+
+	}
+
+	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
 	 * Uses the i18n class in order to set the domain and to register the hook
@@ -216,7 +246,7 @@ class Init {
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
+	 * Register all the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
@@ -225,14 +255,14 @@ class Init {
 	private function template_loader_hooks() {
 
 		if ( ! class_exists( '\Gamajo_Template_Loader' ) ) {
-			die( esc_html__( 'Please run `composer install` for template loader class', 'bjm' ) );
+			die( esc_html__( 'Please run `composer install` for template loader class', 'blokki' ) );
 		}
 		$this->template_loader = new Template();
 
 	}
 
 	/**
-	 * Register all of the hooks related to the admin area functionality
+	 * Register all the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
@@ -268,7 +298,7 @@ class Init {
 	}
 
 	/**
-	 * Register all of the hooks related to the public-facing functionality
+	 * Register all the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
 	 * @since    1.0.0
@@ -322,6 +352,7 @@ class Init {
 		$this->schema = new Schema();
 
 	}
+
 	/**
 	 * Register all the hooks related to ACF Blocks
 	 *

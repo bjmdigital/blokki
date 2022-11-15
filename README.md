@@ -183,6 +183,8 @@ This command will create a `blokki.zip` file in the repo directory.
 This `.zip` file shall have the `vendors` and `build` directory and excluding the `src` directory. For details please
 check `.npmignore` file.
 
+:warning: `.zip` file created has all files without wrapped in the folder `blokki`, so, you shall need to extract this `.zip` file to `blokki` folder and then zip the extracted `blokki` folder to create `blokki.zip` file make it ready for uploading to repo releases. You may rename this new `blokki.zip` to append version number like: `blokki-v1.0.1.zip`
+
 #### Step 2: Creating a Release
 
 Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Github and create a new release. You should
@@ -511,7 +513,6 @@ add_filter( 'blokki_get_post_type_config_bjm_document', function ( $post_type_co
 
 ## Roadmap
 
-- [ ] Plugin Auto Update Feature
 - [ ] Link Type to open Modal
 - [ ] Breakpoints override
 - [ ] More Schema options for CPT
@@ -592,5 +593,6 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 * [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
 * [Gamajo-Template-Loader](https://github.com/GaryJones/Gamajo-Template-Loader)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+* [YahnisElsts/plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
