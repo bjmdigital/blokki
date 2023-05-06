@@ -5,7 +5,7 @@
  * The plugin bootstrap file
  *
  * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
+ * admin area. This file also includes all the dependencies used by the plugin,
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
@@ -15,12 +15,12 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Blokki
- * Plugin URI:        https://blokki.com/
+ * Plugin URI:        https://github.com/bjmdigital/blokki
  * Description:       Blocks functionality from BJM Team
  * Requires PHP:      7.0
  * Requires at least: 5.0
- * Tested up to:      5.9
- * Version:           1.0.1
+ * Tested up to:      6.0.3
+ * Version:           1.0.4
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
@@ -36,9 +36,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
  */
+define( 'BLOKKI_VERSION', '1.0.4' );
 
 if ( ! defined( 'BLOKKI_PLUGIN_FILE' ) ) {
 	define( 'BLOKKI_PLUGIN_FILE', __FILE__ );
@@ -73,10 +72,6 @@ function blokki_deactivate() {
 
 register_activation_hook( __FILE__, 'blokki_activate' );
 register_deactivation_hook( __FILE__, 'blokki_deactivate' );
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
 
 /**
  * Begins execution of the plugin.

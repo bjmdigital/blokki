@@ -7,6 +7,7 @@ import "./blocks/style.scss";
  */
 import "./blocks/cards";
 import "./blocks/accordions";
+import "./blocks/content-accordion";
 import "./blocks/grid";
 import "./blocks/grid-column";
 /**

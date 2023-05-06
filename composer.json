@@ -10,7 +10,8 @@
     }
   ],
   "require": {
-    "gamajo/template-loader": "^1.3"
+    "gamajo/template-loader": "^1.3",
+    "yahnis-elsts/plugin-update-checker": "^5.0"
   },
   "autoload": {
     "classmap": [

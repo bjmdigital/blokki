@@ -64,9 +64,11 @@ class Front {
 
 		/**
 		 * Enqueue Styles
+		 *
+		 * Not yet needed, commenting this out
 		 */
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+//		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
+//		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 
 		/**
 		 * Enqueue Scripts
@@ -84,18 +86,6 @@ class Front {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Blokki\Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Blokki\Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/public.css', array(), $this->version, 'all' );
 

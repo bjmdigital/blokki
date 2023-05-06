@@ -51,6 +51,22 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 	$query_args = array_intersect_key( $block_data, array_flip( blokki_get_available_query_args() ) );
 
 	/**
+	 * Block Query Type
+	 * possible values = 'custom' || 'specific' || 'related'
+	 */
+	$block_query_type = get_field( 'query_type' );
+	/**
+	 * Backward Compatibility for Specific Posts
+	 */
+	if ( is_null( $block_query_type ) && get_field( 'show_specific_cards' ) ) {
+		$block_query_type = 'specific';
+	}
+	/**
+	 * If nothing found, which is unlikely set it to 'custom'
+	 */
+	$block_query_type = ! is_null( $block_query_type ) ? $block_query_type : 'custom';
+
+	/**
 	 * Show Children of Specific Post
 	 */
 	$post_parent = intval( $block_data['post_parent'] ?? 0 );
@@ -60,18 +76,80 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 	}
 
 	/**
-	 * Taxonomy Query
+	 * Query Type
 	 */
+	switch ( $block_query_type ):
+		case( 'related' ):
+			$query_args = blokki_update_query_args_with_related_tax_query( $query_args, $block_data );
+			break;
+		case( 'specific' ):
+
+			// Only do this if we have the specific posts set
+			if ( $post__in = get_field( 'post__in' ) ) {
+				/**
+				 * Fix for CPTs with `exclude_from_search` => true
+				 */
+				$post_ids = wp_list_pluck( $post__in, 'ID' );
+
+				/** $post_ids will only be available if post object is returned by ACF */
+				if ( $post_ids ) {
+					$query_args['post__in']  = $post_ids;
+					$query_args['post_type'] = wp_list_pluck( $post__in, 'post_type' );
+				}
+			}
+
+			break;
+		case( 'custom' ):
+		default:
+			$query_args = blokki_update_query_args_with_custom_tax_query( $query_args, $block_data );
+			break;
+	endswitch;
+
+	$query_args = wp_parse_args( $query_args, $default_args );
+
+	return $query_args;
+
+}
+
+function blokki_update_query_args_with_related_tax_query( $query_args, $block_data ) {
+
+	if ( ! isset( $query_args['tax_query'] ) ) {
+
+		/**
+		 * New ACF Field for Multi Taxonomy Terms Select
+		 */
+		$tax_query = blokki_get_related_tax_query_args(
+			get_the_ID(),
+			null,
+			$block_data['related_taxonomies'] ?? []
+		);
+		/**
+		 * If we found valid array, then set the tax_query, else unset it
+		 */
+		if ( ! empty( $tax_query ) ) {
+			$query_args['tax_query'] = $tax_query;
+			// We need to make sure we have something for these query args, so, let query with these args
+			$temp_query = new WP_Query( $query_args );
+			// Since it will include the current post,
+			// so,  found_posts should be greater than 1
+			if ( ! $temp_query->found_posts > 1 ) {
+				unset( $query_args['tax_query'] );
+			}
+
+		}
+
+	}
+
+	return $query_args;
+
+}
+
+function blokki_update_query_args_with_custom_tax_query( $query_args, $block_data ) {
 	if (
 		( $block_data['tax_query'] ?? '' )
 		&&
 		( $query_args['tax_query'] ?? '' )
 	) {
-
-		/**
-		 * OLD Code: Try to decode JSON
-		 */
-//		$tax_query = blokki_json_decode( $query_args['tax_query'] );
 
 		/**
 		 * New ACF Field for Multi Taxonomy Terms Select
@@ -91,11 +169,7 @@ function blokki_get_posts_query_for_block( $block_data = [] ) {
 		unset( $query_args['tax_query'] );
 	}
 
-
-	$query_args = wp_parse_args( $query_args, $default_args );
-
 	return $query_args;
-
 
 }
 
@@ -128,7 +202,7 @@ function blokki_parse_multiple_taxonomy_terms_field( array $multiple_taxonomy_te
 function blokki_get_default_posts_query_args() {
 
 	$default_query_args = [
-		'post_type'           => is_admin() ? 'post' : 'any',
+		'post_type'           => 'any',
 		'posts_per_page'      => get_option( 'posts_per_page' ),
 		'post_status'         => 'publish',
 		'ignore_sticky_posts' => true
@@ -236,18 +310,22 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 	function blokki_get_post_type_config_default( string $block_name = 'cards' ) {
 
 		$config = [
-			'link_card'     => false,
-			'link_title'    => true,
-			'link_target'   => '_self',
-			'link_taxonomy' => false,
-			'card_html_tag' => 'div',
-			'taxonomy'      => '',
-			'schema'        => '',
-			'loop_schema'   => ''
+			'link_card'          => false,
+			'link_title'         => true,
+			'title_skip_tab'     => true,
+			'link_target'        => '_self',
+			'link_taxonomy'      => false,
+			'taxonomy_skip_tab'  => true,
+			'card_html_tag'      => 'div',
+			'taxonomy'           => '',
+			'schema'             => '',
+			'loop_schema'        => '',
+			'related_taxonomies' => []
 		];
 		switch ( $block_name ):
 			case( 'accordions' ):
 				$config['link_title']     = false;
+				$config['title_skip_tab'] = true;
 				$config['template']       = 'accordion';
 				$config['title_html_tag'] = 'span';
 				break;
@@ -256,6 +334,7 @@ if ( ! function_exists( 'blokki_get_post_type_config_default' ) ) :
 				$config['template']       = 'card';
 				$config['image_size']     = 'medium_large';
 				$config['link_image']     = true;
+				$config['image_skip_tab'] = true;
 				$config['title_html_tag'] = 'h3';
 		endswitch;
 		$config['partials'] = blokki_get_block_partials_default( $block_name );
@@ -275,16 +354,17 @@ if ( ! function_exists( 'blokki_get_block_display_config_default' ) ) :
 
 		$blocks_display_config = [
 			'cards'      => [
-				'show_title'    => true,
-				'show_image'    => true,
-				'show_excerpt'  => true,
-				'show_readmore' => true,
-				'show_meta'     => true,
-				'show_date'     => true,
-				'show_author'   => true,
-				'show_taxonomy' => true,
-				'show_inner'    => true,
-				'show_content'  => false,
+				'show_title'        => true,
+				'show_image'        => true,
+				'show_excerpt'      => true,
+				'show_readmore'     => true,
+				'show_meta'         => true,
+				'show_date'         => true,
+				'show_author'       => true,
+				'show_taxonomy'     => true,
+				'show_inner'        => true,
+				'show_content'      => false,
+				'readmore_skip_tab' => false,
 			],
 			'accordions' => [
 				'show_title'   => true,
@@ -534,7 +614,7 @@ if ( ! function_exists( 'blokki_get_taxonomy_terms_markup' ) ) :
 
 
 			if ( $terms_has_link ) {
-				$term_html = sprintf( '<a href="%s" rel="tag" title="%s">%s</a>',
+				$term_html = sprintf( '<a href="%s" rel="tag" title="%s" tabindex="-1">%s</a>',
 					get_term_link( $term->term_id ),
 					esc_html__( 'View', 'blokki' ) . ' ' . $term->name,
 					$term->name
@@ -603,19 +683,31 @@ if ( ! function_exists( 'blokki_override_post_type_config_with_block' ) ) :
 
 endif;
 
-if ( ! function_exists( 'blokki_get_post_title' ) ) :
+if ( ! function_exists( 'blokki_render_post_title' ) ) :
 
-	function blokki_render_post_title( int $post_id, bool $has_link = true, string $link_target = '_self' ) {
+	function blokki_render_post_title( int $post_id, bool $has_link = true, string $link_target = '_self', bool $skip_tab_index = false ) {
 		if ( $has_link && is_post_publicly_viewable( $post_id ) && ! is_admin() ) {
-			printf( '<a href="%s" target="%s" title="%s">%s</a>',
+			printf( '<a href="%s" target="%s" title="%s" %s>%s</a>',
 				get_the_permalink( $post_id ),
 				$link_target,
 				blokki_get_post_link_title( $post_id ),
+				blokki_get_skip_tab_index( $skip_tab_index ),
 				get_the_title( $post_id )
 			);
 		} else {
 			echo get_the_title( $post_id );
 		}
+	}
+
+endif;
+
+
+if ( ! function_exists( 'blokki_get_skip_tab_index' ) ) :
+
+	function blokki_get_skip_tab_index( $skip = true ) {
+		$skip = apply_filters( 'blokki_block_cards_skip_tab_index', $skip );
+
+		return $skip ? 'tabindex="-1"' : '';
 	}
 
 endif;

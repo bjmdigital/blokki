@@ -1,22 +1,17 @@
 <?php
 // to fix IDE crying for unset variable
 $block           = $block ?? [];
-$block_css_class = $block['className'] ?? 'wp-block-acf-blokki-social-share';
-$block_classes   = [ $block_css_class ];
-$block_align     = $block['align'] ?? '';
+$block_classname = blokki_acf_get_block_classname( $block, 'wp-block-acf-blokki-social-share' );
 
-if ( $block_align ) {
-	$block_classes[] = 'align' . $block_align;
-}
 
 $share_text = get_field( 'share_text' );
 
 if ( $share_text ) {
-	$block_classes[] = 'has-share-text';
+	$block_classname .= ' ' . 'has-share-text';
 	/**
 	 * Text location class
 	 */
-	$block_classes[] = get_field( 'is_text_first' ) ? 'text-first' : 'text-last';
+	$block_classname .=  get_field( 'is_text_first' ) ? ' ' . 'text-first' : ' ' . 'text-last';
 }
 
 global $wp;
@@ -28,13 +23,11 @@ $social_sharing = get_field( 'social_sharing', 'option' );
 
 $icon_size            = apply_filters( 'blokki_block_social_share_icon_size_class', '' );
 $icon_wrapper_classes = apply_filters( 'blokki_block_social_share_wrapper_classes', [ 'share-icons' ] );
-$block_classes        = apply_filters( 'blokki_block_social_share_block_classes', $block_classes, $block );
 
-$block_classes = array_filter( $block_classes );
 /**
  * HTML Output
  */
-printf( '<div class="%s">', implode( ' ', $block_classes ) );
+printf( '<div class="%s">', $block_classname );
 if ( $share_text ) {
 	printf( '<div class="share-text">%s</div>',
 		$share_text

@@ -175,12 +175,41 @@ endif;
 
 if ( ! function_exists( 'blokki_get_related_tax_query_args' ) ) :
 
-	function blokki_get_related_tax_query_args( $post_id ) {
+	function blokki_get_related_tax_query_args( $post_id, $block_or_grid_id = null, $related_taxonomies = [] ) {
 		$tax_query_args = [];
 
 		$taxonomies = get_post_taxonomies( $post_id );
 
+		$post_type_config = blokki_get_post_type_config( get_post_type( $post_id ) );
+
+		// Related Taxonomy
+		if ( empty( $related_taxonomies ) ) {
+			$related_taxonomies = (
+				isset( $post_type_config['related_taxonomies'] )
+				&& is_array( $post_type_config['related_taxonomies'] )
+			)
+				? $post_type_config['related_taxonomies']
+				: [];
+
+
+			$related_taxonomies = apply_filters(
+				'blokki_get_related_tax_query_args_related_taxonomies',
+				$related_taxonomies,
+				$block_or_grid_id,
+				$post_id
+			);
+		}
+
+
 		foreach ( $taxonomies as $taxonomy ) {
+
+			// If we have $related_taxonomies, then only use these taxonomies to get related query
+			if ( ! empty( $related_taxonomies ) ) {
+				if ( ! in_array( $taxonomy, $related_taxonomies ) ) {
+					continue;
+				}
+			}
+
 			$term_ids = wp_get_post_terms( $post_id, $taxonomy, array( 'fields' => 'ids' ) );
 
 			if ( ! is_wp_error( $term_ids ) && $term_ids ) {
