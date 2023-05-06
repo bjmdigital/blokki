@@ -14,14 +14,15 @@ printf( '<div class="%s">',
 do_action( 'blokki_block_cards_partial_before_image' );
 if ( apply_filters( 'blokki_block_cards_partial_render_image', true ) ) {
 	if ( $post_type_config['link_image'] && is_post_publicly_viewable() && ! is_admin() ) {
-		printf( '<a href="%s" target="%s" title="%s">%s</a>',
+		printf( '<a href="%s" target="%s" title="%s" %s>%s</a>',
 			get_the_permalink(),
 			$post_type_config['link_target'],
 			blokki_get_post_link_title( get_the_ID() ),
+			blokki_get_skip_tab_index( $post_type_config['link_card'] || $post_type_config['image_skip_tab'] ),
 			get_the_post_thumbnail( get_the_ID(), $image_size )
 		);
 	} else {
-		the_post_thumbnail();
+		the_post_thumbnail( $image_size );
 	}
 
 }

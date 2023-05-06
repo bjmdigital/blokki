@@ -15,6 +15,7 @@ src/
 .npmignore
 
 .idea/
+.vscode/
 .DS_Store
 Thumbs.db
 
@@ -28,3 +29,4 @@ Thumbs.db
 *.exe
 *.war
 *.zip
+*.rar

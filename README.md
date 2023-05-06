@@ -45,6 +45,7 @@
         <ul>
             <li><a href="#cards-block">Cards Block</a></li>
             <li><a href="#accordions-block">Accordions Block</a></li>
+            <li><a href="#content-accordion-block">Content Accordion Block</a></li>
             <li><a href="#grid-block">Grid Block</a></li>
       </ul>
     </li>
@@ -63,6 +64,9 @@
             <li><a href="#overriding-a-template">Overriding a Template</a></li>
             <li><a href="#creating-a-new-template">Creating a New Template</a></li>
       </ul>
+    </li>
+    <li>
+        <a href="#using-acf">Using ACF</a>
     </li>
     <li>
         <a href="#examples">Examples</a>
@@ -109,7 +113,8 @@ Please refer to the following section for setting up your project locally.
 
 ### Prerequisites
 
-1. [ACF Pro](https://www.advancedcustomfields.com/pro/) should be installed on the site to use this plugin as it relies on ACF functions for block options and plugin settings.
+1. [ACF Pro](https://www.advancedcustomfields.com/pro/) should be installed on the site to use this plugin as it relies
+   on ACF functions for block options and plugin settings.
 
 2. [Composer](https://getcomposer.org/) should be installed on your machine for dependencies autoload for the plugin
 
@@ -153,13 +158,14 @@ Please refer to the following section for setting up your project locally.
    Complete list of commands can be found
    here: [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
 
-### Releasing Updated
+### Releasing Update
 
 Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you
 may follow the steps described below.
 
 :warning:
-Please remember to update the `readme.txt`, `readme.md`, `package.json` and `blokki.php` files with the new version number for the plugin as this version number shall be
+Please remember to update the `readme.txt`, `readme.md`, `package.json` and `blokki.php` files with the new version
+number for the plugin as this version number shall be
 used to check for available updates and be visible in `wp-admin`.
 
 Follow these Steps:
@@ -174,13 +180,15 @@ you may run the following command to create a `.zip` file for plugin release:
 
 This command will create a `blokki.zip` file in the repo directory.
 
-This `.zip` file shall have the `vendors` and `build` directory and excluding the `src` directory. For details please check `.npmignore` file. 
+This `.zip` file shall have the `vendors` and `build` directory and excluding the `src` directory. For details please
+check `.npmignore` file.
+
+:warning: `.zip` file created has all files without wrapped in the folder `blokki`, so, you shall need to extract this `.zip` file to `blokki` folder and then zip the extracted `blokki` folder to create `blokki.zip` file make it ready for uploading to repo releases. You may rename this new `blokki.zip` to append version number like: `blokki-v1.0.1.zip`
 
 #### Step 2: Creating a Release
 
 Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Github and create a new release. You should
-create a new tag name corresponding to the new plugin version number and upload the `blokki.zip` to the release assets.
-You may rename the `blokki.zip` to include the version number. e.g. `blokki-v1.0.1.zip`
+create a new tag name corresponding to the new plugin version number (Prefix the tag with `v` so that it does not conflict with the same branch name) and upload the `blokki.zip` to the release assets.
 
 Once you created a new release, remove the `blokki.zip` file from the plugin repo directory that was created in Step-1
 above.
@@ -193,6 +201,7 @@ The plugin offers primarily 3 blocks:
 <ul>
     <li><a href="#cards-block">Cards Block</a></li>
     <li><a href="#accordions-block">Accordions Block</a></li>
+    <li><a href="#content-accordion-block">Content Accordion Block</a></li>
     <li><a href="#grid-block">Grid Block</a></li>
 </ul>
 
@@ -226,6 +235,11 @@ this block like
 - Layout Options
 - Heading with link
 - SEO Schema
+
+### Content Accordion Block
+
+This block is to create Custom Content Accordion. It can be used as a replacement of Accordion block which only allows for
+the CPTs to build accordion. You may use any content in this block.
 
 ### Grid Block
 
@@ -297,8 +311,12 @@ $post_type_config_cards =  array(
     'link_title'     => true,
     'link_target'    => '_self',
     'link_taxonomy'  => false,
+    'title_skip_tab' => true, // this is keyboard tab key
+    'image_skip_tab' => true,
+    'readmore_skip_tab' => false, // this is the default tab
     'card_html_tag'  => 'div',
     'taxonomy'       => '',
+    'related_taxonomies' => [], // an array of taxonomies to get related posts
     'schema'         => '',
     'loop_schema'    => '',
     'template'       => 'card',
@@ -334,8 +352,10 @@ $post_type_config_accordions = array(
     'link_title'     => true,
     'link_target'    => '_self',
     'link_taxonomy'  => false,
+    'title_skip_tab' => true,
     'card_html_tag'  => 'div',
     'taxonomy'       => '',
+    'related_taxonomies' => [], // an array of taxonomies to get related posts
     'schema'         => '',
     'loop_schema'    => '',
     'template'       => 'accordion',
@@ -354,7 +374,8 @@ $post_type_config_accordions = array(
 ### Overriding a Template
 
 Plugin make use of template partials to build the markup of a card/accordion. These **templates** are located
-here : 
+here :
+
 ```
 wp-content/plugins/blokki/templates
 ```
@@ -363,11 +384,13 @@ If you need to override any template partial, you shall need to create a directo
 then create a file with same name and folder structure to override the one provided by the plugin.
 
 For instance, if you want to override the following template partial file:
+
 ```
 wp-content/plugins/blokki/templates/partials/card/image.php
 ```
 
 then, you shall need to create a file in your theme with following structure:
+
 ```
 wp-content/your-theme/blokki/partials/card/image.php
 ```
@@ -376,11 +399,22 @@ wp-content/your-theme/blokki/partials/card/image.php
 
 If you need an entirely new template partial, then you can follow the method described in the
 section [Overriding a Template](#overriding-a-template) and create a new file with any name and then use this file name
-in the `partials` defined in the CPT config. 
+in the `partials` defined in the CPT config.
 
 More on this in Example for [Custom Template for CPT](#custom-template-for-cpt)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+## Using ACF
+
+in the templates, if you need to get the ACF field for the post, please use `get_the_ID()` as second parameter
+in `get_field()` function.
+
+For instance, if you need to get the ACF field `icon` for the post in template, you shall need to use the following:
+
+```php
+$post_icon = get_field( 'icon', get_the_ID() ); 
+```
 
 ## Examples
 
@@ -444,6 +478,7 @@ In this example, we suppose that we do not want to use either *card* or *accordi
 create our own template for the `bjm_document` CPT.
 
 In this case, we shall need to create a file in our theme directory with following structure:
+
 ```
 wp-content/your-theme/blokki/partials/card/document-info.php
 ```
@@ -478,7 +513,6 @@ add_filter( 'blokki_get_post_type_config_bjm_document', function ( $post_type_co
 
 ## Roadmap
 
-- [ ] Plugin Auto Update Feature
 - [ ] Link Type to open Modal
 - [ ] Breakpoints override
 - [ ] More Schema options for CPT
@@ -559,5 +593,6 @@ Distributed under the GPL-3.0 License. See `LICENSE.txt` for more information.
 * [@wordpress/create-block](https://www.npmjs.com/package/@wordpress/create-block)
 * [Gamajo-Template-Loader](https://github.com/GaryJones/Gamajo-Template-Loader)
 * [Best-README-Template](https://github.com/othneildrew/Best-README-Template)
+* [YahnisElsts/plugin-update-checker](https://github.com/YahnisElsts/plugin-update-checker)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

@@ -16,7 +16,12 @@ printf( '<%s class="%s">',
 );
 do_action( 'blokki_block_cards_partial_before_title' );
 if ( apply_filters( 'blokki_block_cards_partial_render_title', true ) ) {
-	blokki_render_post_title(get_the_ID(), $post_type_config['link_title'], $post_type_config['link_target']);
+	blokki_render_post_title(
+		get_the_ID(),
+		$post_type_config['link_title'],
+		$post_type_config['link_target'],
+		$post_type_config['link_card'] || $post_type_config['title_skip_tab']
+	);
 }
 
 do_action( 'blokki_block_cards_partial_after_title' );

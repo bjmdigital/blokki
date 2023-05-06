@@ -60,7 +60,11 @@ import MicroModal from 'micromodal';
         /**
          * Accordions Button Click Function
          */
-        $(document).on('click', '.accordion-button', toggleAccordion)
+        $(document).on('click', '.accordion-button', toggleAccordion);
+
+        /**
+         * Video Modals Setup
+         */
         setupVideoModal();
 
     });
