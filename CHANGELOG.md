@@ -1,8 +1,16 @@
 # Changelog
 
+**1.0.5**
+
+*2023-05-06*
+
+- Feature: Option to disable WPGB integration.
+- Dev: Packages update to the latest versions and version number bump to 1.0.5
+- Fix: CSS grid compatibility with overflow-wrap and word-wrap
+
 **1.0.4**
 
-*2022-11-XX*
+*2023-05-06*
 
 - Feature: Ability to provide auto updates for the plguin from GitHub repo releases.
 - Dev: Packages update to the latest versions and version number bump to 1.0.4
