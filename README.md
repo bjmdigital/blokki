@@ -164,9 +164,14 @@ Once you have made all the changes and the build directory is created/updated an
 may follow the steps described below.
 
 :warning:
-Please remember to update the `readme.txt`, `readme.md`, `package.json` and `blokki.php` files with the new version
-number for the plugin as this version number shall be
-used to check for available updates and be visible in `wp-admin`.
+Please remember to update the following files with the new version number for the plugin as this version number shall be
+used to check for available updates and be visible in `wp-admin`:
+
+- `readme.txt`
+- `readme.md`
+- `package.json`  
+- `blokki.php`
+
 
 Follow these Steps:
 

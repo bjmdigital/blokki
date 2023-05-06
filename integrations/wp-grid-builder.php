@@ -1,9 +1,21 @@
 <?php
 
+
+if ( ! function_exists( 'blokki_wpgb_is_integration_active' ) ) :
+
+	function blokki_wpgb_is_integration_active() {
+		return get_field( 'wp_grid_builder_integration_active', 'options' );
+	}
+
+endif;
+
 if ( ! function_exists( 'blokki_wpgb_query_related_cards' ) ) :
 
 	function blokki_wpgb_query_related_cards( $query_args, $grid_id ) {
 
+		if ( ! blokki_wpgb_is_integration_active() ) {
+			return $query_args;
+		}
 		if ( ! is_singular() ) {
 			return $query_args;
 		}
@@ -63,6 +75,10 @@ if ( ! function_exists( 'blokki_wpgb_query_exclude_current' ) ) :
 
 	function blokki_wpgb_query_exclude_current( $query_args, $grid_id ) {
 
+		if ( ! blokki_wpgb_is_integration_active() ) {
+			return $query_args;
+		}
+
 		if ( ! is_singular() ) {
 			return $query_args;
 		}
@@ -79,6 +95,10 @@ add_filter( 'wp_grid_builder/grid/query_args', 'blokki_wpgb_query_exclude_curren
 
 function blokki_wpgb_add_post_type_to_card_class( $atts, $card ) {
 
+	if ( ! blokki_wpgb_is_integration_active() ) {
+		return $atts;
+	}
+
 	// We get post in the custom loop of the plugin.
 	if ( function_exists( 'wpgb_get_post_type' ) ) {
 		$atts['class'][] = 'type-' . wpgb_get_post_type();
@@ -94,6 +114,10 @@ add_filter( 'wp_grid_builder/card/attributes', 'blokki_wpgb_add_post_type_to_car
 if ( ! function_exists( 'blokki_wpgb_get_custom_card_id' ) ) :
 
 	function blokki_wpgb_get_custom_card_id( $card = '' ) {
+		if ( ! blokki_wpgb_is_integration_active() ) {
+			return $card;
+		}
+
 		if ( ! is_admin() ) {
 			return 'blokki';
 		}
@@ -145,6 +169,10 @@ endif;
  */
 function blokki_wpgb_register_card_block( $blocks ) {
 
+	if ( ! blokki_wpgb_is_integration_active() ) {
+		return $blocks;
+	}
+
 	$blocks['blokki_full_card'] = [
 		'name'            => __( 'Blokki Card', 'blokki' ),
 		'render_callback' => 'blokki_wpgb_card_render_callback',
@@ -154,12 +182,17 @@ function blokki_wpgb_register_card_block( $blocks ) {
 
 }
 
+
 add_filter( 'wp_grid_builder/blocks', 'blokki_wpgb_register_card_block' );
 
 
 if ( ! function_exists( 'blokki_wpgb_set_custom_card_id_args' ) ) :
 
 	function blokki_wpgb_set_custom_card_id_args( $cards ) {
+
+		if ( ! blokki_wpgb_is_integration_active() ) {
+			return $cards;
+		}
 
 		$cards[ blokki_wpgb_get_custom_card_id() ] = array(
 			'name'            => __( 'Blokki Card', 'blokki' ),
@@ -319,6 +352,10 @@ add_filter( 'acf/load_field/name=wpgb_facets_bottom', 'blokki_wpgb_acf_facet_fie
 if ( ! function_exists( 'bjm_wpgb_archive_grid_settings' ) ) :
 
 	function bjm_wpgb_archive_grid_settings( $settings ) {
+
+		if ( ! blokki_wpgb_is_integration_active() ) {
+			return $settings;
+		}
 
 		// If it matches grid id , we change the grid settings.
 		$archive_grid_id = (int) get_field( 'wpgb_grid_archive', 'options' );

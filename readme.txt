@@ -1,10 +1,10 @@
 === Blokki ===
 Contributors: bjmdigital
 Tags: cards, posts, query, blocks
-Requires at least: 5.0
-Tested up to: 6.0.3
+Requires at least: 6.0
+Tested up to: 6.2.0
 Requires PHP: 7.4
-Stable tag: v1.0.4
+Stable tag: v1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,22 @@ No, It's a private plugin
 
 
 == Changelog ==
+
+**1.0.5**
+
+*2023-05-06*
+
+- Feature: Option to disable WPGB integration.
+- Dev: Packages update to the latest versions and version number bump to 1.0.5
+- Fix: CSS grid compatibility with overflow-wrap and word-wrap
+
+**1.0.4**
+
+*2023-05-06*
+
+- Feature: Ability to provide auto updates for the plguin from GitHub repo releases.
+- Dev: Packages update to the latest versions and version number bump to 1.0.4
+
 
 **1.0.3**
 

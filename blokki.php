@@ -18,9 +18,9 @@
  * Plugin URI:        https://github.com/bjmdigital/blokki
  * Description:       Blocks functionality from BJM Team
  * Requires PHP:      7.0
- * Requires at least: 5.0
- * Tested up to:      6.0.3
- * Version:           1.0.4
+ * Requires at least: 6.0
+ * Tested up to:      6.2.0
+ * Version:           1.0.5
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BLOKKI_VERSION', '1.0.4' );
+define( 'BLOKKI_VERSION', '1.0.5' );
 
 if ( ! defined( 'BLOKKI_PLUGIN_FILE' ) ) {
 	define( 'BLOKKI_PLUGIN_FILE', __FILE__ );

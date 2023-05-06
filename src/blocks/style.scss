@@ -121,7 +121,7 @@ $blokki-block-border-editor: var(--blokki-grid-editor-border-width, 1px) var(--b
     @each $column in $columns {
       @media screen and (min-width: #{$breakpoint-value}) {
         &.#{$breakpoint}-up-#{$column} {
-          grid-template-columns: repeat(#{$column}, 1fr);
+          grid-template-columns: repeat(#{$column}, minmax(0,1fr));
         }
       }
     }
