@@ -23,11 +23,7 @@ class Schema {
 	 */
 	public function __construct() {
 
-		if ( ! function_exists( 'get_field')
-			||
-			! get_field( 'blokki_schema_support', 'options' ) ) {
-			return null;
-		}
+
 		/**
 		 * Blokki Loop action
 		 */
@@ -52,10 +48,22 @@ class Schema {
 	}
 
 	/**
+	 *
+	 */
+	public function is_active_schema_support() {
+
+		return function_exists( 'get_field' ) && get_field( 'blokki_schema_support', 'options' );
+
+	}
+
+	/**
 	 * Remove schema cached result on post_save
 	 */
 	public function remove_schema_cache_on_post_save( $post_id ) {
 
+		if ( ! $this->is_active_schema_support() ) {
+			return null;
+		}
 		global $wpdb;
 		$wpdb->query(
 			$wpdb->prepare( "DELETE FROM $wpdb->options WHERE `option_name` LIKE %s",
@@ -70,6 +78,10 @@ class Schema {
 	 * @hooked wp_grid_builder/card/wrapper_start
 	 */
 	public function setup_schema_for_post_in_wp_grid_loop( $object ) {
+
+		if ( ! $this->is_active_schema_support() ) {
+			return $object;
+		}
 
 		// we are only interested in WP_Post Object
 		if ( 'WP_Post' === get_class( $object ) ) {
@@ -203,6 +215,10 @@ class Schema {
 	 */
 	public function setup_schema_for_post_in_loop( \WP_Post $post, $block, \WP_Query $loop ) {
 
+		if ( ! $this->is_active_schema_support() ) {
+			return null;
+		}
+
 		if ( $this->is_disable_schema_block( $block ) ) {
 			return null;
 		}
@@ -234,6 +250,10 @@ class Schema {
 	 * @hooked wp_footer
 	 */
 	public function output_schema() {
+
+		if ( ! $this->is_active_schema_support() ) {
+			return null;
+		}
 
 		$this->build_schema();
 

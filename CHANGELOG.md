@@ -1,5 +1,14 @@
 # Changelog
 
+**1.0.6**
+
+*2023-05-19*
+
+- Fix: WPGB integration fix for content exclude query in grid settings.
+- Fix: ACF warning for function acf_get_value was called incorrectly
+- Dev: Packages update to the latest versions and version number bump to 1.0.6
+- Dev: Fixed plugin creation script to create the zip with a main directory instead of all plugin files
+
 **1.0.5**
 
 *2023-05-06*

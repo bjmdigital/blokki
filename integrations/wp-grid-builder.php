@@ -83,7 +83,12 @@ if ( ! function_exists( 'blokki_wpgb_query_exclude_current' ) ) :
 			return $query_args;
 		}
 
-		$query_args['post__not_in'] = [ get_the_ID() ];
+
+		if ( is_array( $query_args['post__not_in'] ) ) {
+			$query_args['post__not_in'] = array_merge( $query_args['post__not_in'], [ get_the_ID() ] );
+		} else {
+			$query_args['post__not_in'] = [ get_the_ID() ];
+		}
 
 		return $query_args;
 	}
