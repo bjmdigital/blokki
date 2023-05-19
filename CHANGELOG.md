@@ -1,5 +1,12 @@
 # Changelog
 
+**1.0.6**
+
+*2023-05-19*
+
+- Dev: Packages update to the latest versions and version number bump to 1.0.6
+- Fix: WPGB integration fix for content exclude query in grid settings. 
+
 **1.0.5**
 
 *2023-05-06*
