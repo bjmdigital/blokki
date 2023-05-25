@@ -4,7 +4,7 @@ Tags: cards, posts, query, blocks
 Requires at least: 6.0
 Tested up to: 6.2.0
 Requires PHP: 7.4
-Stable tag: v1.0.5
+Stable tag: v1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,14 @@ No, It's a private plugin
 
 
 == Changelog ==
+
+**1.0.7**
+
+*2023-05-XX*
+
+- Feature: Option to toggle registered blocks and block controls (spacing, visibility etc.)
+- Dev: Packages update to the latest versions and version number bump to 1.0.7
+
 
 **1.0.6**
 

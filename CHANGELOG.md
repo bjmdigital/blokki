@@ -1,5 +1,12 @@
 # Changelog
 
+**1.0.7**
+
+*2023-05-XX*
+
+- Feature: Option to toggle registered blocks and block controls (spacing, visibility etc.)
+- Dev: Packages update to the latest versions and version number bump to 1.0.7
+
 **1.0.6**
 
 *2023-05-19*
