@@ -10,14 +10,36 @@ import {
 } from '@wordpress/components'
 
 
-import {getSpacingClasses, getBlockTypesForBlokkiControls} from "../helpers";
+import {getSpacingClasses, getBlockTypesForBlokkiControls, getBlokkiACFOptions} from "../helpers";
 
 // Enable control on the following block types
 let enableSpacingControlOnBlockTypes = getBlockTypesForBlokkiControls();
 
 enableSpacingControlOnBlockTypes = applyFilters('blokki_block_types_spacing_control', enableSpacingControlOnBlockTypes);
 
+/**
+ * the flag to store the control value
+ * @type {null}
+ */
+let disableBlockControlSpacing = null;
+
+/**
+ * So that we call this API request to fetch options only once for a page load.
+ * @returns {Promise<void>}
+ */
+async function initializeBlockControlValueSet() {
+    disableBlockControlSpacing = await getBlokkiACFOptions(disableBlockControlSpacing, 'blokki_disable_block_control_spacing');
+}
+
+// Call the function to initialize spacing control
+initializeBlockControlValueSet();
+
+
 const shouldBlockHaveSpacingControl = function (blockName) {
+
+    if (disableBlockControlSpacing) {
+        return false;
+    }
     return enableSpacingControlOnBlockTypes.find(element => {
         if (blockName && blockName.includes(element)) {
             return true;
@@ -219,7 +241,7 @@ addFilter("blocks.getSaveContent.extraProps", "blokki/spacing", (props, block, a
  */
 addFilter("editor.BlockListBlock", "blokki/spacing",
     createHigherOrderComponent((BlockListBlock) => (props) => {
-        if (! props.block.name || !shouldBlockHaveSpacingControl(props.block.name)) {
+        if (!props.block.name || !shouldBlockHaveSpacingControl(props.block.name)) {
             return (
                 <BlockListBlock {...props} />
             );

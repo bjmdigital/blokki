@@ -112,6 +112,21 @@ class AcfBlocks {
 		add_filter( 'acf/load_field/name=post_type', [ $this, 'acf_field_choices_post_type' ] );
 		add_filter( 'acf/load_field/name=related_taxonomies', [ $this, 'acf_field_choices_taxonomies' ] );
 
+//		add_action( 'rest_api_init', [ $this, 'custom_rest_route' ] );
+	}
+
+	public function custom_rest_route() {
+		register_rest_route( 'custom/v1', '/acf-options', array(
+			'methods'             => 'GET',
+			'callback'            => [ $this, 'get_acf_options' ],
+			'permission_callback' => '__return_true'
+		) );
+	}
+
+	public function get_acf_options() {
+		$acf_options = get_fields( 'options' );
+
+		return $acf_options;
 	}
 
 	/*
@@ -228,32 +243,37 @@ class AcfBlocks {
 
 		$blocks = [];
 
-		$blocks[] = [
-			'name'        => 'cards',
-			'title'       => __( 'Blokki Cards' ),
-			'description' => __( 'Add block of cards for a post type.' ),
-			'category'    => 'theme',
-			'icon'        => 'forms',
-			'keywords'    => [ 'blokki', 'cards', 'cpt', 'grid' ],
-		];
+		if ( ! get_field( 'blokki_disable_registered_block_cards', 'options' ) ) {
+			$blocks[] = [
+				'name'        => 'cards',
+				'title'       => __( 'Blokki Cards' ),
+				'description' => __( 'Add block of cards for a post type.' ),
+				'category'    => 'theme',
+				'icon'        => 'forms',
+				'keywords'    => [ 'blokki', 'cards', 'cpt', 'grid' ],
+			];
+		}
 
-		$blocks[] = [
-			'name'        => 'accordions',
-			'title'       => __( 'Blokki Accordions' ),
-			'description' => __( 'Add block of accordions for a post type.' ),
-			'category'    => 'theme',
-			'icon'        => 'excerpt-view',
-			'keywords'    => [ 'blokki', 'accordions', 'cpt', 'grid', 'cards', 'post type' ],
-		];
-
-		$blocks['social-share'] = [
-			'name'        => 'social-share',
-			'title'       => __( 'Blokki Social Share', 'blokki' ),
-			'description' => __( 'Add social sharing buttons.', 'blokki' ),
-			'category'    => 'theme',
-			'icon'        => 'share',
-			'keywords'    => [ 'blokki', 'social-share' ],
-		];
+		if ( ! get_field( 'blokki_disable_registered_block_accordions', 'options' ) ) {
+			$blocks[] = [
+				'name'        => 'accordions',
+				'title'       => __( 'Blokki Accordions' ),
+				'description' => __( 'Add block of accordions for a post type.' ),
+				'category'    => 'theme',
+				'icon'        => 'excerpt-view',
+				'keywords'    => [ 'blokki', 'accordions', 'cpt', 'grid', 'cards', 'post type' ],
+			];
+		}
+		if ( ! get_field( 'blokki_disable_registered_block_social_share', 'options' ) ) {
+			$blocks['social-share'] = [
+				'name'        => 'social-share',
+				'title'       => __( 'Blokki Social Share', 'blokki' ),
+				'description' => __( 'Add social sharing buttons.', 'blokki' ),
+				'category'    => 'theme',
+				'icon'        => 'share',
+				'keywords'    => [ 'blokki', 'social-share' ],
+			];
+		}
 
 		return apply_filters( 'blokki_acf_blocks_config', $blocks );
 
