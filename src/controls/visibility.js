@@ -6,7 +6,7 @@ import {InspectorControls} from '@wordpress/block-editor'
 import {PanelBody, ToggleControl} from '@wordpress/components'
 
 
-import {getBlockTypesForBlokkiControls, getVisibilityClasses} from "../helpers";
+import {getBlockTypesForBlokkiControls, getVisibilityClasses, getBlokkiACFOptions} from "../helpers";
 
 // Enable control on the following block types
 let enableVisibilityControlOnBlockTypes = getBlockTypesForBlokkiControls();
@@ -16,7 +16,26 @@ enableVisibilityControlOnBlockTypes =
         'blokki_block_types_visibility_control', enableVisibilityControlOnBlockTypes
     );
 
+
+let disableBlockControlVisibility = null;
+
+
+/**
+ * So that we call this API request to fetch options only once for a page load.
+ * @returns {Promise<void>}
+ */
+async function initializeBlockControlValueSet() {
+    disableBlockControlVisibility = await getBlokkiACFOptions(disableBlockControlVisibility, 'blokki_disable_block_control_visibility');
+}
+
+// Call the function to initialize spacing control
+initializeBlockControlValueSet();
+
 const shouldBlockHaveVisibilityControl = function (blockName) {
+
+    if (disableBlockControlVisibility) {
+        return false;
+    }
     return enableVisibilityControlOnBlockTypes.find(element => {
         if (blockName && blockName.includes(element)) {
             return true;

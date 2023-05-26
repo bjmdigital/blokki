@@ -260,6 +260,8 @@ conflicts:
 - acf blocks
 - blokki blocks
 
+In Blokki Settings Page, options are added to disable these block controls.
+
 The controls added by plugin are as follows:
 
 ### Visibility
