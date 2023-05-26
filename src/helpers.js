@@ -1,4 +1,5 @@
 import {applyFilters} from "@wordpress/hooks";
+import apiFetch from '@wordpress/api-fetch';
 
 /**
  * Get a usable value from the BlockVerticalAlignmentToolbar.
@@ -133,4 +134,27 @@ export function getGridColumnClasses(attributes) {
     }
 
     return cssClasses.join(' ');
+}
+
+
+export function getBlokkiACFOptions(currentOptionValue, optionName) {
+    if (currentOptionValue !== null) {
+        return Promise.resolve(currentOptionValue);
+    }
+
+    return apiFetch({
+        path: '/blokki/v1/acf-options',
+        headers: {
+            'X-WP-Nonce': blokki.nonce
+        }
+    })
+        // then((response) => response.json())
+        .then((data) => {
+            return data[optionName];
+            // disableBlockControlSpacing = data[optionName];
+            // return disableBlockControlSpacing;
+        })
+        .catch((error) => {
+            console.error('Failed to retrieve ACF options:', error);
+        });
 }

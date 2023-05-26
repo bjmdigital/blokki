@@ -20,7 +20,7 @@
  * Requires PHP:      7.0
  * Requires at least: 6.0
  * Tested up to:      6.2.0
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BLOKKI_VERSION', '1.0.6' );
+define( 'BLOKKI_VERSION', '1.0.7' );
 
 if ( ! defined( 'BLOKKI_PLUGIN_FILE' ) ) {
 	define( 'BLOKKI_PLUGIN_FILE', __FILE__ );

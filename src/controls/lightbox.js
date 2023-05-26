@@ -8,6 +8,25 @@ import {PanelBody, PanelRow, SelectControl} from '@wordpress/components';
 import {addFilter} from '@wordpress/hooks'
 import {__} from '@wordpress/i18n'
 
+import {getBlokkiACFOptions} from "../helpers";
+
+/**
+ * the flag to store the control value
+ * @type {null}
+ */
+let disableBlockControlLightbox = null;
+
+/**
+ * So that we call this API request to fetch options only once for a page load.
+ * @returns {Promise<void>}
+ */
+async function initializeBlockControlValueSet() {
+    disableBlockControlLightbox = await getBlokkiACFOptions(disableBlockControlLightbox, 'blokki_disable_block_control_lightbox');
+}
+
+// Call the function to initialize spacing control
+initializeBlockControlValueSet();
+
 // Enable control on the following blocks
 const enableControlOnBlocks = [
     'core/button',
@@ -19,10 +38,6 @@ const lightboxControlOptions = [
     {
         label: __('Normal'),
         value: '',
-    },
-    {
-        label: __('Lightbox - General'),
-        value: 'lightbox',
     },
     {
         label: __('Lightbox - Video'),
@@ -43,7 +58,7 @@ let reusableBlockOptions;
  */
 const addLightboxControlAttribute = (settings, name) => {
     // Do nothing if it's another block than our defined ones.
-    if (!enableControlOnBlocks.includes(name)) {
+    if (disableBlockControlLightbox || !enableControlOnBlocks.includes(name)) {
         return settings;
     }
 
@@ -67,7 +82,7 @@ addFilter('blocks.registerBlockType', 'blokki/attribute/lightbox', addLightboxCo
 const withLightboxControl = createHigherOrderComponent((BlockEdit) => {
     return (props) => {
         // Do nothing if it's another block than our defined ones.
-        if (!enableControlOnBlocks.includes(props.name)) {
+        if (disableBlockControlLightbox || !enableControlOnBlocks.includes(props.name)) {
             return (
                 <BlockEdit {...props} />
             );
@@ -75,6 +90,8 @@ const withLightboxControl = createHigherOrderComponent((BlockEdit) => {
 
         const {lightbox} = props.attributes;
 
+        /**
+         * Code for Reusable block integration
         if (!reusableBlockOptions) {
             allOptions = lightboxControlOptions;
             reusableBlockOptions = [];
@@ -98,6 +115,9 @@ const withLightboxControl = createHigherOrderComponent((BlockEdit) => {
                 }
             });
         }
+
+        */
+        allOptions = lightboxControlOptions;
 
         if (!props.attributes.className) {
             props.attributes.className = '';

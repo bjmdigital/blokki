@@ -158,6 +158,179 @@
             ]
         },
         {
+            "key": "field_646f02ec9684f",
+            "label": "Blocks and Settings",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0
+        },
+        {
+            "key": "field_646f2c315ebdc",
+            "label": "Block Controls",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "By Default all Block controls are enabled, you may disable these as per requirement.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_646f030096850",
+            "label": "Disable Block Spacing",
+            "name": "blokki_disable_block_control_spacing",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "Enabled",
+            "ui": 1
+        },
+        {
+            "key": "field_646f31c3297d5",
+            "label": "Disable Block Visibility",
+            "name": "blokki_disable_block_control_visibility",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "Enabled",
+            "ui": 1
+        },
+        {
+            "key": "field_646f347ac14e5",
+            "label": "Disable Block Lightbox",
+            "name": "blokki_disable_block_control_lightbox",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "Enabled",
+            "ui": 1
+        },
+        {
+            "key": "field_646f39b102c89",
+            "label": "Registered Blocks",
+            "name": "",
+            "aria-label": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "By Default all Block s offered by this plugin are registered, you may disable these as per requirement.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_646f48a56a809",
+            "label": "Disable Cards Block",
+            "name": "blokki_disable_registered_block_cards",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "Enabled",
+            "ui": 1
+        },
+        {
+            "key": "field_646f39e502c8a",
+            "label": "Disable Accordions Block",
+            "name": "blokki_disable_registered_block_accordions",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "Enabled",
+            "ui": 1
+        },
+        {
+            "key": "field_646f48b96a80a",
+            "label": "Disable Social Share Block",
+            "name": "blokki_disable_registered_block_social_share",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui_on_text": "Disabled",
+            "ui_off_text": "Enabled",
+            "ui": 1
+        },
+        {
             "key": "field_62459fc3cfffd",
             "label": "Accordions",
             "name": "",
@@ -354,5 +527,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1683359500
+    "modified": 1685080488
 }

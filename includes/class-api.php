@@ -27,7 +27,9 @@ class Api {
 	 * @access   private
 	 * @var      string $plugin_name The ID of this plugin.
 	 */
-	private $plugin_name;
+	private $route_namespace = 'blokki/v1';
+
+	private $blokki_options = [];
 
 	/**
 	 * The version of this plugin.
@@ -61,6 +63,59 @@ class Api {
 	public function register_hooks() {
 
 		add_action( 'rest_api_init', [ $this, 'endpoint_global_blocks' ] );
+		add_action( 'rest_api_init', [ $this, 'endpoint_acf_options' ] );
+
+	}
+
+	/**
+	 *
+	 */
+	public function permission_callback_edit_posts() {
+
+		return current_user_can( 'edit_posts' );
+	}
+
+	/**
+	 *
+	 */
+	public function endpoint_acf_options() {
+
+		register_rest_route( $this->route_namespace, '/acf-options/', [
+			'methods'             => 'GET',
+			'callback'            => [ $this, 'get_acf_blokki_options' ],
+			'permission_callback' => [ $this, 'permission_callback_edit_posts' ],
+		] );
+
+
+	}
+
+	public function get_acf_blokki_options() {
+
+
+		if ( empty( $this->blokki_options ) ) {
+			$fields = get_field_objects( 'options' );
+			$meta   = array();
+
+			// bail early
+			if ( ! $fields ) {
+				return $this->blokki_options;
+			}
+
+			// populate
+			foreach ( $fields as $k => $field ) {
+
+				if ( ( isset( $field['parent'] ) && 'group_plugin_settings_page_blokki' === $field['parent'] ) ) {
+					$meta[ $k ] = $field['value'];
+				}
+
+
+			}
+			$this->blokki_options = $meta;
+		}
+
+
+		// return
+		return $this->blokki_options;
 
 	}
 
@@ -69,12 +124,10 @@ class Api {
 	 */
 	public function endpoint_global_blocks() {
 
-		register_rest_route( 'blokki/v1', '/wp-blocks/', [
+		register_rest_route( $this->route_namespace, '/wp-blocks/', [
 			'methods'             => 'GET',
 			'callback'            => [ $this, 'get_global_blocks' ],
-			'permission_callback' => function () {
-				return current_user_can( 'edit_posts' );
-			}
+			'permission_callback' => [ $this, 'permission_callback_edit_posts' ]
 		] );
 
 	}

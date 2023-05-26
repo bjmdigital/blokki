@@ -9,20 +9,20 @@ import './style.scss';
 
 registerBlockType('blokki/grid', {
     icon,
-	apiVersion: 2,
+    apiVersion: 2,
     title: __('Blokki Grid', 'blokki'),
     description: __('Blokki blocks grid.', 'blokki'),
-	attributes: attrs,
-	category: 'theme',
-	supports: {
-		align: true,
-		html: false,
-		anchor: true,
-		color: {
-			background: true,
-			text: true,
-		},
-	},
+    attributes: attrs,
+    category: 'theme',
+    supports: {
+        align: true,
+        html: false,
+        anchor: true,
+        color: {
+            background: true,
+            text: true,
+        },
+    },
     edit,
     save
 })
