@@ -80,7 +80,7 @@ class Api {
 	 */
 	public function endpoint_acf_options() {
 
-		register_rest_route( 'blokki/v1', '/acf-options/', [
+		register_rest_route( $this->route_namespace, '/acf-options/', [
 			'methods'             => 'GET',
 			'callback'            => [ $this, 'get_acf_blokki_options' ],
 			'permission_callback' => [ $this, 'permission_callback_edit_posts' ],

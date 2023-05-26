@@ -40,10 +40,6 @@ const lightboxControlOptions = [
         value: '',
     },
     {
-        label: __('Lightbox - General'),
-        value: 'lightbox',
-    },
-    {
         label: __('Lightbox - Video'),
         value: 'lightboxvideo',
     }
@@ -94,6 +90,8 @@ const withLightboxControl = createHigherOrderComponent((BlockEdit) => {
 
         const {lightbox} = props.attributes;
 
+        /**
+         * Code for Reusable block integration
         if (!reusableBlockOptions) {
             allOptions = lightboxControlOptions;
             reusableBlockOptions = [];
@@ -117,6 +115,9 @@ const withLightboxControl = createHigherOrderComponent((BlockEdit) => {
                 }
             });
         }
+
+        */
+        allOptions = lightboxControlOptions;
 
         if (!props.attributes.className) {
             props.attributes.className = '';
