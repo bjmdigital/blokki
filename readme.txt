@@ -45,11 +45,11 @@ No, It's a private plugin
 
 **1.0.7**
 
-*2023-05-XX*
+*2023-05-26*
 
 - Feature: Option to toggle registered blocks and block controls (spacing, visibility etc.)
+- Fix: Removed the reusable blocks integration with lightbox block control
 - Dev: Packages update to the latest versions and version number bump to 1.0.7
-
 
 **1.0.6**
 
