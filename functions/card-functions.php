@@ -365,6 +365,7 @@ if ( ! function_exists( 'blokki_get_block_display_config_default' ) ) :
 				'show_inner'        => true,
 				'show_content'      => false,
 				'readmore_skip_tab' => false,
+                'link_card'         => false,
 			],
 			'accordions' => [
 				'show_title'   => true,
@@ -616,7 +617,7 @@ if ( ! function_exists( 'blokki_get_taxonomy_terms_markup' ) ) :
 			if ( $terms_has_link ) {
 				$term_html = sprintf( '<a href="%s" rel="tag" title="%s" tabindex="-1">%s</a>',
 					get_term_link( $term->term_id ),
-					esc_html__( 'View', 'blokki' ) . ' ' . $term->name,
+					wp_strip_all_tags(esc_html__( 'View', 'blokki' ) . ' ' . $term->name ),
 					$term->name
 				);
 			} else {
@@ -659,7 +660,7 @@ if ( ! function_exists( 'blokki_get_post_link_title' ) ) :
 			get_post_type( $post_id )
 		);
 
-		return $read_more_label . get_the_title( $post_id );
+		return wp_strip_all_tags( $read_more_label . get_the_title( $post_id ) );
 	}
 
 endif;

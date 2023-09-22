@@ -27,6 +27,8 @@ class Api {
 	 * @access   private
 	 * @var      string $plugin_name The ID of this plugin.
 	 */
+    private $plugin_name;
+
 	private $route_namespace = 'blokki/v1';
 
 	private $blokki_options = [];

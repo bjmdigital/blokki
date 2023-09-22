@@ -2,7 +2,7 @@
 /**
  * Get Template Vars
  */
-$block                 = blokki_get_template_data( $block ?? [] );
+$block                 = blokki_get_template_data( $block ?? array() );
 $card_index            = blokki_get_template_data( $card_index ?? null, true );
 $cards_display_options = blokki_get_block_display_options();
 $template_path         = 'partials/card';
@@ -22,9 +22,9 @@ $partials = $post_type_config['partials'];
 /**
  * CSS Classes
  */
-$css_classes   = [ 'blokki-card' ];
+$css_classes = array( 'blokki-card' );
 
-$css_classes[] = blokki_is_foundation_support() ? "cell" : "";
+$css_classes[] = blokki_is_foundation_support() ? 'cell' : '';
 
 if ( ! is_null( $card_index ) ) {
 	$css_classes[] = 'card-index-' . intval( $card_index );
@@ -34,10 +34,10 @@ if ( ! is_null( $card_index ) ) {
 $css_classes = array_filter( $css_classes );
 $css_classes = apply_filters( 'blokki_template_card_css_classes', $css_classes, $block, $card_index );
 
-$card_inner_css_classes = [ 'card-inner' ];
+$card_inner_css_classes = array( 'card-inner' );
 $card_inner_css_classes = apply_filters( 'blokki_template_card_inner_css_classes', $card_inner_css_classes, $block );
 
-//if we have not received the card_html_tag yet, make sure we have one
+// if we have not received the card_html_tag yet, make sure we have one
 $card_html_tag = $post_type_config['card_html_tag'] ?? 'div';
 
 /**
@@ -52,16 +52,17 @@ if ( $link_card ) {
 /**
  * HTML Output
  */
-printf( '<%s class="%s">',
+printf(
+	'<%s class="%s">',
 	$card_html_tag,
 	implode( ' ', get_post_class( implode( ' ', $css_classes ), get_the_ID() ) )
-
 );
 
 if ( $link_card && ! is_admin() ) {
-	printf( '<a aria-label="%s" class="link-card-cover" title="%s" href="%s" target="%s"></a>',
-		get_the_title(),
-		blokki_get_post_link_title(),
+	printf(
+		'<a aria-label="%s" class="link-card-cover" title="%s" href="%s" target="%s"></a>',
+		wp_strip_all_tags( get_the_title() ),
+        blokki_get_post_link_title(),
 		get_the_permalink(),
 		$post_type_config['link_target'] ?? '_self'
 	);
@@ -69,9 +70,9 @@ if ( $link_card && ! is_admin() ) {
 
 do_action( 'blokki_block_cards_inner_content_before' );
 // card-inner
-printf( '<div class="%s">',
+printf(
+	'<div class="%s">',
 	implode( ' ', $card_inner_css_classes )
-
 );
 do_action( 'blokki_block_cards_inner_content_start' );
 /**
@@ -102,15 +103,15 @@ if ( ! $show_inner ) {
 
 	// if image is first, out image partial
 	if ( $image_first ) {
-		blokki_render_partials( $template_path, [ 'image' ], $post_type_config, $post_type );
+		blokki_render_partials( $template_path, array( 'image' ), $post_type_config, $post_type );
 	}
 
 	// rest of the partials except image
-	blokki_render_partials( $template_path, [ 'inner' ], $post_type_config, $post_type );
+	blokki_render_partials( $template_path, array( 'inner' ), $post_type_config, $post_type );
 
 	// if image is not first, add it to the lase
 	if ( ! $image_first ) {
-		blokki_render_partials( $template_path, [ 'image' ], $post_type_config, $post_type );
+		blokki_render_partials( $template_path, array( 'image' ), $post_type_config, $post_type );
 	}
 }
 
