@@ -1,11 +1,12 @@
 {
     "key": "group_cards_display_options_blokki",
-    "title": "Blokki Cards Display Options",
+    "title": "Cards Display Options (Blokki)",
     "fields": [
         {
             "key": "field_623dd7ae44684",
             "label": "Display Options",
             "name": "",
+            "aria-label": "",
             "type": "accordion",
             "instructions": "",
             "required": 0,
@@ -23,6 +24,7 @@
             "key": "field_623ebcd30ea3a",
             "label": "Title html Tag",
             "name": "title_html_tag",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -56,6 +58,7 @@
             "key": "field_623ee84298bd3",
             "label": "Card html Tag",
             "name": "card_html_tag",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -85,6 +88,7 @@
             "key": "field_62440bae91acb",
             "label": "Wrap in inner Block",
             "name": "show_inner",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -113,6 +117,7 @@
             "key": "field_623dd7cf44685",
             "label": "Show Title",
             "name": "show_title",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -141,6 +146,7 @@
             "key": "field_623dd80244686",
             "label": "Show Excerpt",
             "name": "show_excerpt",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -169,6 +175,7 @@
             "key": "field_623dd80d44687",
             "label": "Show Image",
             "name": "show_image",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -197,6 +204,7 @@
             "key": "field_623dd8304468a",
             "label": "Show Read More",
             "name": "show_readmore",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -225,6 +233,7 @@
             "key": "field_623dd81a44688",
             "label": "Show Meta",
             "name": "show_meta",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -253,6 +262,7 @@
             "key": "field_623dd82444689",
             "label": "Show Date",
             "name": "show_date",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -281,6 +291,7 @@
             "key": "field_623dd8644468b",
             "label": "Show Author",
             "name": "show_author",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -309,6 +320,7 @@
             "key": "field_623dd8704468c",
             "label": "Show Taxonomy",
             "name": "show_taxonomy",
+            "aria-label": "",
             "type": "select",
             "instructions": "",
             "required": 0,
@@ -332,6 +344,33 @@
             "return_format": "value",
             "ajax": 0,
             "placeholder": ""
+        },
+        {
+            "key": "field_650d35549eebb",
+            "label": "Link Card",
+            "name": "link_card",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "default": "Post Type Default",
+                "0": "No",
+                "1": "Yes"
+            },
+            "default_value": "default",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
         }
     ],
     "location": [
@@ -349,7 +388,8 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1649121185
+    "show_in_rest": 0,
+    "modified": 1695364493
 }

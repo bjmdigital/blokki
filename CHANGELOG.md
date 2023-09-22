@@ -1,5 +1,14 @@
 # Changelog
 
+**1.0.8**
+
+*2023-09-22*
+
+- Feature: Added Card Block option to link_card 
+- Fix: strip_tags for card block title when used in the link
+- Fix: styling for link_card option
+- Dev: Version number bump to 1.0.8
+
 **1.0.7**
 
 *2023-05-26*
