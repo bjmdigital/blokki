@@ -81,6 +81,43 @@ class Init {
 	 */
 	protected $admin;
 
+    /**
+     * The api class of the plugin.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      Api $api
+     */
+    protected $api;
+
+    /**
+     * The blocks class of the plugin.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      Blocks $blocks
+     */
+    protected $blocks;
+
+    /**
+     * The ACF blocks class of the plugin.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      AcfBlocks $acf_blocks
+     */
+    protected $acf_blocks;
+
+    /**
+     * The schema class of the plugin.
+     *
+     * @since    1.0.1
+     * @access   protected
+     * @var      Schema $schema
+     */
+    protected $schema;
+
+
 	/**
 	 * The front/public class of the plugin.
 	 *
