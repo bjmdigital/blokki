@@ -1,5 +1,13 @@
 # Changelog
 
+**1.0.9**
+
+*2024-09-18*
+
+- Feature: Added padding and margin options to Blokki Grid and Blokki Grid Column
+- Fix: Removed the auto addition of `image` in Post Type Config for Blokki Cards [Maybe a Breaking Change]
+- Dev: Version number bump to 1.0.9
+
 **1.0.8**
 
 *2023-09-22*
