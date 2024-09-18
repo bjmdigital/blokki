@@ -2,8 +2,8 @@
 
 namespace Blokki;
 
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-use YahnisElsts\PluginUpdateChecker\v5p0\Vcs\GitHubApi;
+use YahnisElsts\PluginUpdateChecker\v5p4\Vcs\PluginUpdateChecker;
+use YahnisElsts\PluginUpdateChecker\v5p4\Vcs\GitHubApi;
 
 // exit if file is called directly
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,23 +41,27 @@ class Updater {
 	public function init_updater() {
 
 
-		$update_checker = PucFactory::buildUpdateChecker(
-			BLOKKI_GITHUB_REPO_URL,
+		$githubApiInstance = new GitHubApi(
+			BLOKKI_GITHUB_REPO_URL
+		);
+
+		//Enable update via release assets.;
+		$githubApiInstance->enableReleaseAssets();
+
+		$updateChecker = new PluginUpdateChecker(
+			$githubApiInstance,
 			BLOKKI_PLUGIN_FILE,
 			BLOKKI_PLUGIN_NAME
 		);
 
+
 		//Don't look for a "Stable tag" header in readme.txt.
-		$update_checker->addFilter( 'vcs_update_detection_strategies', function ( $strategies ) {
+		$updateChecker->addFilter( 'vcs_update_detection_strategies', function ( $strategies ) {
 			unset( $strategies[ GitHubApi::STRATEGY_STABLE_TAG ] );
 
 			return $strategies;
 		} );
 
-		//Optional: If you're using a private repository, specify the access token like this:
-//		$update_checker->setAuthentication( '' );
-
-		$update_checker->getVcsApi()->enableReleaseAssets();
 
 	}
 
