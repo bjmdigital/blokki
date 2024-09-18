@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => '1.0.4.x-dev',
+        'version' => '1.0.4.9999999-dev',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'a09d47e142cda349d8cbad65c225f38f31871f2c',
+        'name' => 'bjm/blokki',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'bjm/blokki' => array(
+            'pretty_version' => '1.0.4.x-dev',
+            'version' => '1.0.4.9999999-dev',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'a09d47e142cda349d8cbad65c225f38f31871f2c',
+            'dev_requirement' => false,
+        ),
+        'gamajo/template-loader' => array(
+            'pretty_version' => '1.3.1',
+            'version' => '1.3.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../gamajo/template-loader',
+            'aliases' => array(),
+            'reference' => 'fa92a37b780d945463f7fea328dce14933558752',
+            'dev_requirement' => false,
+        ),
+        'yahnis-elsts/plugin-update-checker' => array(
+            'pretty_version' => 'v5.0',
+            'version' => '5.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../yahnis-elsts/plugin-update-checker',
+            'aliases' => array(),
+            'reference' => '81be284da76f12c8751b477b2a0fa44364d26f84',
+            'dev_requirement' => false,
+        ),
+    ),
+);
