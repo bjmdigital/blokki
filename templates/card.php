@@ -109,10 +109,6 @@ if ( ! $show_inner ) {
 	// rest of the partials except image
 	blokki_render_partials( $template_path, array( 'inner' ), $post_type_config, $post_type );
 
-	// if image is not first, add it to the lase
-	if ( ! $image_first ) {
-		blokki_render_partials( $template_path, array( 'image' ), $post_type_config, $post_type );
-	}
 }
 
 do_action( 'blokki_block_cards_inner_content_end' );

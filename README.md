@@ -168,7 +168,7 @@ Please remember to update the following files with the new version number for th
 used to check for available updates and be visible in `wp-admin`:
 
 - `readme.txt`
-- `readme.md`
+- `CHANGELOG.md`
 - `package.json`  
 - `blokki.php`
 

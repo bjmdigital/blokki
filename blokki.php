@@ -19,8 +19,8 @@
  * Description:       Blocks functionality from BJM Team
  * Requires PHP:      7.0
  * Requires at least: 6.0
- * Tested up to:      6.3.1
- * Version:           1.0.8
+ * Tested up to:      6.6.2
+ * Version:           1.0.9
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BLOKKI_VERSION', '1.0.8' );
+define( 'BLOKKI_VERSION', '1.0.9' );
 
 if ( ! defined( 'BLOKKI_PLUGIN_FILE' ) ) {
 	define( 'BLOKKI_PLUGIN_FILE', __FILE__ );
