@@ -4,6 +4,8 @@
 /sitemap.xml
 /sitemap.xml.gz
 
+vendor
+build/
 composer.lock
 package-lock.json
 
