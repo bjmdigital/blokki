@@ -22,6 +22,10 @@ registerBlockType('blokki/grid', {
             background: true,
             text: true,
         },
+        "spacing": {
+            "padding": true,
+            "margin": true,
+        }
     },
     edit,
     save

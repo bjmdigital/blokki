@@ -1,10 +1,10 @@
-$blokki-padding-small: var(--blokki-has-padding-small , 1rem);
-$blokki-padding-medium: var(--blokki-has-padding-medium, 2rem);
-$blokki-padding-large: var(--blokki-has-padding-large, 3rem);
+$blokki-padding-small: var(--blokki-has-padding-small , calc(var(--wp--style--block-gap, 1rem) * 1));
+$blokki-padding-medium: var(--blokki-has-padding-medium, calc(var(--wp--style--block-gap, 1rem) * 2));
+$blokki-padding-large: var(--blokki-has-padding-large, calc(var(--wp--style--block-gap, 1rem) * 3));
 
-$blokki-margin-small: var(--blokki-has-margin-small, 1rem);
-$blokki-margin-medium: var(--blokki-has-margin-medium, 2rem);
-$blokki-margin-large: var(--blokki-has-margin-large, 3rem);
+$blokki-margin-small: var(--blokki-has-margin-small, calc(var(--wp--style--block-gap, 1rem) * 1));
+$blokki-margin-medium: var(--blokki-has-margin-medium, calc(var(--wp--style--block-gap, 1rem) * 2));
+$blokki-margin-large: var(--blokki-has-margin-large, calc(var(--wp--style--block-gap, 1rem) * 3));
 
 $blokki-breakpoints: (
         small: 0,

@@ -21,6 +21,10 @@ registerBlockType('blokki/grid-column', {
             background: true,
             text: true,
         },
+        "spacing": {
+            "padding": true,
+            "margin": true,
+        }
     },
     attributes: attrs,
     edit,

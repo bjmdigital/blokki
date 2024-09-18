@@ -1,6 +1,6 @@
 {
 	"name": "blokki",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "Blocks functionality from BJM Team",
 	"author": "BJM Team",
 	"license": "GPL-2.0-or-later",
@@ -16,19 +16,20 @@
 		"lint:js": "wp-scripts lint-js",
 		"start": "wp-scripts start",
 		"build:public": "wp-scripts build src/public.js --output-path=public/js",
+		"build:makepot": "npx @wp-blocks/make-pot ./ ./languages --slug blokki --domain blokki",
 		"packages-update": "wp-scripts packages-update",
 		"create-zip": "node createPlugin.js"
 	},
 	"dependencies": {
-		"@wordpress/block-editor": "^12.0.0",
-		"@wordpress/blocks": "^12.9.0",
-		"@wordpress/i18n": "^4.32.0",
+		"@wordpress/block-editor": "^14.2.0",
+		"@wordpress/blocks": "^13.7.0",
+		"@wordpress/i18n": "^5.7.0",
 		"micromodal": "^0.4.10"
 	},
 	"devDependencies": {
-		"@wordpress/base-styles": "^4.23.0",
-		"@wordpress/prettier-config": "^2.15.0",
-		"@wordpress/scripts": "^26.3.0",
+		"@wordpress/base-styles": "^5.7.0",
+		"@wordpress/prettier-config": "^4.7.0",
+		"@wordpress/scripts": "^29.0.0",
 		"archiver": "^5.3.1",
 		"shelljs": "^0.8.5"
 	}

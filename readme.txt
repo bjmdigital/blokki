@@ -2,9 +2,9 @@
 Contributors: bjmdigital
 Tags: cards, posts, query, blocks
 Requires at least: 6.0
-Tested up to: 6.2.0
+Tested up to: 6.6.2
 Requires PHP: 7.4
-Stable tag: v1.0.8
+Stable tag: v1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,14 @@ No, It's a private plugin
 
 
 == Changelog ==
+
+**1.0.9**
+
+*2024-09-18*
+
+- Feature: Added padding and margin options to Blokki Grid and Blokki Grid Column
+- Fix: Removed the auto addition of `image` in Post Type Config for Blokki Cards [Maybe a Breaking Change]
+- Dev: Version number bump to 1.0.9
 
 **1.0.8**
 
