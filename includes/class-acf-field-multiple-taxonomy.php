@@ -83,8 +83,10 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 
 	function ajax_query() {
 
+		$action = $_REQUEST['field_key'];
+
 		// validate
-		if ( ! acf_verify_ajax() ) {
+		if ( ! acf_verify_ajax( '', $action ) ) {
 			die();
 		}
 
