@@ -25,6 +25,11 @@ class Schema {
 
 
 		/**
+		 * Single Post Loaded Action
+		 */
+		add_action( 'template_redirect', [ $this, 'maybe_build_single_cpt_schema' ] );
+
+		/**
 		 * Blokki Loop action
 		 */
 		add_action( 'blokki_template_posts_loop_post', [ $this, 'setup_schema_for_post_in_loop' ], 10, 3 );
@@ -53,6 +58,30 @@ class Schema {
 	public function is_active_schema_support() {
 
 		return function_exists( 'get_field' ) && get_field( 'blokki_schema_support', 'options' );
+
+	}
+
+	/**
+	 * Maybe build schema for single cpt
+	 * @hooked template_redirect
+	 */
+	public function maybe_build_single_cpt_schema() {
+
+		if ( ! is_singular() ) {
+			return;
+		}
+
+		if ( ! $this->is_active_schema_support() ) {
+			return;
+		}
+
+		global $post;
+
+		// we are only interested in WP_Post Object
+		if ( 'WP_Post' === get_class( $post ) ) {
+			$this->enqueue_post_loop_schema( $post );
+		}
+
 
 	}
 
