@@ -1,15 +1,15 @@
-# Copyright (C) 2024 blokki
+# Copyright (C) 2025 blokki
 # This file is distributed under the GPL-2.0-or-later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: blokki 1.0.9\n"
+"Project-Id-Version: blokki 1.10.0\n"
 "Report-Msgid-Bugs-To: BJM Team <EMAIL>\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"POT-Creation-Date: 2024-09-18T06:03:33.410Z\n"
-"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2025-01-20T11:39:41.474Z\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
 "Last-Translator: BJM Team <EMAIL>\n"
 "Language-Team: BJM Team <EMAIL>\n"
 "X-Generator: @wp-blocks/make-pot 1.4.0\n"
@@ -68,79 +68,79 @@ msgstr ""
 msgid "Error!"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:340
+#: includes/class-acf-field-multiple-taxonomy.php:342
 msgid "Taxonomy"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:341
+#: includes/class-acf-field-multiple-taxonomy.php:343
 msgid "Select the taxonomy to be displayed"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:348
+#: includes/class-acf-field-multiple-taxonomy.php:350
 msgid "All taxonomy"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:354
+#: includes/class-acf-field-multiple-taxonomy.php:356
 msgid "Appearance"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:355
+#: includes/class-acf-field-multiple-taxonomy.php:357
 msgid "Select the appearance of this field"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:360
+#: includes/class-acf-field-multiple-taxonomy.php:362
 msgid "Multiple Values"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:361
+#: includes/class-acf-field-multiple-taxonomy.php:363
 msgid "Checkbox"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:362
+#: includes/class-acf-field-multiple-taxonomy.php:364
 msgid "Multi Select"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:364
+#: includes/class-acf-field-multiple-taxonomy.php:366
 msgid "Single Value"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:365
+#: includes/class-acf-field-multiple-taxonomy.php:367
 msgid "Radio Buttons"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:374
+#: includes/class-acf-field-multiple-taxonomy.php:376
 msgid "Allow Null?"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:384
+#: includes/class-acf-field-multiple-taxonomy.php:386
 msgid "Stylised UI"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:394
+#: includes/class-acf-field-multiple-taxonomy.php:396
 msgid "Save Terms"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:395
+#: includes/class-acf-field-multiple-taxonomy.php:397
 msgid "Connect selected terms to the post"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:404
+#: includes/class-acf-field-multiple-taxonomy.php:406
 msgid "Load Terms"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:405
+#: includes/class-acf-field-multiple-taxonomy.php:407
 msgid "Load value from posts terms"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:414
+#: includes/class-acf-field-multiple-taxonomy.php:416
 msgid "Return Value"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:419
+#: includes/class-acf-field-multiple-taxonomy.php:421
 msgid "Term Object"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:420
+#: includes/class-acf-field-multiple-taxonomy.php:422
 msgid "Term ID"
 msgstr ""
 
@@ -350,7 +350,7 @@ msgstr ""
 msgid "Accordion Card Title"
 msgstr ""
 
-#: includes/class-acf-field-multiple-taxonomy.php:366
+#: includes/class-acf-field-multiple-taxonomy.php:368
 msgctxt "noun"
 msgid "Select"
 msgstr ""

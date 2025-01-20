@@ -1,5 +1,12 @@
 # Changelog
 
+**1.10.0**
+
+*2025-01-20*
+
+- Feature: 
+- Dev: Version number bump to 1.10.0
+
 **1.0.9**
 
 *2024-09-18*

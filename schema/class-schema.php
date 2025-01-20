@@ -79,7 +79,7 @@ class Schema {
 
 		// we are only interested in WP_Post Object
 		if ( 'WP_Post' === get_class( $post ) ) {
-			$this->enqueue_post_loop_schema( $post );
+			$this->enqueue_post_single_schema( $post );
 		}
 
 
@@ -123,6 +123,36 @@ class Schema {
 	/**
 	 * Enqueue Schema using the $post object
 	 */
+	public function enqueue_post_single_schema( $post ) {
+		$post = get_post( $post );
+
+		if ( ! $post ) {
+			return null;
+		}
+
+		$single_schema_type = $this->get_post_single_schema_type( $post );
+
+		if ( ! $single_schema_type ) {
+			return null;
+		}
+
+		/**
+		 * Lets setup Schema Type class for the specified loop_schema
+		 */
+		$single_schema_type_class = $this->setup_schema_type( $single_schema_type, $post->post_type );
+
+		if ( ! $single_schema_type_class ) {
+			return null;
+		}
+		/**
+		 * Add Post Schema to the class
+		 */
+		$single_schema_type_class->add_post_schema( $post );
+	}
+
+	/**
+	 * Enqueue Schema using the $post object
+	 */
 	public function enqueue_post_loop_schema( $post ) {
 		$post = get_post( $post );
 
@@ -156,6 +186,15 @@ class Schema {
 	public function get_post_loop_schema_type( $post ) {
 
 		return $this->get_post_schema_type( $post, true );
+
+	}
+
+	/**
+	 * Get Loop Schema Type from Post Object
+	 */
+	public function get_post_single_schema_type( $post ) {
+
+		return $this->get_post_schema_type( $post, false );
 
 	}
 

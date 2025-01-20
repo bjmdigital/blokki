@@ -1,5 +1,4 @@
 <?php
-
 namespace Blokki\Schema;
 
 // if class already defined, bail out
@@ -44,7 +43,7 @@ class DefinedTerm extends BaseSchemaType {
 	public function add_post_schema( $post = 0 ) {
 
 		$cached_schema = $this->get_cache_schema_for_post( $post );
-		
+
 		if ( $cached_schema ) {
 			$this->schema = $cached_schema;
 
