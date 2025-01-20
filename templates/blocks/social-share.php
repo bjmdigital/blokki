@@ -36,6 +36,8 @@ if ( $share_text ) {
 
 printf( '<div class="%s">', implode( ' ', $icon_wrapper_classes ) );
 
+do_action('blokki_block_social_share_icons_list_before');
+
 if ( $social_sharing['facebook'] ?? false ):
 	printf( '<a 	aria-label="%s" href="%s" data-network="facebook" class="facebook share-button" 
 					  	rel="noopener" target="_blank"><i class="%s"></i></a>',
@@ -50,7 +52,7 @@ if ( $social_sharing['twitter'] ?? false ):
 					  	rel="noopener" target="_blank"><i class="%s"></i></a>',
 		esc_html__( 'Share this page on Twitter', 'blokki' ),
 		'https://twitter.com/intent/tweet?text=' . $title . '&url=' . $url,
-		$icon_size . ' ' . apply_filters( 'blokki_block_social_share_icon_classes_twitter', 'fab fa-twitter' )
+		$icon_size . ' ' . apply_filters( 'blokki_block_social_share_icon_classes_twitter', 'fab fa-x-twitter' )
 	);
 endif;
 
@@ -71,6 +73,9 @@ if ( $social_sharing['email'] ?? false ):
 		$icon_size . ' ' . apply_filters( 'blokki_block_social_share_icon_classes_email', 'fas fa-envelope' )
 	);
 endif;
+
+
+do_action('blokki_block_social_share_icons_list_after');
 
 printf( '</div><!-- .share-icons -->' );
 printf( '</div><!-- .wp-block-acf-blokki-social-share -->' );
