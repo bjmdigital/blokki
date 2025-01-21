@@ -160,8 +160,7 @@ Please refer to the following section for setting up your project locally.
 
 ### Releasing Update
 
-Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you
-may follow the steps described below.
+Once you have made all the changes and the build directory is created/updated and an update is ready to be released, you may follow the steps described below.
 
 :warning:
 Please remember to update the following files with the new version number for the plugin as this version number shall be
@@ -188,15 +187,14 @@ This command will create a `blokki.zip` file in the repo directory.
 This `.zip` file shall have the `vendors` and `build` directory and excluding the `src` directory. For details please
 check `.npmignore` file.
 
-:warning: `.zip` file created has all files without wrapped in the folder `blokki`, so, you shall need to extract this `.zip` file to `blokki` folder and then zip the extracted `blokki` folder to create `blokki.zip` file make it ready for uploading to repo releases. You may rename this new `blokki.zip` to append version number like: `blokki-v1.0.1.zip`
+ You may rename this new `blokki.zip` to append version number like: `blokki-v1.0.1.zip`
 
 #### Step 2: Creating a Release
 
 Go to [Releases](https://github.com/bjmdigital/blokki/releases) section in Github and create a new release. You should
 create a new tag name corresponding to the new plugin version number (Prefix the tag with `v` so that it does not conflict with the same branch name) and upload the `blokki.zip` to the release assets.
 
-Once you created a new release, remove the `blokki.zip` file from the plugin repo directory that was created in Step-1
-above.
+After you created a new release, remove the `blokki.zip` file from the plugin repo directory that was created in Step-1 above.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -535,6 +533,7 @@ issues).
 ## Known Issues
 
 - Blokki plugin is not compatible with BJM Blocks.
+- Blokki version 1.10.0 and beyond requires ACF PRO V6.3.11 or higher to work properly with Multiple Taxonomy Terms field.
 
 <!-- CONTRIBUTING -->
 
