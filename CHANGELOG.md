@@ -1,5 +1,13 @@
 # Changelog
 
+**1.10.0**
+
+*2025-01-20*
+
+- Feature: Added Schema for DefinedTerm and Single CPT Schema
+- Fix: Multiple Taxonomy Terms field compatibility with ACF PRO V6.3.11
+- Dev: Version number bump to 1.10.0
+
 **1.0.9**
 
 *2024-09-18*

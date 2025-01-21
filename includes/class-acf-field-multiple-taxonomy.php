@@ -83,15 +83,35 @@ class ACF_Field_Multiple_Taxonomy_Terms extends \acf_field {
 
 	function ajax_query() {
 
+		$request_field_type = $_REQUEST['field_key'] ?? '';
+
+		$field_type_for_nonce = null;
+
+		switch ( $request_field_type ) {
+			case 'select':
+			case 'multi_select':
+				$field_type_for_nonce = 'select';
+				break;
+			case 'checkbox':
+				$field_type_for_nonce = 'checkbox';
+				break;
+			case 'radio':
+				$field_type_for_nonce = 'radio';
+				break;
+			default:
+				$field_type_for_nonce = 'select';
+				break;
+		}
+
+		$action = 'acf_field_' . $field_type_for_nonce . '_' . $_REQUEST['field_key'];
+
 		// validate
-		if ( ! acf_verify_ajax() ) {
+		if ( ! acf_verify_ajax( '', $action ) ) {
 			die();
 		}
 
-
 		// get choices
 		$response = $this->get_ajax_query( $_POST );
-
 
 		// return
 		acf_send_ajax_results( $response );

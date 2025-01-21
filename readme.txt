@@ -4,7 +4,7 @@ Tags: cards, posts, query, blocks
 Requires at least: 6.0
 Tested up to: 6.6.2
 Requires PHP: 7.4
-Stable tag: v1.0.9
+Stable tag: v1.10.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,14 @@ No, It's a private plugin
 
 
 == Changelog ==
+
+**1.10.0**
+
+*2025-01-20*
+
+- Feature: Added Schema for DefinedTerm and Single CPT Schema
+- Fix: Multiple Taxonomy Terms field compatibility with ACF PRO V6.3.11
+- Dev: Version number bump to 1.10.0
 
 **1.0.9**
 
