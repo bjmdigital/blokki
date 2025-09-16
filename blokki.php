@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BLOKKI_VERSION', '1.10.0' );
+define( 'BLOKKI_VERSION', '1.11.0' );
 
 if ( ! defined( 'BLOKKI_PLUGIN_FILE' ) ) {
 	define( 'BLOKKI_PLUGIN_FILE', __FILE__ );
