@@ -1,55 +1,52 @@
-// createPlugin.js
-
+const shell = require('shelljs');
 const fs = require('fs');
-const path = require('path');
 const archiver = require('archiver');
-const shell = require('shelljs'); // Use shelljs for cross-platform commands
-
-const pluginName = 'blokki';
-const outputZip = path.join(__dirname, `${pluginName}.zip`);
-const tempBuildDir = path.join(__dirname, pluginName); // Temp folder for building the zip
-
-// Define exactly what should be in the final plugin zip file
-const filesToInclude = [
-    'admin',
-    'build',
-    'includes',
-    'languages',
-    'public',
-    'schema',
-    'templates',
-    'vendor',
-    'blokki.php',
-    'CHANGELOG.md',
-    'LICENSE.txt',
-    'readme.txt',
-];
 
 // --- Start of Script ---
 
+const pluginName = 'blokki';
+const outputZip = 'blokki.zip';
+const tempBuildDir = 'blokki';
+
+// Define directories and files to exclude from the zip
+const exclude = [
+    tempBuildDir,
+    'node_modules',
+    '.git',
+    '.github',
+    '.idea',
+    'src', // Source files are not needed in the final plugin
+    'createPlugin.js',
+    'package.json',
+    'package-lock.json',
+    '.npmignore',
+    '.editorconfig',
+    '.gitignore',
+];
+
 // 1. Clean up from previous runs
-if (fs.existsSync(outputZip)) {
+if (shell.test('-e', outputZip)) {
     shell.rm(outputZip);
 }
-if (fs.existsSync(tempBuildDir)) {
+if (shell.test('-e', tempBuildDir)) {
     shell.rm('-rf', tempBuildDir);
 }
 
-// 2. Create the temporary directory for the zip contents
+// 2. Create the temporary directory
 shell.mkdir('-p', tempBuildDir);
 
-// 3. Copy only the necessary files and directories into the temp directory
+// 3. Get all files/folders in the root and copy them, respecting the exclude list.
+// This is the cross-platform replacement for your robocopy command.
 console.log('Copying plugin files...');
-filesToInclude.forEach(fileOrDir => {
-    if (shell.test('-e', fileOrDir)) { // Check if file or directory exists
-        shell.cp('-R', fileOrDir, tempBuildDir);
-    } else {
-        console.warn(`Warning: '${fileOrDir}' not found. Skipping.`);
+const allFiles = shell.ls('-A', '.'); // List all files, including hidden ones
+allFiles.forEach(file => {
+    if (exclude.indexOf(file) === -1) {
+        shell.cp('-R', file, tempBuildDir);
     }
 });
 
-// 4. Create the zip file from the contents of the temporary directory
-console.log(`Creating ${pluginName}.zip...`);
+// 4. Create the zip file
+console.log(`Creating ${outputZip}...`);
 const output = fs.createWriteStream(outputZip);
 const archive = archiver('zip', { zlib: { level: 9 } });
 
@@ -67,5 +64,7 @@ archive.on('error', function(err){
 });
 
 archive.pipe(output);
-archive.directory(tempBuildDir, false); // Add files from temp dir directly into zip root
+// The second argument to archive.directory is the path inside the zip.
+// We want the contents of our temp folder to be inside a 'blokki' folder in the zip.
+archive.directory(tempBuildDir, pluginName);
 archive.finalize();
