@@ -1,46 +1,71 @@
-const shell = require('shelljs');
+// createPlugin.js
+
 const fs = require('fs');
+const path = require('path');
 const archiver = require('archiver');
+const shell = require('shelljs'); // Use shelljs for cross-platform commands
 
-// If 'blokki.zip' exists, delete it
-if (fs.existsSync('blokki.zip')) {
-    fs.unlinkSync('blokki.zip');
+const pluginName = 'blokki';
+const outputZip = path.join(__dirname, `${pluginName}.zip`);
+const tempBuildDir = path.join(__dirname, pluginName); // Temp folder for building the zip
+
+// Define exactly what should be in the final plugin zip file
+const filesToInclude = [
+    'admin',
+    'build',
+    'includes',
+    'languages',
+    'public',
+    'schema',
+    'templates',
+    'vendor',
+    'blokki.php',
+    'CHANGELOG.md',
+    'LICENSE.txt',
+    'readme.txt',
+];
+
+// --- Start of Script ---
+
+// 1. Clean up from previous runs
+if (fs.existsSync(outputZip)) {
+    shell.rm(outputZip);
+}
+if (fs.existsSync(tempBuildDir)) {
+    shell.rm('-rf', tempBuildDir);
 }
 
-// Move 'createPlugin.js' to a temporary location
-shell.mv('createPlugin.js', '../createPlugin.js');
+// 2. Create the temporary directory for the zip contents
+shell.mkdir('-p', tempBuildDir);
 
-// Create a directory if it doesn't exist already
-if (!fs.existsSync('blokki')) {
-    fs.mkdirSync('blokki');
-}
-
-// Copy all files and folders to 'blokki', except the 'blokki', 'node_modules', and '.git' folders
-shell.exec('robocopy . blokki /e /xd blokki node_modules .git');
-
-// Move 'createPlugin.js' back to its original location
-shell.mv('../createPlugin.js', './createPlugin.js');
-
-// Create a file to stream archive data to.
-const output = fs.createWriteStream('./blokki.zip');
-const archive = archiver('zip', {
-    zlib: { level: 9 } // Sets the compression level.
+// 3. Copy only the necessary files and directories into the temp directory
+console.log('Copying plugin files...');
+filesToInclude.forEach(fileOrDir => {
+    if (shell.test('-e', fileOrDir)) { // Check if file or directory exists
+        shell.cp('-R', fileOrDir, tempBuildDir);
+    } else {
+        console.warn(`Warning: '${fileOrDir}' not found. Skipping.`);
+    }
 });
 
-// Pipe archive data to the file
-archive.pipe(output);
+// 4. Create the zip file from the contents of the temporary directory
+console.log(`Creating ${pluginName}.zip...`);
+const output = fs.createWriteStream(outputZip);
+const archive = archiver('zip', { zlib: { level: 9 } });
 
-// Append files from a directory
-archive.directory('blokki/', 'blokki');
-
-// Listen for all archive data to be written
-output.on('close', () => {
+output.on('close', function () {
     console.log(archive.pointer() + ' total bytes');
-    console.log('Archiver has been finalized and the output file descriptor has closed.');
-
-    // Remove 'blokki' directory
-    fs.rmSync('blokki', { recursive: true, force: true });
+    console.log('Zip file created successfully.');
+    
+    // 5. Clean up the temporary directory
+    shell.rm('-rf', tempBuildDir);
+    console.log('Temporary build directory removed.');
 });
 
-// Finalize the archive (the archive is created and can no longer be modified)
+archive.on('error', function(err){
+    throw err;
+});
+
+archive.pipe(output);
+archive.directory(tempBuildDir, false); // Add files from temp dir directly into zip root
 archive.finalize();

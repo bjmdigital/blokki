@@ -1,5 +1,13 @@
 # Changelog
 
+**1.11.0**
+
+*2025-09-16*
+- Improvement: Re-engineered the video lightbox to use the official Vimeo and YouTube Player APIs for more reliable playback.
+- Fix: Videos in the hero banner popup now play with sound by default on desktop and mobile devices, respecting browser autoplay policies.
+- Tweak: Enhanced the mobile video experience to automatically enter fullscreen and landscape mode when the user taps play.
+
+
 **1.10.0**
 
 *2025-01-20*
@@ -7,6 +15,7 @@
 - Feature: Added Schema for DefinedTerm and Single CPT Schema
 - Fix: Multiple Taxonomy Terms field compatibility with ACF PRO V6.3.11
 - Dev: Version number bump to 1.10.0
+- Dev: Made the plugin release script (`create-zip`) compatible with macOS and Linux systems.
 
 **1.0.9**
 

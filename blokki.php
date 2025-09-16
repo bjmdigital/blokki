@@ -20,7 +20,7 @@
  * Requires PHP:      7.0
  * Requires at least: 6.0
  * Tested up to:      6.6.2
- * Version:           1.10.0
+ * Version:           1.11.0
  * Author:            BJM Team
  * Author URI:        https://bjmdigital.com.au/
  * License:           GPL-2.0+
