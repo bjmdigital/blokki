@@ -15,10 +15,7 @@ const exclude = [
     '.git',
     '.github',
     '.idea',
-    'src', // Source files are not needed in the final plugin
     'createPlugin.js',
-    'package.json',
-    'package-lock.json',
     '.npmignore',
     '.editorconfig',
     '.gitignore',
