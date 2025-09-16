@@ -4,71 +4,142 @@ import MicroModal from 'micromodal';
 (function ($) {
     'use strict';
 
-    const toggleAria = function (element, attribute) {
-        const currentValue = element.attr(attribute);
-        const newValue = currentValue === 'true' ? 'false' : 'true';
-        element.attr(attribute, newValue);
-    }
+    /**
+     * Handles accordion functionality.
+     */
+    const toggleAccordion = function () {
+        const accordionButton = $(this);
+        const accordionContent = $('#' + accordionButton.attr('aria-controls'));
+        const toggleAria = (element, attribute) => {
+            const newValue = element.attr(attribute) === 'true' ? 'false' : 'true';
+            element.attr(attribute, newValue);
+        };
 
-    const toggleAccordion = function (evt) {
-        let accordionButton = $(this);
-        let accordionContent = $('#' + accordionButton.attr('aria-controls'));
-
-        // set Classes
         accordionContent.toggleClass('open').slideToggle(350);
         accordionButton.closest('.accordion-cell').toggleClass('is-active');
-
-        // set Aria
         toggleAria(accordionButton, 'aria-expanded');
         toggleAria(accordionContent, 'aria-hidden');
-    }
+    };
 
-    const modalOnClose = function (modal) {
-        $(modal).find('.modal__content').html('');
-    }
-
+    /**
+     * Sets up the video modal with unified logic for Vimeo, YouTube, and other video types.
+     */
     const setupVideoModal = function () {
-
-        MicroModal.init();
-
         const modalID = 'modal-video';
-        const modal = $('#modal-video');
 
-        $('.link-type-lightboxvideo a').on('click', function (e) {
-            e.preventDefault();
-            const href = $(this).attr('href');
+        document.addEventListener('click', function (event) {
+            const videoLink = event.target.closest('.link-type-lightboxvideo a');
+            if (!videoLink) return;
 
+            event.preventDefault();
+            MicroModal.init();
+
+            const href = videoLink.getAttribute('href');
+            const modal = document.getElementById(modalID);
+            const modalContent = modal.querySelector('.modal__content');
+            let player;
+
+            modalContent.innerHTML = '';
+
+            // --- VIMEO LOGIC ---
             if (href.includes('vimeo.com')) {
                 const vimeoId = href.split('/').pop();
-                modal.find('.modal__content').append(`<div class="responsive-iframe"><iframe src="https://player.vimeo.com/video/${vimeoId}?autoplay=1&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`);
-            } else if (href.includes('youtube.com')) {
-                const youtubeId = href.split('watch?v=').pop();
-                modal.find('.modal__content').append(`<div class="responsive-iframe"><iframe width="560" height="315" src="https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`);
+                const videoContainerHtml = `
+                    <div class="responsive-iframe">
+                        <iframe id="video-player-iframe" src="https://player.vimeo.com/video/${vimeoId}?byline=0&portrait=0"
+                                frameborder="0" allow="autoplay; fullscreen"
+                                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>`;
+                modalContent.innerHTML = videoContainerHtml;
+
+                const iframe = document.getElementById('video-player-iframe');
+                player = new Vimeo.Player(iframe);
+                
+                player.ready().then(() => {
+                    const isDesktop = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
+                    if (isDesktop) {
+                        player.play();
+                    } else {
+                        // On mobile, wait for the user to tap play, then go fullscreen.
+                        player.on('play', () => player.requestFullscreen());
+                    }
+                });
+
+            // --- YOUTUBE LOGIC ---
+            } else if (href.includes('youtube.com') || href.includes('youtu.be')) {
+                const url = new URL(href);
+                const youtubeId = url.searchParams.get('v') || url.pathname.split('/').pop();
+                const videoContainerHtml = `
+                    <div class="responsive-iframe">
+                        <iframe id="video-player-iframe" src="https://www.youtube.com/embed/${youtubeId}?enablejsapi=1"
+                                frameborder="0" allow="autoplay; fullscreen"
+                                webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div>`;
+                modalContent.innerHTML = videoContainerHtml;
+
+                window.onYouTubeIframeAPIReady = function() {
+                    player = new YT.Player('video-player-iframe', {
+                        events: {
+                            'onReady': (event) => {
+                                const isDesktop = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
+                                if (isDesktop) {
+                                    event.target.playVideo();
+                                }
+                            },
+                            'onStateChange': (event) => {
+                                const isDesktop = !('ontouchstart' in window || navigator.maxTouchPoints > 0);
+                                // When the video starts playing (state=1), go fullscreen on mobile.
+                                if (!isDesktop && event.data === YT.PlayerState.PLAYING) {
+                                    const iframe = event.target.getIframe();
+                                    if (iframe.requestFullscreen) iframe.requestFullscreen();
+                                }
+                            }
+                        }
+                    });
+                };
+                if (window.YT && window.YT.Player) {
+                    window.onYouTubeIframeAPIReady();
+                }
+            
+            // --- DEFAULT FALLBACK ---
             } else {
-                modal.find('.modal__content').append(`<video src="${href}" controls></video>`);
-                modal.find('video')[0].play();
+                const videoHtml = `<video src="${href}" controls autoplay style="width:100%; height:auto;"></video>`;
+                modalContent.innerHTML = videoHtml;
             }
 
+            // This single block now handles showing the modal and closing it correctly for all cases.
             MicroModal.show(modalID, {
-                onClose: modalOnClose
+                onClose: (modal) => {
+                    // Destroy the player if it exists to stop playback.
+                    if (player && typeof player.destroy === 'function') {
+                        player.destroy();
+                    }
+                    modal.querySelector('.modal__content').innerHTML = ''; // Always clear content
+                }
             });
         });
+    };
 
-    }
+    /**
+     * Handles screen orientation changes.
+     */
+    const handleFullscreenChange = () => {
+        const isFullscreen = !!document.fullscreenElement;
+        const canControlOrientation = screen.orientation && typeof screen.orientation.lock === 'function';
+
+        if (isFullscreen && canControlOrientation) {
+            screen.orientation.lock('landscape').catch(error => {
+                console.warn("Could not lock screen to landscape:", error);
+            });
+        } else if (canControlOrientation) {
+            screen.orientation.unlock();
+        }
+    };
 
     $(document).ready(function () {
-        /**
-         * Accordions Button Click Function
-         */
         $(document).on('click', '.accordion-button', toggleAccordion);
-
-        /**
-         * Video Modals Setup
-         */
         setupVideoModal();
-
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
     });
 
-
 })(jQuery);
-
