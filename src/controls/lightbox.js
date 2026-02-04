@@ -123,7 +123,7 @@ const withLightboxControl = createHigherOrderComponent((BlockEdit) => {
             props.attributes.className = '';
         }
 
-        const lightboxClass = (lightbox) ? `link-type-${lightbox}` : '';
+        const lightboxClass = (lightbox) ? ` link-type-${lightbox} ` : '';
 
         if (props.attributes.className.indexOf('link-type-') !== -1) {
             props.attributes.className = props.attributes.className.replace(/link-type-[a-z0-9]*/, lightboxClass);

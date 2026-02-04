@@ -46,7 +46,7 @@ class AcfBlocks {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		$this->register_acf_options();
+		// $this->register_acf_options();
 		$this->register_hooks();
 
 	}
@@ -94,7 +94,7 @@ class AcfBlocks {
 		 * Register ACF Blocks
 		 */
 		add_action( 'acf/init', [ $this, 'register_blocks_with_acf' ] );
-
+		add_action( 'acf/init', [ $this, 'register_acf_options' ] );
 
 		/**
 		 * Add wp_block to the ACF post types
